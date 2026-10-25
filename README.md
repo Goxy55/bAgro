@@ -1,2 +1,2 @@
-# AgroPortal
+# bAgro
 Portal za poljoprivrednu proizvodnju
