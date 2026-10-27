@@ -1,0 +1,5 @@
+{
+  "source": {"id": "RZS-izvod", "name": "RZS — provereni izvod", "url": "https://data.stat.gov.rs/", "terms": "OVDE UNETI PROVERENE USLOVE KORIŠĆENJA I DATUM PROVERE"},
+  "series": {"id": "UNETI-STABILAN-ID", "product": "UNETI TAČAN PROIZVOD", "indicator": "Proizvodnja", "definition": "UNETI IZVORNU DEFINICIJU", "mapping": "UNETI ŠIFRU I ZNAČENJE PROIZVODA, TERITORIJE I JEDINICE", "geography": "Srbija", "unit": "t", "currency": null, "priceType": null, "sourceUrl": "https://data.stat.gov.rs/"},
+  "observations": []
+}

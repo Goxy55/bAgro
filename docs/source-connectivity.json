@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-22T09:34:53.684389+00:00",
+  "results": [
+    {
+      "url": "https://opendata.stat.gov.rs/odata/",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://data.stat.gov.rs/Home/Result/0302010302?languageCode=sr-Latn",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://www.stips.minpolj.gov.rs/",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://webappcenter.nbs.rs/ExchangeRateWebApp/ExchangeRate/CurrentMiddleRate",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "url": "https://webappcenter.nbs.rs/ExchangeRateWebApp/ExchangeRate/IndexPeriod",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ]
+}

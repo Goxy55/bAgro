@@ -1,0 +1,54 @@
+name: agro-test
+services:
+  app:
+    image: agro-portal:test
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      APP_URL: https://${TEST_DOMAIN:?Postavite TEST_DOMAIN u deploy/.env}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Postavite BETTER_AUTH_SECRET u deploy/.env}
+      DATA_DIR: ${DATA_DIR:-/app/data/postgres}
+      TRUST_PROXY_HOPS: "1"
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+    volumes:
+      - agro_data:/app/data
+    # Only Caddy can reach the app. Do not add a public port for this service:
+    # the trusted single-hop proxy setting depends on this topology.
+    expose:
+      - "3000"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+  proxy:
+    image: caddy:2-alpine@sha256:24ec7b05bc532c7bb57f727030c5056e257ff7138b4b50460306819ff79362bd
+    restart: unless-stopped
+    environment:
+      TEST_DOMAIN: ${TEST_DOMAIN:?Postavite TEST_DOMAIN u deploy/.env}
+      TLS_EMAIL: ${TLS_EMAIL:?Postavite TLS_EMAIL u deploy/.env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  agro_data:
+  caddy_data:
+  caddy_config:
