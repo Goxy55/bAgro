@@ -1744,3 +1744,103 @@ hr {
   white-space: pre-line;
   margin-bottom: 18px;
 }
+
+.pricing-panel {
+  min-width: 0;
+}
+.pricing-create {
+  padding: 20px 0;
+  border-block: 1px solid #e1e6d8;
+  margin: 20px 0;
+}
+.pricing-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px 20px;
+  margin: 18px 0;
+}
+.pricing-choices .checkbox {
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.pricing-choices small {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.pricing-drafts {
+  max-height: 250px;
+  overflow-y: auto;
+}
+.pricing-scroll {
+  width: 100%;
+  max-width: 100%;
+  margin: 18px 0;
+  overscroll-behavior-x: contain;
+}
+.pricing-table {
+  width: max-content;
+  min-width: 100%;
+}
+.pricing-table caption {
+  text-align: left;
+  padding: 10px 0;
+  color: #66745d;
+  font-size: 11px;
+}
+.pricing-table th,
+.pricing-table td {
+  min-width: 170px;
+  max-width: 240px;
+  vertical-align: top;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.pricing-table th:first-child {
+  min-width: 235px;
+}
+.pricing-table tbody th {
+  text-align: left;
+  font-weight: 400;
+}
+.pricing-table small {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 400;
+}
+.pricing-table .field {
+  margin-bottom: 10px;
+}
+.pricing-table .checkbox {
+  margin: 6px 0;
+  white-space: normal;
+}
+.pricing-table details {
+  font-size: 10px;
+  margin-top: 10px;
+}
+.pricing-table summary {
+  cursor: pointer;
+}
+.pricing-dirty {
+  background: #f1f5e8;
+}
+.pricing-cell + .pricing-cell {
+  border-top: 1px solid #e1e6d8;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+.pricing-table tfoot {
+  background: #eef3e7;
+}
+@media (max-width: 600px) {
+  .pricing-choices {
+    grid-template-columns: 1fr;
+  }
+  .pricing-panel .panel-head {
+    flex-wrap: wrap;
+  }
+}

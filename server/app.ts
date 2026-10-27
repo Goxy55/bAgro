@@ -22,6 +22,8 @@ import {
 import { exportReport } from "./exports.js";
 import { publicStips, adminStips } from "./stips/routes.js";
 import { runtime } from "./runtime.js";
+import { adminPricing } from "./pricing/routes.js";
+import { versionRevision, type PricingVersion } from "./pricing/model.js";
 export const app = express();
 app.disable("x-powered-by");
 app.set("trust proxy", runtime.trustProxyHops);
@@ -1113,14 +1115,15 @@ app.use("/api/admin", (req: any, res, next) =>
     : res.status(403).json({ error: "Potreban je administratorski nalog." }),
 );
 app.use("/api/admin/stips", adminStips);
+app.use("/api/admin/pricing", adminPricing);
 app.get("/api/admin", async (req: any, res) => {
   await audit(db, req.user.id, null, "admin_read", "catalog");
   res.json({
     versions: (
-      await db.query(
+      await db.query<PricingVersion>(
         "SELECT v.*,t.name AS template_name FROM norm_versions v JOIN templates t ON t.id=v.template_id ORDER BY t.name,v.created_at",
       )
-    ).rows,
+    ).rows.map((v) => ({ ...v, revision: versionRevision(v) })),
     issues: (
       await db.query("SELECT inventory FROM source_imports")
     ).rows.flatMap((r) => r.inventory.issues),
@@ -1189,6 +1192,10 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
       model: z.any(),
       reason: text,
       activate: z.boolean().default(false),
+      revision: z
+        .string()
+        .regex(/^[a-f0-9]{64}$/)
+        .optional(),
     })
     .parse(req.body);
   if (!b.model || !Array.isArray(b.model.items) || b.model.items.length > 500)
@@ -1198,14 +1205,31 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
     return res.status(422).json({ error: errors.join("\n") });
   await transaction(async (tx) => {
     const v = (
-      await tx.query("SELECT * FROM norm_versions WHERE id=$1 FOR UPDATE", [
-        id.parse(req.params.id),
-      ])
+      await tx.query<PricingVersion>(
+        "SELECT * FROM norm_versions WHERE id=$1 FOR UPDATE",
+        [id.parse(req.params.id)],
+      )
     ).rows[0];
     if (!v || v.status !== "draft")
       throw Error(
         "Menjati se može samo nacrt; za aktivnu verziju napravite novu verziju.",
       );
+    if (b.revision && b.revision !== versionRevision(v))
+      throw Object.assign(
+        Error(
+          "Normativ je u međuvremenu promenjen. Ponovo otvorite verziju pre čuvanja.",
+        ),
+        { status: 409 },
+      );
+    for (const item of b.model.items) {
+      const old = v.model.items.find((i: any) => i.id === item.id);
+      if (
+        !old ||
+        String(old.price ?? "") !== String(item.price ?? "") ||
+        old.unit !== item.unit
+      )
+        delete item.priceInput;
+    }
     if (b.activate) {
       const overlap = (
         await tx.query(
@@ -1517,6 +1541,7 @@ app.use("/api", (_req, res) =>
   res.status(404).json({ error: "Endpoint ne postoji." }),
 );
 app.use((err: any, _req: any, res: any, _next: any) => {
+  if (err.status === 409) return res.status(409).json({ error: err.message });
   if (err instanceof z.ZodError)
     return res.status(422).json({
       error: err.issues

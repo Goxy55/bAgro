@@ -32,6 +32,10 @@ Administrator zatim u aplikaciji:
 
 Nalog sa globalnom admin ulogom **ne dobija automatski pristup privatnim farmama**. Autorizacija se proverava preko stvarnog članstva u svakoj API putanji i izvozu. Klijentov `farm_id` ne određuje pristup.
 
+### Zajednički unos cena po kulturama
+
+U **Administracija → Zajednički cenovnik** pripremite nacrte za više kultura istog perioda i unosite cenu iste stavke jednom. Tabela zadržava posebne normirane količine i troškove u kolonama kultura. Podržani su EUR i RSD sa datumom kursa; seme različitih kultura i različite jedinice ostaju odvojeni. Čuvanje cena ne aktivira normative. Detaljno [uputstvo za zajednički cenovnik](docs/ZAJEDNICKI-CENOVNIK.md).
+
 ### Standardni rad
 
 - Unesite ostvarenu površinu/broj grla i količinu proizvoda. Nacrt može biti nepotpun; završena evidencija pravi količinski ulaz na zalihu.

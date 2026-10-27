@@ -6,7 +6,7 @@ Sa nove putanje prošli su `npm ci --cache /tmp/agro-npm-cache`, `npm run build`
 
 - `npm ci`: uspešna instalacija zaključanih zavisnosti.
 - `npm run build`: stroga TypeScript provera i produkcioni frontend build prolaze.
-- `npm test`: **43 prolazi, 0 pada, 0 preskočeno**. Test baze i sintetički TEST podaci su u odvojenom privremenom direktorijumu. Uključena je provera zahteva za javni HTTPS, adresu aplikacije, tajnu i eksplicitno poverenje u proxy.
+- `npm test`: **57 prolazi, 0 pada, 0 preskočeno**. Test baze i sintetički TEST podaci su u odvojenom privremenom direktorijumu. Uključena je provera zahteva za javni HTTPS, adresu aplikacije, tajnu i eksplicitno poverenje u proxy, kao i zajednički admin cenovnik.
 - Ekstrakcija: 10 originalnih sheetova, 88 predložaka, 44 spoljne formule, 342 zabeležena nalaza. Svih pet zadatih istorijskih regresija prolazi toleranciju 0,000001 EUR.
 - Originalni XLSX je bajt-po-bajt upoređen sa prilogom; SHA-256 je `422571958ad758ed1eaf206cce6b5751b4dc4546629940a7edad9aff53314a5a`.
 - Browser: registracija, otvaranje gazdinstva, unos proizvodnje, nacrt i ponovna dopuna prodaje, tržišno prazno stanje, reload sesije, 390px telefon bez horizontalnog skrola. Nema browser pageerror-a. Izvršeno na razvojnom i lokalnom produkcionom serveru, sa odvojenom test bazom.
@@ -16,6 +16,7 @@ Sa nove putanje prošli su `npm ci --cache /tmp/agro-npm-cache`, `npm run build`
 - Postojeći praćeni fajlovi ranijih prototipova su neizmenjeni. `node_modules`, privatna baza, reset poruke, auth secret, backup-i i build izlazi su ignorisani u Gitu.
 
 - STIPS modul: migracija postojeće baze, parsiranje PDF/HTML, mapiranje, pregled i eksplicitna objava, revizije, povlačenje i očuvanje podataka pri neuspešnom osvežavanju prolaze. Browser provera prošla je i na telefonu od 390 px; videti [STIPS dokumentaciju](STIPS.md).
+- Zajednički admin cenovnik: jedna cena se primenjuje na više nacrt-verzija uz sačuvane zasebne količine. Testovi pokrivaju stvarne izvorne grupe, generičko seme po kulturi, kg/t, EUR/RSD, kurs, prazne/nulte cene, atomarnost, zastarele prozore i nepromenljive aktivne/arhivske verzije i snapshot-e. Browser provera na zasebnoj bazi proverava ječam/pšenicu, 0,50 EUR × 300 kg = 150 EUR po karti, trajnost posle reload-a i mobilnu tabelu. Slike sadrže samo TEST podatke; [uputstvo](ZAJEDNICKI-CENOVNIK.md).
 - Hosting panel startup: `node app.cjs` pokrenut je u lokalnom production režimu sa zasebnom privremenom bazom i generisanom test tajnom. Početna stranica i `/healthz` rade; anonimni `/api/bootstrap` vraća 401, a `/.env`, `/data/auth-secret` i `/source/inventory.json` vraćaju 404. Proces je uredno zaustavljen. To potvrđuje početni fajl, ne konkretnu Passenger/cPanel/Plesk instalaciju.
 - Docker Compose interpolacija/struktura (`config --quiet`) i Caddy konfiguracija (`caddy validate`, verzija 2.11.7) prolaze. Korišćena je sintetička tajna; javni servisi i sertifikati nisu napravljeni. Image build nije dovršen: instalacioni korak je prekinut, a nastavak rada usmeren je na prijavljeni cPanel/Plesk hosting. To nije provera pokretanja aplikacije u kontejneru.
 

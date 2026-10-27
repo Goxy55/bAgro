@@ -28,6 +28,7 @@ import {
 import { api, download, selectFarm } from "./api";
 import "./styles.css";
 import { StipsAdmin, StipsMarket } from "./stips";
+import { SharedPriceTable } from "./pricing";
 type Any = any;
 const number = (v: Any, digits = 2) =>
   v == null
@@ -3134,6 +3135,7 @@ function Admin({ onDone }: Any) {
       <div className="tabs">
         {[
           ["catalog", "Katalog i verzije"],
+          ["pricing", "Zajednički cenovnik"],
           ["issues", "Sporne stavke izvora"],
           ["rates", "NBS kursevi"],
           ["statistics", "Uvoz statistike"],
@@ -3153,6 +3155,16 @@ function Admin({ onDone }: Any) {
           </button>
         ))}
       </div>
+      {tab === "pricing" && (
+        <SharedPriceTable
+          data={data}
+          onDone={done}
+          onEdit={(id: string) => {
+            setVersion(data.versions.find((v: Any) => v.id === id));
+            setTab("catalog");
+          }}
+        />
+      )}
       {tab === "catalog" &&
         (version ? (
           <NormEditor
@@ -3491,7 +3503,12 @@ function NormEditor({ version, onDone, onBack }: Any) {
           if (!editable) return;
           await api(
             "/admin/versions/" + version.id,
-            { model, reason: v.reason, activate: status === "active" },
+            {
+              model,
+              reason: v.reason,
+              activate: status === "active",
+              revision: version.revision,
+            },
             "PUT",
           );
           await onDone();
