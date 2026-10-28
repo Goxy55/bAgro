@@ -1828,6 +1828,49 @@ hr {
 .pricing-dirty {
   background: #f1f5e8;
 }
+.input-prices-panel {
+  min-width: 0;
+}
+.input-price-table {
+  min-width: 980px;
+}
+.input-price-table th,
+.input-price-table td {
+  white-space: normal;
+  vertical-align: top;
+}
+.input-price-table small {
+  display: block;
+  margin-top: 6px;
+}
+.input-document {
+  border-top: 1px solid #e1e6d8;
+  padding: 16px 0;
+  overflow-wrap: anywhere;
+}
+.input-price-dialog {
+  width: min(1180px, calc(100vw - 32px));
+  max-height: 88dvh;
+  overflow: auto;
+  border: 1px solid #d6dfcc;
+  border-radius: 16px;
+  padding: 24px;
+  color: inherit;
+  box-sizing: border-box;
+}
+.input-price-dialog::backdrop {
+  background: #17211999;
+}
+.input-price-dialog .modal-title {
+  flex-wrap: wrap;
+}
+.input-price-dialog .field small {
+  white-space: normal;
+}
+.input-price-reference {
+  display: block;
+  overflow-wrap: anywhere;
+}
 .pricing-cell + .pricing-cell {
   border-top: 1px solid #e1e6d8;
   padding-top: 10px;

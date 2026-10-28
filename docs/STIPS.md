@@ -27,7 +27,7 @@ Početno je **isključeno**. U podešavanjima administrator navodi stvarne STIPS
 - Preuzeti bilteni ulaze samo u pripremu. Nema automatske objave cena.
 - Greška osvežavanja ostavlja poslednje odobrene podatke, beleži neuspeh i prikazuje upozorenje. Zaključavanje i vremenski ograničen lease sprečavaju paralelne poslove. Novi pokušaj ide po narednom terminu ili eksplicitnim pokretanjem, bez neograničenog brzog ponavljanja.
 
-**Stvarni pristup iz ovog cloud okruženja ostaje blokiran.** Python provera zvaničnih adresa vraća proxy 403, a novi Node adapter takođe prijavljuje neuspeh mrežne/proxy veze. Testovi automatskog toka koriste kontrolisane lokalne odgovore. Nisu potvrđeni format aktuelnih STIPS biltena, aktuelna struktura linkova, uslovi ponovne upotrebe ili živo preuzimanje. Ove stavke se moraju proveriti sa stvarnim izvorom pre uključivanja rasporeda.
+**Pristup je naknadno potvrđen za arhivu INPUTI i njene XLS/XLSX priloge**, koji imaju zaseban [adapter i administrativni modul](STIPS-INPUTI.md). Ranije provere su vraćale proxy 403. Živo preuzimanje i parsiranje PDF biltena kroz opisani automatski PDF tok ostaje nepotvrđeno; njegovi testovi koriste kontrolisane odgovore.
 
 ## Obrada i pravila
 

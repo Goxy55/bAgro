@@ -5,6 +5,7 @@ import { db, transaction, type Conn } from "../db.js";
 import { id, text, date, dec, currency } from "../validation.js";
 import { D } from "../domain.js";
 import { rateFor } from "../reports.js";
+import { inputReferenceSchema, referencePrice } from "../inputs/service.js";
 import {
   buildPricingTable,
   hash,
@@ -152,6 +153,7 @@ adminPricing.put("/table", async (req: any, res) => {
             unit: z.string().trim().min(1).max(100),
             confirmUnit: z.boolean(),
             zeroReason: z.string().trim().max(300).default(""),
+            reference: inputReferenceSchema.optional(),
           }),
         )
         .min(1)
@@ -170,9 +172,7 @@ adminPricing.put("/table", async (req: any, res) => {
     const batchId = randomUUID(),
       warnings: string[] = [];
     const updates = new Map<string, any>();
-    const rate = b.rows.some((r) => r.currency === "RSD" && r.price !== null)
-      ? await rateFor(b.date, tx)
-      : null;
+    const rates = new Map<string, Awaited<ReturnType<typeof rateFor>>>();
     for (const r of b.rows) {
       const row = table.rows.find((row) => row.key === r.key);
       if (!row) throw Error("Stavka ne pripada izabranom skupu normativa.");
@@ -193,7 +193,24 @@ adminPricing.put("/table", async (req: any, res) => {
         row.occurrences.some((o) => o.quantity === null || D(o.quantity).gt(0))
       )
         throw Error(`${row.name}: nulta cena zahteva izričit razlog.`);
-      const amount = r.price === null ? null : D(r.price).toString();
+      const source = r.reference
+        ? await referencePrice(tx, r.reference, unit, table.validFrom)
+        : null;
+      if (
+        source &&
+        (r.currency !== "RSD" ||
+          r.price === null ||
+          !D(r.price).eq(source.amount))
+      )
+        throw Error(
+          "Izabrana STIPS cena ne odgovara unosu. Ponovite izbor izvora ili uklonite vezu ručnom izmenom cene.",
+        );
+      const priceDate = source?.date || b.date;
+      const amount =
+        source?.amount ?? (r.price === null ? null : D(r.price).toString());
+      if (amount !== null && r.currency === "RSD" && !rates.has(priceDate))
+        rates.set(priceDate, await rateFor(priceDate, tx));
+      const rate = rates.get(priceDate) || null;
       const pending = amount !== null && r.currency === "RSD" && !rate;
       const eur =
         amount === null || pending
@@ -203,7 +220,7 @@ adminPricing.put("/table", async (req: any, res) => {
             : D(amount).div(rate!.rate).toString();
       if (pending)
         warnings.push(
-          `${row.name}: unos RSD je sačuvan, ali nedostaje zvanični kurs za ${b.date}; EUR cena ostaje prazna.`,
+          `${row.name}: unos RSD je sačuvan, ali nedostaje zvanični kurs za ${priceDate}; EUR cena ostaje prazna.`,
         );
       for (const v of selected) {
         const changes: any[] = [];
@@ -235,7 +252,8 @@ adminPricing.put("/table", async (req: any, res) => {
               : {
                   amount,
                   currency: r.currency,
-                  date: b.date,
+                  date: priceDate,
+                  reference: source?.snapshot || null,
                   eur,
                   unit: item.unit,
                   pendingRate: !!pending,

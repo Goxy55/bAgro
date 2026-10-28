@@ -12,11 +12,13 @@
     "start": "NODE_ENV=production tsx server/index.ts",
     "test": "tsx --test tests/*.test.ts",
     "import": "python3 scripts/extract.py && tsx scripts/import.ts",
+    "import:inputs": "tsx scripts/import-inputs.ts",
     "admin": "tsx scripts/admin.ts",
     "backup": "tsx scripts/backup.ts",
     "restore": "tsx scripts/restore.ts"
   },
   "dependencies": {
+    "@e965/xlsx": "0.20.3",
     "@electric-sql/pglite": "0.5.11",
     "better-auth": "1.7.12",
     "cheerio": "1.2.0",

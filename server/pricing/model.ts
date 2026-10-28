@@ -163,6 +163,7 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
               currency: input.currency,
               date: input.date,
               pendingRate: input.pendingRate,
+              reference: input.reference,
             }
           : null,
       });

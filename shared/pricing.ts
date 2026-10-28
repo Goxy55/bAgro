@@ -18,6 +18,14 @@ export interface PricingOccurrence {
     currency: "EUR" | "RSD";
     date: string;
     pendingRate: boolean;
+    reference?: {
+      product: string;
+      place: string;
+      periodStart: string;
+      sourceUrl: string;
+      sheet: string;
+      cell: string;
+    };
   } | null;
 }
 export interface PricingRow {

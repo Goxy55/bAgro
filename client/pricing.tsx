@@ -1,6 +1,8 @@
 import React, { useMemo, useRef, useState } from "react";
 import { api } from "./api";
 import type { PricingRow, PricingTable } from "../shared/pricing";
+import type { InputReferenceSelection } from "../shared/inputs";
+import { InputPricePicker } from "./input-prices";
 
 type Any = any;
 type Edit = {
@@ -9,6 +11,8 @@ type Edit = {
   unit: string;
   confirmUnit: boolean;
   zeroReason: string;
+  reference?: InputReferenceSelection;
+  referenceLabel?: string;
 };
 const units = [
   "kg",
@@ -61,6 +65,7 @@ export function SharedPriceTable({
     [warnings, setWarnings] = useState<string[]>([]),
     [busy, setBusy] = useState(false),
     [showCreate, setShowCreate] = useState(false);
+  const [sourceRow, setSourceRow] = useState<PricingRow | null>(null);
   const requestId = useRef(crypto.randomUUID());
   const dirty = Object.keys(edits).length;
   const sources = useMemo(() => {
@@ -118,11 +123,35 @@ export function SharedPriceTable({
   function change(row: PricingRow, value: Partial<Edit>) {
     setEdits((e) => ({
       ...e,
-      [row.key]: { ...(e[row.key] || baseEdit(row)), ...value },
+      [row.key]: {
+        ...(e[row.key] || baseEdit(row)),
+        ...(("price" in value || "currency" in value || "unit" in value) &&
+        !("reference" in value)
+          ? { reference: undefined, referenceLabel: undefined }
+          : {}),
+        ...value,
+      },
     }));
   }
   return (
     <>
+      {sourceRow && table && (
+        <InputPricePicker
+          name={sourceRow.name}
+          unit={(edits[sourceRow.key] || baseEdit(sourceRow)).unit}
+          validFrom={table.validFrom}
+          onClose={() => setSourceRow(null)}
+          onPick={(selected) => {
+            change(sourceRow, {
+              price: selected.amount,
+              currency: "RSD",
+              reference: selected.reference,
+              referenceLabel: selected.label,
+            });
+            setSourceRow(null);
+          }}
+        />
+      )}
       <section className="panel pricing-panel">
         <div className="panel-head">
           <div>
@@ -502,6 +531,25 @@ export function SharedPriceTable({
                                 {o.lastInput
                                   ? ` · poslednji unos ${o.lastInput.amount} ${o.lastInput.currency} (${o.lastInput.date})${o.lastInput.pendingRate ? " — čeka kurs" : ""}`
                                   : ""}
+                                {o.lastInput?.reference && (
+                                  <small className="input-price-reference">
+                                    STIPS: {o.lastInput.reference.product} ·{" "}
+                                    {o.lastInput.reference.place} ·{" "}
+                                    {o.lastInput.reference.periodStart.slice(
+                                      0,
+                                      7,
+                                    )}{" "}
+                                    · {o.lastInput.reference.sheet}!
+                                    {o.lastInput.reference.cell} ·{" "}
+                                    <a
+                                      href={o.lastInput.reference.sourceUrl}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                    >
+                                      Izvor cene
+                                    </a>
+                                  </small>
+                                )}
                               </p>
                             ))}
                           </details>
@@ -545,6 +593,34 @@ export function SharedPriceTable({
                               ? "Postojeće cene se razlikuju; novi unos ih usklađuje."
                               : `Sačuvano: ${number(row.priceEur)} EUR / jm`}
                           </small>
+                          <button
+                            type="button"
+                            className="text-button"
+                            disabled={
+                              busy ||
+                              !["kg", "t", "l", "kom", "sj", "biljka"].includes(
+                                edit.unit,
+                              )
+                            }
+                            onClick={() => setSourceRow(row)}
+                          >
+                            Izaberi STIPS cenu
+                          </button>
+                          {!["kg", "t", "l", "kom", "sj", "biljka"].includes(
+                            edit.unit,
+                          ) && (
+                            <small>
+                              Za izbor cene prvo izaberite jedinicu materijala u
+                              koloni „Jedinica mere“.
+                            </small>
+                          )}
+                          {edit.reference && (
+                            <small className="input-price-reference">
+                              Izabrano: {edit.referenceLabel} · {edit.price}{" "}
+                              RSD/{edit.unit} · datum kursa{" "}
+                              {edit.reference.date}
+                            </small>
+                          )}
                           {/^0(?:\.0*)?$/.test(edit.price) && (
                             <label className="field">
                               <span>Razlog nulte cene</span>

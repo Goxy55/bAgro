@@ -23,6 +23,7 @@ import { exportReport } from "./exports.js";
 import { publicStips, adminStips } from "./stips/routes.js";
 import { runtime } from "./runtime.js";
 import { adminPricing } from "./pricing/routes.js";
+import { adminInputPrices } from "./inputs/routes.js";
 import { versionRevision, type PricingVersion } from "./pricing/model.js";
 export const app = express();
 app.disable("x-powered-by");
@@ -1116,6 +1117,7 @@ app.use("/api/admin", (req: any, res, next) =>
 );
 app.use("/api/admin/stips", adminStips);
 app.use("/api/admin/pricing", adminPricing);
+app.use("/api/admin/input-prices", adminInputPrices);
 app.get("/api/admin", async (req: any, res) => {
   await audit(db, req.user.id, null, "admin_read", "catalog");
   res.json({

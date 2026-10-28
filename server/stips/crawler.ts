@@ -32,7 +32,8 @@ export const retrieve: Retrieve = async (input, limit, allowed) => {
         signal: AbortSignal.timeout(20000),
         headers: {
           "User-Agent": USER_AGENT,
-          Accept: "application/pdf,text/html,text/plain;q=0.8",
+          Accept:
+            "application/pdf,text/html,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/plain;q=0.8",
         },
       });
     } catch {

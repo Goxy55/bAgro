@@ -47,9 +47,11 @@ U **Administracija → Zajednički cenovnik** pripremite nacrte za više kultura
 
 ## STIPS bilteni
 
-Integrisan je modul **Administracija → STIPS bilteni**: ručni PDF/HTML uvoz, izdvajanje tabela, mapiranje kolona mesta, pregled i eksplicitna objava lokalnih cena, istorija i povlačenje. Odobreni podaci su u **Tržište Srbije → STIPS · lokalne cene**. Automatski preuzimač i raspored su implementirani i početno isključeni; stvarni mrežni pristup još nije potvrđen. Nema plaćenog servisa ili API ključa. Detaljno [STIPS uputstvo i ograničenja](docs/STIPS.md).
+Integrisan je modul **Administracija → STIPS bilteni**: ručni PDF/HTML uvoz, izdvajanje tabela, mapiranje kolona mesta, pregled i eksplicitna objava lokalnih cena, istorija i povlačenje. Odobreni podaci su u **Tržište Srbije → STIPS · lokalne cene**. Automatski preuzimač i raspored su implementirani i početno isključeni; živo preuzimanje PDF biltena kroz ovaj automatski tok još nije potvrđeno (XLS/XLSX inputi su provereni zasebnim adapterom). Nema plaćenog servisa ili API ključa. Detaljno [STIPS uputstvo i ograničenja](docs/STIPS.md).
 
 Migracija `002_stips.sql` dodaje tabele bez resetovanja postojeće baze. Originalni bilteni se čuvaju u bazi i ulaze u postojeći backup. Samo administrator može uvoziti, menjati i objavljivati referentne cene; to ne menja normative ili privatno poslovanje gazdinstava.
+
+**Administracija → STIPS · cene inputa** preuzima originalne XLS/XLSX cenovnike pesticida, mineralnih đubriva i semena. Izvorne cene se mogu izričito izabrati u zajedničkom cenovniku uz proveru proizvoda/pakovanja i NBS kurs za izvorni period. Živo preuzimanje je provereno za svih 21 pronađenih cenovnika 2024–2026; 13.342 brojčane cene, bez automatskog aktiviranja normativa. Migracija `003_stips_inputs.sql` čuva original i svaki izvorni zapis. [Uputstvo za prikupljanje i primenu](docs/STIPS-INPUTI.md).
 
 ## Baza i migracije
 
@@ -57,7 +59,7 @@ Podrazumevano se koristi **PGlite 0.5.11**, pravi ugrađeni PostgreSQL, trajno u
 
 Za odvojeni PostgreSQL servis podesite `DATABASE_URL`, a za TLS `DATABASE_SSL=true` i odgovarajući sistemski CA. `pg` Pool i Drizzle koriste isti relacioni model/migraciju. Putanja sa spoljnim PostgreSQL-om je implementirana, ali nije testirana sa zasebnim servisom u ovom okruženju; kompletna integraciona provera je izvršena na ugrađenom PostgreSQL-u. Za višestruke server instance koristite spoljašnji PostgreSQL, pouzdan pool, distribuiran rate limit i kontrolisan migracioni korak.
 
-SQL je u `migrations/001_initial.sql` i `migrations/002_stips.sql`; `schema_migrations` prati izvršenje. Tabele obuhvataju autentikaciju, farme/članstva, izvorne sheetove, predloške i verzije, proizvodne periode, poslovne događaje, plaćanja, tri vrste evidencije zaliha, uparene prenose, potrošnju, kurseve, snapshot-e, statističke izvore/opažanja/revizije, kupce/ponude/zahteve i audit log. Privatne tabele imaju `farm_id`; složeni strani ključevi sprečavaju povezivanje tuđeg perioda/događaja. Autoritativna autorizacija je aplikaciona, ne PostgreSQL RLS; direktan pristup bazi poveravati samo operateru servera.
+SQL migracije su u `migrations/`; `schema_migrations` prati izvršenje. Tabele obuhvataju autentikaciju, farme/članstva, izvorne sheetove, predloške i verzije, proizvodne periode, poslovne događaje, plaćanja, tri vrste evidencije zaliha, uparene prenose, potrošnju, kurseve, snapshot-e, statističke izvore/opažanja/revizije, kupce/ponude/zahteve i audit log. Privatne tabele imaju `farm_id`; složeni strani ključevi sprečavaju povezivanje tuđeg perioda/događaja. Autoritativna autorizacija je aplikaciona, ne PostgreSQL RLS; direktan pristup bazi poveravati samo operateru servera.
 
 ### Backup / restore
 
@@ -114,6 +116,6 @@ Za hosting sa kontrolnim panelom pogledajte [cPanel / Plesk preduslove i startup
 - [Status javnih izvora i uvoza](docs/IZVORI-I-OGRANICENJA.md)
 - [Originalni Excel](source/izvor-2017.xlsx) i potpun [inventar ćelija](source/inventory.json)
 
-Živi NBS/RZS/STIPS pristup blokiran je proxy 403 odgovorom. Implementirani su proverljiv admin uvoz, validacija, izvori, revizije i prazna stanja, a ne lažne žive integracije. Savremene cene i stvarni statistički podaci nisu podmetnuti kao test fixture-i. STIPS preuzimač je implementiran uz proverljiv ručni tok; njegov rad sa živim izvorom, kao i ostali automatski zvanični adapteri i uslovi ponovne upotrebe, čekaju stvarni pristup i metodološku proveru. Nema garancije potpunog besplatnog imenika ili dokumentovanih potreba za svaki proizvod.
+Živo preuzimanje STIPS arhive INPUTI i svih 21 XLS/XLSX priloga za 2024–2026. je provereno; vrednosti su odvojene od sintetičkih test podataka. Ranije NBS/RZS provere vraćale su proxy 403; njihovo živo ažuriranje i automatski STIPS PDF tok ostaju nepotvrđeni. Dostupni su proverljiv admin uvoz, izvori, revizije i prazna stanja. Nijedna referentna cena ne aktivira normative automatski. Nema garancije potpunog besplatnog imenika ili dokumentovanih potreba za svaki proizvod.
 
 Potrebno je poslovno odobrenje aktuelnih normativa i kurseva pre računanja stvarnih rezultata nove godine. Porezi, puna dobit, planiranje, individualna grla/parcele, bankarsko povezivanje i offline režim nisu deo prve faze. Za fizički različite nusproizvode administrator odobrava raspodelu zajedničkog troška; svaka količina ostaje u svojoj jedinici. Bez odobrene raspodele ili količine rezultat ostaje nepotpun, umesto pretpostavljene podele.

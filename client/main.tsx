@@ -28,6 +28,7 @@ import {
 import { api, download, selectFarm } from "./api";
 import "./styles.css";
 import { StipsAdmin, StipsMarket } from "./stips";
+import { StipsInputAdmin } from "./input-prices";
 import { SharedPriceTable } from "./pricing";
 type Any = any;
 const number = (v: Any, digits = 2) =>
@@ -3136,6 +3137,7 @@ function Admin({ onDone }: Any) {
         {[
           ["catalog", "Katalog i verzije"],
           ["pricing", "Zajednički cenovnik"],
+          ["inputPrices", "STIPS · cene inputa"],
           ["issues", "Sporne stavke izvora"],
           ["rates", "NBS kursevi"],
           ["statistics", "Uvoz statistike"],
@@ -3165,6 +3167,7 @@ function Admin({ onDone }: Any) {
           }}
         />
       )}
+      {tab === "inputPrices" && <StipsInputAdmin />}
       {tab === "catalog" &&
         (version ? (
           <NormEditor

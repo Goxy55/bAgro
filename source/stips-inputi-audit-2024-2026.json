@@ -1,0 +1,566 @@
+{
+  "listingUrl": "https://www.stips.minpolj.gov.rs/index.php/srl/strana/inputi",
+  "collectedAt": "2026-10-27T23:54:40.676Z",
+  "years": [
+    2024,
+    2025,
+    2026
+  ],
+  "documents": [
+    {
+      "id": "74d1420c-e44f-435c-bf2c-ccf7663d59a2",
+      "sha256": "5556eca7016254666338aa0c9d100ad0fdf0b71f1d71f2736f4a338d60ffa15f",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27011",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-04/mineralnadjubrivaapril2024.xls",
+      "title": "Inputi - cene - mineralna đubriva april 2024.",
+      "filename": "mineralnadjubrivaapril2024.xls",
+      "category": "djubriva",
+      "period_start": "2024-04-01",
+      "period_end": "2024-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:43.717Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "5 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 5,
+        "missing": 544,
+        "available": 249,
+        "observations": 798
+      },
+      "localFile": "originali/74d1420c-e44f-435c-bf2c-ccf7663d59a2.xls"
+    },
+    {
+      "id": "1e891962-cc0f-4cc2-9342-1dffd6221a68",
+      "sha256": "45a77592619369453d49d9cc84039f64f7dbb34a5bfe7de976b98f8368766d73",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27012",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-04/pesticidapril2024.xlsx",
+      "title": "Inputi - cene - pesticidi april 2024.",
+      "filename": "pesticidapril2024.xlsx",
+      "category": "pesticidi",
+      "period_start": "2024-04-01",
+      "period_end": "2024-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:45.853Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 1432,
+        "available": 1067,
+        "observations": 2499
+      },
+      "localFile": "originali/1e891962-cc0f-4cc2-9342-1dffd6221a68.xlsx"
+    },
+    {
+      "id": "0c79e2d5-b55b-4228-aac8-2c2198a62697",
+      "sha256": "bf6501b4e0a259c4044fd94d730364d5bab063d286eeafbcdc87b32795df8ce8",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27013",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-04/semenskimaterijal2024.xls",
+      "title": "Inputi - cene - semenski materijal april 2024.",
+      "filename": "semenskimaterijal2024.xls",
+      "category": "seme",
+      "period_start": "2024-04-01",
+      "period_end": "2024-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:47.726Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "5 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 5,
+        "missing": 615,
+        "available": 304,
+        "observations": 924
+      },
+      "localFile": "originali/0c79e2d5-b55b-4228-aac8-2c2198a62697.xls"
+    },
+    {
+      "id": "1b677db0-bba4-445c-9b01-f1ebc997f8aa",
+      "sha256": "63c210359788de159671c26b83b28d62c2b1fb75912976e65be3de7362cccc97",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27073",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-05/pesticidimaj2024.xlsx",
+      "title": "Inputi - cene - pesticidi maj 2024.",
+      "filename": "pesticidimaj2024.xlsx",
+      "category": "pesticidi",
+      "period_start": "2024-05-01",
+      "period_end": "2024-05-31",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:41.870Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 1377,
+        "available": 1080,
+        "observations": 2457
+      },
+      "localFile": "originali/1b677db0-bba4-445c-9b01-f1ebc997f8aa.xlsx"
+    },
+    {
+      "id": "a05fe951-dc3a-4b13-8b8e-ae9dd0584b1f",
+      "sha256": "5f7310e13a2a3c2496d61cdef31a465507a63807c33e7505ac8478ec4266b9d1",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27232",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-10/mineralnadjubrivaSEPTEMBAR2024.xls",
+      "title": "Inputi - cene - mineralna đubriva septembar 2024.",
+      "filename": "mineralnadjubrivaSEPTEMBAR2024.xls",
+      "category": "djubriva",
+      "period_start": "2024-09-01",
+      "period_end": "2024-09-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:37.732Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "26 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 26,
+        "missing": 517,
+        "available": 234,
+        "observations": 777
+      },
+      "localFile": "originali/a05fe951-dc3a-4b13-8b8e-ae9dd0584b1f.xls"
+    },
+    {
+      "id": "ee32a1c6-26cd-418c-9858-e099cdfa62bd",
+      "sha256": "6e668d6ef849f443029922c2e64d0574b1f7ad9a4cc9de90fab7a9fb35a786b9",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27233",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-10/pesticiseptembar2024.xlsx",
+      "title": "Inputi - cene - pesticidi septembar 2024.",
+      "filename": "pesticiseptembar2024.xlsx",
+      "category": "pesticidi",
+      "period_start": "2024-09-01",
+      "period_end": "2024-09-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:39.865Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "1 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 1,
+        "missing": 1209,
+        "available": 1226,
+        "observations": 2436
+      },
+      "localFile": "originali/ee32a1c6-26cd-418c-9858-e099cdfa62bd.xlsx"
+    },
+    {
+      "id": "6226fa03-fd6f-441e-b826-97df540482e8",
+      "sha256": "97f1c46edf2aad91bb427c3777d748863f3359f0a1415e2a1aacf44ef08647d1",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27252",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2024-10/semenskimaterijaloktobar2024.xls",
+      "title": "Inputi - cene - semenski materijal oktobar 2024.",
+      "filename": "semenskimaterijaloktobar2024.xls",
+      "category": "seme",
+      "period_start": "2024-10-01",
+      "period_end": "2024-10-31",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:35.716Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "51 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 51,
+        "missing": 192,
+        "available": 93,
+        "observations": 336
+      },
+      "localFile": "originali/6226fa03-fd6f-441e-b826-97df540482e8.xls"
+    },
+    {
+      "id": "2a1cc714-416d-4015-9432-ef2c646cbc41",
+      "sha256": "2be9ee579377609da6439359d8847e2cc6966b437dcb5224333cc60d4fca2074",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27435",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-03/mineralnadjubrivaapril2025.xls",
+      "title": "Inputi - cene - mineralna đubriva april 2025.",
+      "filename": "mineralnadjubrivaapril2025.xls",
+      "category": "djubriva",
+      "period_start": "2025-04-01",
+      "period_end": "2025-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:29.715Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "16 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 16,
+        "missing": 454,
+        "available": 265,
+        "observations": 735
+      },
+      "localFile": "originali/2a1cc714-416d-4015-9432-ef2c646cbc41.xls"
+    },
+    {
+      "id": "23989e9f-f1d6-4a4d-a64f-a8690ff789ac",
+      "sha256": "00027d95eeea19c4321e4f5ba72245cc18680f00c267e3d0fb8c32f48cd01c8c",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27433",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-03/pesticidi%20april2025.xlsx",
+      "title": "Inputi - cene - pesticidi april 2025.",
+      "filename": "pesticidi april2025.xlsx",
+      "category": "pesticidi",
+      "period_start": "2025-04-01",
+      "period_end": "2025-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:31.851Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 958,
+        "available": 1079,
+        "observations": 2037
+      },
+      "localFile": "originali/23989e9f-f1d6-4a4d-a64f-a8690ff789ac.xlsx"
+    },
+    {
+      "id": "6f258052-2af8-4b82-a121-3416db1f90dc",
+      "sha256": "77b0d056bbebde670e8798306c529503572a2220823a7ca4a5d465f68813f8ac",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27434",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-03/semenskimaterijalapril2025.xls",
+      "title": "Inputi - cene - semenski materijal april 2025.",
+      "filename": "semenskimaterijalapril2025.xls",
+      "category": "seme",
+      "period_start": "2025-04-01",
+      "period_end": "2025-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:33.717Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "5 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 5,
+        "missing": 549,
+        "available": 307,
+        "observations": 861
+      },
+      "localFile": "originali/6f258052-2af8-4b82-a121-3416db1f90dc.xls"
+    },
+    {
+      "id": "706c08af-8b5b-4170-a3af-b0b3ac0d6683",
+      "sha256": "0c9630703b6a335b317f9466b95c5642c291aef26d2c54f74e86607c640acba7",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27486",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-05/pesticidi_maj_2025.xlsx",
+      "title": "Inputi - cene - pesticidi maj 2025.",
+      "filename": "pesticidi_maj_2025.xlsx",
+      "category": "pesticidi",
+      "period_start": "2025-05-01",
+      "period_end": "2025-05-31",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:27.887Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 762,
+        "available": 1275,
+        "observations": 2037
+      },
+      "localFile": "originali/706c08af-8b5b-4170-a3af-b0b3ac0d6683.xlsx"
+    },
+    {
+      "id": "833bb6f9-da78-4e7d-9ae9-c20342ad3030",
+      "sha256": "97c6c7743f68ce126e45dfe36c123e22692cd6cb767474f81af5c9c1e7ce4a1a",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27675",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-10/mineralnadjubrivaSEPTEMBAR2025.xls",
+      "title": "Inputi - cene - mineralna đubriva septembar 2025.",
+      "filename": "mineralnadjubrivaSEPTEMBAR2025.xls",
+      "category": "djubriva",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:23.848Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "23 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 23,
+        "missing": 441,
+        "available": 229,
+        "observations": 693
+      },
+      "localFile": "originali/833bb6f9-da78-4e7d-9ae9-c20342ad3030.xls"
+    },
+    {
+      "id": "1a4a3a76-6894-47dc-9526-93cad1d61680",
+      "sha256": "b1f7b8f298c608593c37a8413c1e3926daf34a1f95a207e8f96dd2388f32041f",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27674",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-10/pesticidiseptembar2025.xlsx",
+      "title": "Inputi - cene - pesticidi septembar 2025.",
+      "filename": "pesticidiseptembar2025.xlsx",
+      "category": "pesticidi",
+      "period_start": "2025-09-01",
+      "period_end": "2025-09-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:25.845Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "2 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 2,
+        "missing": 1031,
+        "available": 983,
+        "observations": 2016
+      },
+      "localFile": "originali/1a4a3a76-6894-47dc-9526-93cad1d61680.xlsx"
+    },
+    {
+      "id": "222703d6-6bb8-4bbc-ab48-dde3b06c44d0",
+      "sha256": "9a3a866f6cf0712ee8d6074329dbcf2b9bb42b8497fe5b5aceeacc4739448bc3",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27673",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2025-10/semenskimaterijaloktobar2025.xls",
+      "title": "Inputi - cene - semenski materijal oktobar 2025.",
+      "filename": "semenskimaterijaloktobar2025.xls",
+      "category": "seme",
+      "period_start": "2025-10-01",
+      "period_end": "2025-10-31",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:21.717Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "27 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 27,
+        "missing": 170,
+        "available": 76,
+        "observations": 273
+      },
+      "localFile": "originali/222703d6-6bb8-4bbc-ab48-dde3b06c44d0.xls"
+    },
+    {
+      "id": "41936bee-0ee9-44bf-b437-c9fbb1c859ff",
+      "sha256": "3ca6c6acf56e5b59dec9666e873c63418380ef171953bccdfe6b22cefc8293bb",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27899",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-04/mineralnadjubrivaapril2026.xls",
+      "title": "Inputi - cene - mineralna đubriva april 2026.",
+      "filename": "mineralnadjubrivaapril2026.xls",
+      "category": "djubriva",
+      "period_start": "2026-04-01",
+      "period_end": "2026-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:15.870Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "17 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 17,
+        "missing": 409,
+        "available": 309,
+        "observations": 735
+      },
+      "localFile": "originali/41936bee-0ee9-44bf-b437-c9fbb1c859ff.xls"
+    },
+    {
+      "id": "6e226859-ae86-4076-ba63-ebcc41c0081b",
+      "sha256": "0ddea6dffb3437dd8255cee2d470923e883f8ca95b9a073774bed856a963baad",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27897",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-04/pesticidiapril2026.xlsx",
+      "title": "Inputi - cene - pesticidi april 2026.",
+      "filename": "pesticidiapril2026.xlsx",
+      "category": "pesticidi",
+      "period_start": "2026-04-01",
+      "period_end": "2026-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:17.841Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 772,
+        "available": 1286,
+        "observations": 2058
+      },
+      "localFile": "originali/6e226859-ae86-4076-ba63-ebcc41c0081b.xlsx"
+    },
+    {
+      "id": "adeb8707-8a04-4282-b85f-fbbb23aebe73",
+      "sha256": "109fc05236e5eecdaf33f2d82238fe920e1a405e93f174f892e29bc6e2511f07",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27898",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-04/semenskimaterijalapril2026.xls",
+      "title": "Inputi - cene - semenski materijal april 2026.",
+      "filename": "semenskimaterijalapril2026.xls",
+      "category": "seme",
+      "period_start": "2026-04-01",
+      "period_end": "2026-04-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:19.837Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "5 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 5,
+        "missing": 470,
+        "available": 386,
+        "observations": 861
+      },
+      "localFile": "originali/adeb8707-8a04-4282-b85f-fbbb23aebe73.xls"
+    },
+    {
+      "id": "0ef13a23-87a2-44b4-aaec-244881fef67b",
+      "sha256": "6aa5c75bdee2e3aaf73eda2629b0184247f689fe0f83efbc141e67f9aa793253",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/27948",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-05/pesticidiMAJ2026.xlsx",
+      "title": "Inputi - cene - pesticidi maj 2026.",
+      "filename": "pesticidiMAJ2026.xlsx",
+      "category": "pesticidi",
+      "period_start": "2026-05-01",
+      "period_end": "2026-05-31",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:14.012Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 897,
+        "available": 1161,
+        "observations": 2058
+      },
+      "localFile": "originali/0ef13a23-87a2-44b4-aaec-244881fef67b.xlsx"
+    },
+    {
+      "id": "0aa34552-7681-449d-8053-2f0aac6cd8b6",
+      "sha256": "b1692a5f303f7848b6e43bd6fd772e877e13a94a27f931056bd0bf85d2f9dc8f",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/28156",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-09/mineralnadjubrivaSEPTEMBAR2026.xls",
+      "title": "Inputi - cene - mineralna đubriva septembar 2026.",
+      "filename": "mineralnadjubrivaSEPTEMBAR2026.xls",
+      "category": "djubriva",
+      "period_start": "2026-09-01",
+      "period_end": "2026-09-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:09.871Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "16 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 16,
+        "missing": 394,
+        "available": 325,
+        "observations": 735
+      },
+      "localFile": "originali/0aa34552-7681-449d-8053-2f0aac6cd8b6.xls"
+    },
+    {
+      "id": "a72c828f-f08d-4a45-ade2-a9caa360189d",
+      "sha256": "8ece3bd8b69ccd522788b447f2714e0a94fcc471d93d2b37f86412571d04f690",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/28157",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-09/pesticidiSEPTEMBAR2026.xlsx",
+      "title": "Inputi - cene - pesticidi septembar 2026.",
+      "filename": "pesticidiSEPTEMBAR2026.xlsx",
+      "category": "pesticidi",
+      "period_start": "2026-09-01",
+      "period_end": "2026-09-30",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:11.872Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 0,
+        "missing": 732,
+        "available": 1305,
+        "observations": 2037
+      },
+      "localFile": "originali/a72c828f-f08d-4a45-ade2-a9caa360189d.xlsx"
+    },
+    {
+      "id": "c1c91686-15d5-42d4-ae5a-89e58854033e",
+      "sha256": "6a9d06c9c6ee7d5734951fa75fd84ce8ba24cf90138c31d53419f470145f04a1",
+      "source_url": "https://www.stips.minpolj.gov.rs/node/28176",
+      "file_url": "https://www.stips.minpolj.gov.rs/sites/default/files/2026-10/semenskimaterijaloktobar2026.xls",
+      "title": "Inputi - cene - semenski materijal septembar 2026.",
+      "filename": "semenskimaterijaloktobar2026.xls",
+      "category": "seme",
+      "period_start": "2026-10-01",
+      "period_end": "2026-10-31",
+      "published_at": null,
+      "received_at": "2026-10-27T22:48:07.858Z",
+      "received_by": "operator:stips-inputi-cli",
+      "parser_version": "stips-inputs-1",
+      "warnings": [
+        "Period u naslovu/poziciji arhive razlikuje se od priloga. Za cene je sačuvan period iz zaglavlja Excel dokumenta.",
+        "45 izvornih vrednosti zahteva proveru; ne koriste se kao potvrđene cene.",
+        "Osnova cene po pakovanju/kg/l nije automatski potvrđena. Izbor za normativ zahteva proveru administratora."
+      ],
+      "counts": {
+        "review": 45,
+        "missing": 167,
+        "available": 103,
+        "observations": 315
+      },
+      "localFile": "originali/c1c91686-15d5-42d4-ae5a-89e58854033e.xls"
+    }
+  ],
+  "counts": {
+    "documents": 21,
+    "observations": 27678,
+    "available": 13342,
+    "missing": 14092,
+    "review": 244
+  },
+  "notes": [
+    "Nedostajuće vrednosti nisu nule.",
+    "Formula nije izvršena; izvorni sačuvani rezultat je zadržan u raw_value i označen za proveru.",
+    "Pakovanje nije automatski delilac cene.",
+    "Period je potvrđen u sadržaju Excel dokumenta; neslaganja naslova su u warnings.",
+    "Datum objave i tržišni nivo nisu potvrđeni; nisu izmišljeni.",
+    "Nema nacionalnog ili godišnjeg proseka."
+  ]
+}
