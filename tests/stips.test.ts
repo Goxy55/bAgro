@@ -163,12 +163,12 @@ test("STIPS — proverljiv uvoz i objava lokalnih cena", async (t) => {
       );
       assert.equal(
         (await db.query("SELECT name FROM schema_migrations")).rows.length,
-        3,
+        4,
       );
       await migrate();
       assert.equal(
         (await db.query("SELECT name FROM schema_migrations")).rows.length,
-        3,
+        4,
       );
       assert.equal(
         (await db.query("SELECT enabled FROM stips_crawler_settings")).rows[0]

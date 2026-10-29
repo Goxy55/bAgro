@@ -24,6 +24,7 @@ import { publicStips, adminStips } from "./stips/routes.js";
 import { runtime } from "./runtime.js";
 import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
+import { importStatistics } from "./statistics.js";
 import { versionRevision, type PricingVersion } from "./pricing/model.js";
 export const app = express();
 app.disable("x-powered-by");
@@ -1322,131 +1323,8 @@ app.post("/api/admin/rates", async (req: any, res) => {
   res.json({ ok: true });
 });
 app.post("/api/admin/statistics", async (req: any, res) => {
-  const b = z
-    .object({
-      source: z.object({ id: text, name: text, url, terms: text }),
-      series: z.object({
-        id: text,
-        product: text,
-        indicator: text,
-        definition: text,
-        mapping: text,
-        geography: text,
-        unit: text,
-        currency: z.string().max(10).nullable(),
-        priceType: z.string().max(100).nullable(),
-        sourceUrl: url,
-      }),
-      observations: z
-        .array(
-          z.object({
-            period: z.number().int().min(1900).max(2100),
-            value: dec.nullable(),
-            status: z.enum([
-              "konačan",
-              "prethodan",
-              "procenjen",
-              "nepotpuna godina",
-            ]),
-            publishedAt: date,
-            sourceUrl: url,
-          }),
-        )
-        .max(200),
-    })
-    .parse(req.body);
-  if (b.series.currency && !b.series.priceType)
-    throw Error("Monetarna serija zahteva vrstu cene.");
-  if (b.observations.some((o) => o.period > new Date().getUTCFullYear()))
-    throw Error(
-      "Buduće projekcije nisu ostvareni statistički podaci prve faze.",
-    );
-  if (
-    b.series.geography === "Srbija" &&
-    (b.source.id.toLowerCase().includes("stips") ||
-      new URL(b.source.url).hostname.includes("stips"))
-  )
-    throw Error("STIPS lokalne cene nisu nacionalni godišnji pokazatelj.");
-  await transaction(async (tx) => {
-    await tx.query(
-      "INSERT INTO data_sources(id,name,url,terms) VALUES($1,$2,$3,$4) ON CONFLICT(id) DO UPDATE SET name=EXCLUDED.name,url=EXCLUDED.url,terms=EXCLUDED.terms,checked_at=now()",
-      [b.source.id, b.source.name, b.source.url, b.source.terms],
-    );
-    const s = b.series;
-    const existing = (
-      await tx.query("SELECT * FROM statistic_series WHERE id=$1", [s.id])
-    ).rows[0];
-    if (
-      existing &&
-      (existing.product !== s.product ||
-        existing.unit !== s.unit ||
-        existing.geography !== s.geography ||
-        existing.indicator !== s.indicator ||
-        existing.mapping !== s.mapping)
-    )
-      throw Error(
-        "Promena definicije/mapiranja zahteva novi identitet serije.",
-      );
-    await tx.query(
-      "INSERT INTO statistic_series(id,source_id,product,indicator,definition,mapping,geography,unit,currency,price_type,source_url) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT(id) DO NOTHING",
-      [
-        s.id,
-        b.source.id,
-        s.product,
-        s.indicator,
-        s.definition,
-        s.mapping,
-        s.geography,
-        s.unit,
-        s.currency,
-        s.priceType,
-        s.sourceUrl,
-      ],
-    );
-    for (const o of b.observations) {
-      const old = (
-        await tx.query(
-          "SELECT * FROM observations WHERE series_id=$1 AND period=$2",
-          [s.id, o.period],
-        )
-      ).rows[0];
-      if (
-        old &&
-        String(old.value) === String(o.value) &&
-        old.status === o.status &&
-        old.source_url === o.sourceUrl
-      )
-        continue;
-      const history = old
-        ? [
-            ...old.history,
-            {
-              value: old.value,
-              status: old.status,
-              revision: old.revision,
-              publishedAt: old.published_at,
-              retrievedAt: old.retrieved_at,
-            },
-          ]
-        : [];
-      await tx.query(
-        "INSERT INTO observations(id,series_id,period,value,status,published_at,source_url,revision,history) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(series_id,period) DO UPDATE SET value=EXCLUDED.value,status=EXCLUDED.status,published_at=EXCLUDED.published_at,source_url=EXCLUDED.source_url,revision=EXCLUDED.revision,history=EXCLUDED.history,retrieved_at=now()",
-        [
-          old?.id || randomUUID(),
-          s.id,
-          o.period,
-          o.value,
-          o.status,
-          o.publishedAt,
-          o.sourceUrl,
-          old ? old.revision + 1 : 1,
-          JSON.stringify(history),
-        ],
-      );
-    }
-    await audit(tx, req.user.id, null, "import", s.id);
-  });
-  res.json({ ok: true });
+  const result = await importStatistics(req.body, req.user.id);
+  res.json({ ok: true, ...result });
 });
 app.post("/api/admin/market/:kind", async (req: any, res) => {
   const kind = z

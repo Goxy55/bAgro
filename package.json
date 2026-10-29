@@ -13,6 +13,8 @@
     "test": "tsx --test tests/*.test.ts",
     "import": "python3 scripts/extract.py && tsx scripts/import.ts",
     "import:inputs": "tsx scripts/import-inputs.ts",
+    "import:rzs": "tsx scripts/import-rzs.ts",
+    "collect:rzs": "tsx scripts/collect-rzs.ts",
     "admin": "tsx scripts/admin.ts",
     "backup": "tsx scripts/backup.ts",
     "restore": "tsx scripts/restore.ts"

@@ -53,6 +53,10 @@ Migracija `002_stips.sql` dodaje tabele bez resetovanja postojeće baze. Origina
 
 **Administracija → STIPS · cene inputa** preuzima originalne XLS/XLSX cenovnike pesticida, mineralnih đubriva i semena. Izvorne cene se mogu izričito izabrati u zajedničkom cenovniku uz proveru proizvoda/pakovanja i NBS kurs za izvorni period. Živo preuzimanje je provereno za svih 21 pronađenih cenovnika 2024–2026; 13.342 brojčane cene, bez automatskog aktiviranja normativa. Migracija `003_stips_inputs.sql` čuva original i svaki izvorni zapis. [Uputstvo za prikupljanje i primenu](docs/STIPS-INPUTI.md).
 
+## RZS nacionalna statistika
+
+Potvrđeno je preuzimanje šest zvaničnih RZS JSON skupova (39.087 zapisa). Godišnji nacionalni podaci o biljnoj proizvodnji i bilansu stoke podržani su kroz proverljiv uvoz: 202 serije i 4.313 opažanja, sa odvojenim datumom ažuriranja skupa i nepoznatim datumom pojedinačne objave. Preuzimanje: `npm run collect:rzs`; uvoz, posle backupa i zaustavljanja PGlite servera: `npm run import:rzs -- --archive data/rzs`. [Postupak i metodologija](docs/RZS.md).
+
 ## Baza i migracije
 
 Podrazumevano se koristi **PGlite 0.5.11**, pravi ugrađeni PostgreSQL, trajno u `data/postgres`. To je lokalni režim sa **jednim procesom**. Zaključavanje sprečava paralelno otvaranje baze iz CLI-ja i servera; posle naglog prekida sačekajte 10 sekundi za zastareli lock. Ne pokrećite dve instance nad istim direktorijumom.
@@ -116,6 +120,6 @@ Za hosting sa kontrolnim panelom pogledajte [cPanel / Plesk preduslove i startup
 - [Status javnih izvora i uvoza](docs/IZVORI-I-OGRANICENJA.md)
 - [Originalni Excel](source/izvor-2017.xlsx) i potpun [inventar ćelija](source/inventory.json)
 
-Živo preuzimanje STIPS arhive INPUTI i svih 21 XLS/XLSX priloga za 2024–2026. je provereno; vrednosti su odvojene od sintetičkih test podataka. Ranije NBS/RZS provere vraćale su proxy 403; njihovo živo ažuriranje i automatski STIPS PDF tok ostaju nepotvrđeni. Dostupni su proverljiv admin uvoz, izvori, revizije i prazna stanja. Nijedna referentna cena ne aktivira normative automatski. Nema garancije potpunog besplatnog imenika ili dokumentovanih potreba za svaki proizvod.
+Živo preuzimanje STIPS arhive INPUTI i svih 21 XLS/XLSX priloga za 2024–2026. je provereno; vrednosti su odvojene od sintetičkih test podataka. RZS katalog i šest JSON izvoda su naknadno uspešno preuzeti; NBS živo ažuriranje i automatski STIPS PDF tok ostaju nepotvrđeni. Dostupni su proverljiv admin uvoz, izvori, revizije i prazna stanja. Nijedna referentna cena ne aktivira normative automatski. Nema garancije potpunog besplatnog imenika ili dokumentovanih potreba za svaki proizvod.
 
 Potrebno je poslovno odobrenje aktuelnih normativa i kurseva pre računanja stvarnih rezultata nove godine. Porezi, puna dobit, planiranje, individualna grla/parcele, bankarsko povezivanje i offline režim nisu deo prve faze. Za fizički različite nusproizvode administrator odobrava raspodelu zajedničkog troška; svaka količina ostaje u svojoj jedinici. Bez odobrene raspodele ili količine rezultat ostaje nepotpun, umesto pretpostavljene podele.

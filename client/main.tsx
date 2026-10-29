@@ -2765,8 +2765,10 @@ function ExportPanel({ data, detail, action, saved }: Any) {
 }
 function Market({ data }: Any) {
   const [tab, setTab] = useState("statistics"),
-    [selected, setSelected] = useState("all");
+    [selected, setSelected] = useState("first");
   if (!data) return null;
+  const selectedProduct =
+    selected === "first" ? data.series[0]?.product || "all" : selected;
   return (
     <>
       <div className="tabs">
@@ -2806,7 +2808,7 @@ function Market({ data }: Any) {
             <section className="panel">
               <Empty
                 title="Nema potvrđenih podataka"
-                text="Živo preuzimanje izvora nije provereno zbog mrežnog ograničenja. Provereni besplatni izvodi mogu se uvesti u administraciji."
+                text="Provereni izvodi zvaničnih izvora mogu se uvesti u administraciji, uz sačuvane jedinice, periode i poreklo podataka."
               />
               <div className="source-links">
                 <a
@@ -2829,7 +2831,7 @@ function Market({ data }: Any) {
             <>
               <Field
                 label="Proizvod"
-                value={selected}
+                value={selectedProduct}
                 onChange={(e: Any) => setSelected(e.target.value)}
                 options={[
                   "all",
@@ -2841,10 +2843,11 @@ function Market({ data }: Any) {
               />
               {data.series
                 .filter(
-                  (s: Any) => selected === "all" || s.product === selected,
+                  (s: Any) =>
+                    selectedProduct === "all" || s.product === selectedProduct,
                 )
                 .map((s: Any) => (
-                  <section className="panel" key={s.id}>
+                  <section className="panel statistic-panel" key={s.id}>
                     <div className="panel-head">
                       <div>
                         <h2>
@@ -2895,7 +2898,7 @@ function Market({ data }: Any) {
                         "Vrednost",
                         "Godišnja promena",
                         "Status",
-                        "Objava / preuzimanje",
+                        "Objava / ažuriranje skupa / preuzimanje",
                       ]}
                       rows={s.summary.points.map((o: Any) => [
                         o.period,
@@ -2903,7 +2906,7 @@ function Market({ data }: Any) {
                         o.change === null ? "—" : number(o.change) + "%",
                         o.status,
                         o.observation
-                          ? `${String(o.observation.published_at).slice(0, 10)} / ${String(o.observation.retrieved_at).slice(0, 10)}`
+                          ? `Objava: ${o.observation.published_at ? String(o.observation.published_at).slice(0, 10) : "nije navedena"}${o.observation.source_updated_at ? " · skup: " + String(o.observation.source_updated_at).slice(0, 10) : ""} · preuzeto: ${String(o.observation.retrieved_at).slice(0, 10)}`
                           : "—",
                       ])}
                     />
@@ -2926,7 +2929,7 @@ function Market({ data }: Any) {
                       </Alert>
                     )}
                     <p className="hint">
-                      Mapiranje: {s.mapping}. Svežina: poslednje provereno{" "}
+                      Svežina: poslednje provereno{" "}
                       {s.summary.points
                         .filter((o: Any) => o.observation)
                         .at(-1)
@@ -2934,6 +2937,10 @@ function Market({ data }: Any) {
                       . Nacionalni prinos ne predstavlja prinos svakog
                       gazdinstva.
                     </p>
+                    <details>
+                      <summary>Mapiranje izvornog pokazatelja</summary>
+                      <p className="hint">{s.mapping}</p>
+                    </details>
                     <a href={s.source_url} target="_blank" rel="noreferrer">
                       Izvorni podaci ↗
                     </a>
@@ -3416,7 +3423,8 @@ function Admin({ onDone }: Any) {
           <p className="hint">
             Proverite uslove korišćenja pre preuzimanja. Šira tarifna grupa mora
             biti opisana kao šira grupa, bez predstavljanja kao jedna kultura.
-            Nedostajuća vrednost je null.
+            Nedostajuća vrednost je null. Datum objave može ostati nepoznat;
+            datum ažuriranja skupa vodi se zasebno.
           </p>
           <Form
             label="Validiraj i uvezi"

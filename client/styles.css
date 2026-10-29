@@ -554,6 +554,19 @@ main {
   max-width: 100%;
   scrollbar-width: thin;
 }
+.statistic-panel table {
+  min-width: 780px;
+}
+.statistic-panel td:not(:last-child) {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+.statistic-panel td:first-child {
+  min-width: 64px;
+}
+.statistic-panel details p {
+  overflow-wrap: anywhere;
+}
 table {
   border-collapse: collapse;
   width: 100%;

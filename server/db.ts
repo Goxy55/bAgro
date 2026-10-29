@@ -58,7 +58,12 @@ export async function migrate() {
   await db.query(
     "CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, applied_at timestamptz DEFAULT now())",
   );
-  for (const name of ["001_initial", "002_stips", "003_stips_inputs"]) {
+  for (const name of [
+    "001_initial",
+    "002_stips",
+    "003_stips_inputs",
+    "004_statistic_provenance",
+  ]) {
     if (
       (
         await db.query("SELECT name FROM schema_migrations WHERE name=$1", [

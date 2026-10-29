@@ -1,0 +1,205 @@
+{
+  "source": "Republički zavod za statistiku (RZS)",
+  "catalogUrl": "https://opendata.stat.gov.rs/odata/",
+  "terms": "Besplatna ponovna upotreba uz navođenje izvora, datuma preuzimanja i izmena; tekst sa portala sačuvan u originalnoj HTML stranici.",
+  "totalDatasets": 6,
+  "totalRecords": 39087,
+  "missingValues": 4747,
+  "datasets": [
+    {
+      "id": "130102IND01",
+      "title": "Biljna proizvodnja, od 2005",
+      "sourceUrl": "https://opendata.stat.gov.rs/data/WcfJsonRestService.Service1.svc/dataset/130102IND01/1/json",
+      "bytes": 11694579,
+      "sha256": "6cec2b5f269869073233d8ca95863807cfe6e1cb161d178762ff798708e44c6f",
+      "retrievedAt": "2026-10-29T17:54:59.031340+00:00",
+      "datasetUpdatedAt": "25.9.2026.",
+      "observationPublicationDate": null,
+      "records": 26271,
+      "nationalRecords": 3753,
+      "minYear": 2005,
+      "maxYear": 2026,
+      "periodCodes": [
+        "00"
+      ],
+      "statuses": {
+        "A": 20796,
+        "O": 3699,
+        "R": 924,
+        "N": 12,
+        "P": 210,
+        "M": 630
+      },
+      "filename": "130102IND01.json"
+    },
+    {
+      "id": "1302020101IND01",
+      "title": "Bilans stoke",
+      "sourceUrl": "https://opendata.stat.gov.rs/data/WcfJsonRestService.Service1.svc/dataset/1302020101IND01/1/json",
+      "bytes": 228859,
+      "sha256": "f94eacc3b9a0bc5c09ce964e8fc69a7a5662467c18b7db0c0e2ae9e7f724fb1d",
+      "retrievedAt": "2026-10-29T17:55:00.788376+00:00",
+      "datasetUpdatedAt": "1.4.2026.",
+      "observationPublicationDate": null,
+      "records": 560,
+      "nationalRecords": 560,
+      "minYear": 2006,
+      "maxYear": 2025,
+      "periodCodes": [
+        "00"
+      ],
+      "statuses": {
+        "A": 552,
+        "O": 3,
+        "K": 4,
+        "N": 1
+      },
+      "filename": "1302020101IND01.json"
+    },
+    {
+      "id": "13020201040401IND01",
+      "title": "Proizvodi od kravljeg mleka dobijeni u mlekarama, za tržište (tabela A)",
+      "sourceUrl": "https://opendata.stat.gov.rs/data/WcfJsonRestService.Service1.svc/dataset/13020201040401IND01/1/json",
+      "bytes": 750339,
+      "sha256": "31feb6842d4d92297052a1aeb897a8bc8f7219bebc56d11027bee40bd9193733",
+      "retrievedAt": "2026-10-29T17:55:03.077375+00:00",
+      "datasetUpdatedAt": "20.10.2026.",
+      "observationPublicationDate": null,
+      "records": 1408,
+      "nationalRecords": 1408,
+      "minYear": 2012,
+      "maxYear": 2026,
+      "periodCodes": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "statuses": {
+        "A": 1352,
+        "O": 55,
+        "N": 1
+      },
+      "filename": "13020201040401IND01.json"
+    },
+    {
+      "id": "03020201IND02",
+      "title": "Indeksi cena reprodukcionog materijala, sredstava rada i usluga u poljoprivredi",
+      "sourceUrl": "https://opendata.stat.gov.rs/data/WcfJsonRestService.Service1.svc/dataset/03020201IND02/1/json",
+      "bytes": 786043,
+      "sha256": "9b9d0cb139bae004389feba26296ee7d54e4407d43efee9403a076465878d61d",
+      "retrievedAt": "2026-10-29T17:57:09.712822+00:00",
+      "datasetUpdatedAt": "14.8.2026.",
+      "observationPublicationDate": null,
+      "records": 1248,
+      "nationalRecords": 1248,
+      "minYear": 2020,
+      "maxYear": 2026,
+      "periodCodes": [
+        "K1",
+        "K2",
+        "K3",
+        "K4"
+      ],
+      "statuses": {
+        "A": 1092,
+        "O": 156
+      },
+      "filename": "03020201IND02.json"
+    },
+    {
+      "id": "03020202IND01",
+      "title": "Mesečni indeksi cena proizvođača proizvoda poljoprivrede i ribarstva po KD 2010",
+      "sourceUrl": "https://opendata.stat.gov.rs/data/WcfJsonRestService.Service1.svc/dataset/03020202IND01/1/json",
+      "bytes": 1822494,
+      "sha256": "46924bae29e0a4496591118997fbe47c45666d73f5d143c700a1d3de83e7c8e8",
+      "retrievedAt": "2026-10-29T17:57:13.175847+00:00",
+      "datasetUpdatedAt": "12.10.2026.",
+      "observationPublicationDate": null,
+      "records": 2880,
+      "nationalRecords": 2880,
+      "minYear": 2020,
+      "maxYear": 2026,
+      "periodCodes": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "statuses": {
+        "A": 2880
+      },
+      "filename": "03020202IND01.json"
+    },
+    {
+      "id": "03020203IND01",
+      "title": "Mesečni indeksi cena proizvođača proizvoda poljoprivrede i ribarstva po grupama proizvoda",
+      "sourceUrl": "https://opendata.stat.gov.rs/data/WcfJsonRestService.Service1.svc/dataset/03020203IND01/1/json",
+      "bytes": 4162163,
+      "sha256": "71ab25380bea0cbe797e493af940fb7acebd955a27a02f9145208ce27ad5bd2f",
+      "retrievedAt": "2026-10-29T17:57:18.419516+00:00",
+      "datasetUpdatedAt": "12.10.2026.",
+      "observationPublicationDate": null,
+      "records": 6720,
+      "nationalRecords": 6720,
+      "minYear": 2020,
+      "maxYear": 2026,
+      "periodCodes": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "statuses": {
+        "A": 6720
+      },
+      "filename": "03020203IND01.json"
+    }
+  ],
+  "modifications": [
+    "Izvor: Republički zavod za statistiku (RZS), https://opendata.stat.gov.rs/odata/.",
+    "Izmene: nazivi su preslovljeni na srpsku latinicu; podaci su raspoređeni u tabele i izdvojena je teritorija RS. Vrednosti nisu preračunavane.",
+    "Originalni JSON fajlovi su sačuvani bez izmena, sa SHA-256 kontrolnim zbirovima.",
+    "Datum ažuriranja skupa sa portala nije pretpostavljen datum objave svakog istorijskog podatka. Datum pojedinačne objave nije naveden u JSON-u.",
+    "RS je Srbija ukupno. RS1, RS2 i ostale teritorije su odvojene; ne sabiraju se preko teritorijalnih hijerarhija.",
+    "Praznina ostaje praznina, a ne nula. Sačuvani su izvorni statusi A/P/R/K/O/M/N i njihove oznake.",
+    "Mesečni i kvartalni podaci nisu pretvoreni u godišnje sume ili proseke.",
+    "Indeksi su indeksi sa navedenom bazom poređenja; nisu cene u RSD/kg ili RSD/l i ne mogu se neposredno koristiti kao jedinične cene normativa.",
+    "U biljnoj proizvodnji jedinice ha, t i t/ha su izričito navedene u nVrPod; sačuvane su te jedinice bez dodatne konverzije.",
+    "Bilans stoke koristi izvorno hiljade grla; mlečni proizvodi koriste hiljade tona. Vrednosti nisu množene sa 1000.",
+    "Šire grupe (npr. kupus i kelj, dinje i lubenice) nisu izjednačene sa pojedinačnom kulturom. Maline i kupine ostaju zasebne.",
+    "Ovaj paket je izvod za pregled i dalju validaciju; ne predstavlja potvrdu uvoza u aplikacionu bazu Agro portala."
+  ],
+  "annualImport": {
+    "territory": "RS",
+    "series": 202,
+    "observations": 4313,
+    "publicationDates": null,
+    "rawMonthlyAndQuarterlyDataKeptSeparate": true,
+    "precision": "Izvorni decimalni JSON token, bez JS double zaokruživanja"
+  }
+}

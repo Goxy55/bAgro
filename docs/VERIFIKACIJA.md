@@ -22,7 +22,7 @@ Sa nove putanje prošli su `npm ci --cache /tmp/agro-npm-cache`, `npm run build`
 
 ## Šta nije potvrđeno
 
-Živi RZS/STIPS/NBS pristup vraća proxy 403: konkretni formati izvoda, rad STIPS preuzimača sa živim izvorom, ostali automatski API adapteri, uslovi ponovne upotrebe i stvarne nacionalne serije čekaju pristup i metodološku proveru. Validiran ručni admin uvoz i prazna stanja su implementirani i testirani.
+RZS katalog i šest JSON izvoda su preuzeti, a godišnji nacionalni podaci validirani i podržani u aplikaciji; videti [RZS postupak](RZS.md). Potvrđeni su i STIPS XLS/XLSX inputi. Preostalo je posebno proveriti živo NBS ažuriranje, automatski STIPS PDF tok, druge statističke/trgovinske klasifikacije i njihova mapiranja.
 
 Putanja sa spoljnim PostgreSQL servisom, spoljni SMTP, Passenger/cPanel/Plesk integracija i javni HTTPS hosting nisu operativno testirani. Lokalni razvoj i produkcioni build provereni su na ugrađenom PostgreSQL-u. Docker/Compose paket je pripremljen; puna provera kontejnerske objave još nije završena. Nisu napravljeni plaćeni resursi niti javno objavljena aplikacija.
 
