@@ -1,0 +1,47 @@
+# Paid resources are created only after the owner reviews and confirms in Render.
+# Prices and exact resource sizes: docs/RENDER.md.
+services:
+  - type: web
+    name: agro-portal-test
+    runtime: node
+    region: frankfurt
+    plan: 0.5c-512mb
+    branch: main
+    numInstances: 1
+    autoDeployTrigger: checksPass
+    buildCommand: npm ci --include=dev && npm run build
+    preDeployCommand: npm run prepare:hosted-test
+    startCommand: npm start
+    healthCheckPath: /healthz
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: NODE_VERSION
+        value: 24.19.0
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: APP_URL
+        fromService:
+          name: agro-portal-test
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: BETTER_AUTH_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: agro-portal-test-db
+          property: connectionString
+      - key: TRUST_PROXY_HOPS
+        value: "1"
+      - key: SEED_PUBLIC_REFERENCES
+        value: "true"
+
+databases:
+  - name: agro-portal-test-db
+    region: frankfurt
+    postgresMajorVersion: "18"
+    plan: 0.1c-256mb
+    diskSizeGB: 1
+    storageAutoscalingEnabled: false
+    ipAllowList: []

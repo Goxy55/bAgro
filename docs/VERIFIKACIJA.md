@@ -24,8 +24,19 @@ Sa nove putanje prošli su `npm ci --cache /tmp/agro-npm-cache`, `npm run build`
 
 RZS katalog i šest JSON izvoda su preuzeti, a godišnji nacionalni podaci validirani i podržani u aplikaciji; videti [RZS postupak](RZS.md). Potvrđeni su i STIPS XLS/XLSX inputi. Preostalo je posebno proveriti živo NBS ažuriranje, automatski STIPS PDF tok, druge statističke/trgovinske klasifikacije i njihova mapiranja.
 
-Putanja sa spoljnim PostgreSQL servisom, spoljni SMTP, Passenger/cPanel/Plesk integracija i javni HTTPS hosting nisu operativno testirani. Lokalni razvoj i produkcioni build provereni su na ugrađenom PostgreSQL-u. Docker/Compose paket je pripremljen; puna provera kontejnerske objave još nije završena. Nisu napravljeni plaćeni resursi niti javno objavljena aplikacija.
+Spoljni SMTP, Passenger/cPanel/Plesk integracija i javni HTTPS hosting nisu operativno testirani. Putanja sa zasebnim PostgreSQL 18 lokalno je naknadno proverena, kako je opisano ispod. Docker/Compose paket je pripremljen; puna provera kontejnerske objave još nije završena. Nisu napravljeni plaćeni resursi niti javno objavljena aplikacija.
 
 Za `agroportal.fitkoncept.rs` lokalno DNS razrešavanje nije uspelo, a HTTPS zahtev je odbio egress proxy sa 403 pre uspostavljanja veze sa domenom. Iz toga se ne može zaključiti da je DNS domena neispravan. Potrebna je provera iz korisnikovog hostinga ili druge mreže.
 
 Cene 2017 ostaju arhiva. Stvarni aktuelni cenovnici i zvanične kursne liste zahtevaju dokumentovano administratorsko odobrenje; aplikacija ih ne izmišlja.
+
+## GitHub / Render priprema — 29.10.2026.
+
+- `render.yaml` je validiran prema JSON šemi preuzetoj sa `https://render.com/schema/render.yaml.json`. Provereni su aktuelni nazivi planova, cene, privatna konekcija baze i vezivanje `APP_URL` za dodeljenu adresu. To je provera konfiguracije, bez kreiranja Render resursa.
+- `npm run build` i svih **76 testova** prolaze. Nisu dodavani paketi ili menjane verzije zavisnosti.
+- Produkciona Node aplikacija je pokrenuta na zasebnom lokalnom portu sa pravim PostgreSQL 18 servisom (`postgres:18-alpine`, digest `sha256:10a5c69a83035ab5239f5620d708520e8b28f5aa1f2b20143e6024532edadfb5`). Baza je bila privremena i odvojena od privatne PGlite baze.
+- Prošle su četiri migracije, 88 arhivskih predložaka i `prepare:hosted-test`: 202 RZS serije / 4.313 opažanja i 21 STIPS cenovnik. Ponovljena priprema preskače oba uspešno završena javna izvora, bez duplikata i bez aktiviranja aktuelnih normativa.
+- API provera na zasebnom PostgreSQL-u: dve registracije, različita gazdinstva, administratorska dodela postojećem nalogu, odbijeni tuđi ID-jevi i izvoz, nepotpun rezultat bez normativa, 2,5 ha × odobren sintetički normativ, marža 40.000 / 100.000 RSD = 40%, delimična naplata 40.000 RSD u drugom mesecu, ostatak 60.000 RSD, PDF/XLSX i snapshot. Sintetički normativ i kurs korišćeni su isključivo u privremenoj test bazi i nisu deo hosting pripreme.
+- Posle restarta samo aplikacionog procesa ostali su važeća sesija, poslovni podaci, snapshot i izolacija dve farme.
+
+Stvarni Render deploy, njegovi memorijski limiti, HTTPS/proxy, DNS, SMTP i Render backup/restore čekaju vlasnikov nalog i proveru prve objave. Lokalna provera PostgreSQL-a ne potvrđuje te spoljne usluge. [Postupak i cena](RENDER.md), [koraci za testere](USER-TESTING.md).

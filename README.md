@@ -2,6 +2,12 @@
 
 Portal za poljoprivrednu proizvodnju. Funkcionalna lokalna aplikacija na srpskoj latinici za odvojena gazdinstva, ostvarenu proizvodnju, obračunsku maržu, poslovne događaje i ostvareni novčani tok. Aplikacija je samostalna i nalazi se u korenu repozitorijuma `Goxy55/bAgro`.
 
+## Testiranje preko jednog linka
+
+Pripremljena je **[objava sa GitHub-a na Render](https://render.com/deploy?repo=https://github.com/Goxy55/bAgro)**, sa aplikacijom i zasebnim PostgreSQL-om. Vlasnik prvo pregleda i potvrđuje plaćene resurse: osnovne instance su oko **13 USD mesečno** prema cenovniku od 29.10.2026, uz eventualni porez i dodatnu potrošnju. Aplikacija još nije javno objavljena. [Koraci za vlasnika](docs/RENDER.md) i [kratko uputstvo za testere](docs/USER-TESTING.md).
+
+Posle objave svaki tester otvara isti HTTPS link i pravi svoj nalog/gazdinstvo. Nisu potrebni terminal, instalacija ili GitHub nalog testera. Za prvi krug mogu se testirati forme i nacrti; potpuni obračuni zahtevaju prethodno administratorsko odobrenje aktuelnih normativa i proverene kurseve.
+
 ## Pokretanje
 
 Potrebni su Node.js **22.12+** (provereno na 24.19.0) i npm. Verzije paketa su tačno zaključane u `package.json` i `package-lock.json`. Za ponovnu ekstrakciju izvornog Excela potreban je Python 3.10+ i `openpyxl==3.1.5`; generisani inventar je već uključen.
@@ -20,6 +26,8 @@ Prvi start automatski primenjuje migraciju i idempotentno uvozi 88 arhivskih pre
 ### Administrator
 
 Zaustavite razvojni server pre CLI rada sa ugrađenom bazom. Postavite `ADMIN_EMAIL`, `ADMIN_PASSWORD` i opciono `ADMIN_NAME` preko bezbednog okruženja, pa pokrenite `npm run admin`. Lozinka mora imati najmanje 12 znakova. Za postojeći nalog dodeljuje se uloga, bez promene njegove lozinke. Ne upisujte lozinke u Git ili javne logove.
+
+Ako ste nalog već registrovali u aplikaciji, operater može dodeliti ulogu bez unosa lozinke: `npm run admin -- --existing vas-email@example.com`. Ova komanda ne pravi nalog i ne menja lozinku; radnja ulazi u audit evidenciju. Uz zaseban PostgreSQL može se izvršiti dok aplikacija radi.
 
 Administrator zatim u aplikaciji:
 
@@ -61,7 +69,7 @@ Potvrđeno je preuzimanje šest zvaničnih RZS JSON skupova (39.087 zapisa). God
 
 Podrazumevano se koristi **PGlite 0.5.11**, pravi ugrađeni PostgreSQL, trajno u `data/postgres`. To je lokalni režim sa **jednim procesom**. Zaključavanje sprečava paralelno otvaranje baze iz CLI-ja i servera; posle naglog prekida sačekajte 10 sekundi za zastareli lock. Ne pokrećite dve instance nad istim direktorijumom.
 
-Za odvojeni PostgreSQL servis podesite `DATABASE_URL`, a za TLS `DATABASE_SSL=true` i odgovarajući sistemski CA. `pg` Pool i Drizzle koriste isti relacioni model/migraciju. Putanja sa spoljnim PostgreSQL-om je implementirana, ali nije testirana sa zasebnim servisom u ovom okruženju; kompletna integraciona provera je izvršena na ugrađenom PostgreSQL-u. Za višestruke server instance koristite spoljašnji PostgreSQL, pouzdan pool, distribuiran rate limit i kontrolisan migracioni korak.
+Za odvojeni PostgreSQL servis podesite `DATABASE_URL`, a za TLS `DATABASE_SSL=true` i odgovarajući sistemski CA. `pg` Pool i Drizzle koriste isti relacioni model/migraciju. Lokalno je proverena produkciona aplikacija sa zasebnim PostgreSQL 18: migracije, javni uvoz, autentikacija, dve farme, obračuni, izvoz i očuvanje podataka posle restarta. Konkretna Render mreža/TLS/proxy i javna objava čekaju operativnu proveru. Render konfiguracija koristi privatnu internu vezu u istom regionu; ne isključujte proveru sertifikata na javnim vezama. Za višestruke server instance koristite pouzdan pool, distribuiran rate limit i kontrolisan migracioni korak.
 
 SQL migracije su u `migrations/`; `schema_migrations` prati izvršenje. Tabele obuhvataju autentikaciju, farme/članstva, izvorne sheetove, predloške i verzije, proizvodne periode, poslovne događaje, plaćanja, tri vrste evidencije zaliha, uparene prenose, potrošnju, kurseve, snapshot-e, statističke izvore/opažanja/revizije, kupce/ponude/zahteve i audit log. Privatne tabele imaju `farm_id`; složeni strani ključevi sprečavaju povezivanje tuđeg perioda/događaja. Autoritativna autorizacija je aplikaciona, ne PostgreSQL RLS; direktan pristup bazi poveravati samo operateru servera.
 

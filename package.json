@@ -15,6 +15,7 @@
     "import:inputs": "tsx scripts/import-inputs.ts",
     "import:rzs": "tsx scripts/import-rzs.ts",
     "collect:rzs": "tsx scripts/collect-rzs.ts",
+    "prepare:hosted-test": "tsx scripts/prepare-hosted-test.ts",
     "admin": "tsx scripts/admin.ts",
     "backup": "tsx scripts/backup.ts",
     "restore": "tsx scripts/restore.ts"
