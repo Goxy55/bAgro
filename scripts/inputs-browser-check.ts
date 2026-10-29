@@ -38,7 +38,22 @@ try {
   await page
     .getByRole("button", { name: "STIPS · cene inputa", exact: true })
     .click();
+  await page
+    .getByLabel("Mesto STIPS cene", { exact: true })
+    .selectOption("Beograd");
+  const searched = page.waitForResponse((r) => {
+    const u = new URL(r.url());
+    return (
+      u.pathname === "/api/admin/input-prices/prices" &&
+      u.searchParams.get("q") === "TEST NPK" &&
+      u.searchParams.get("place") === "Beograd"
+    );
+  });
   await page.getByLabel("Pretraga STIPS inputa").fill("TEST NPK");
+  await searched;
+  await page.waitForFunction(
+    () => document.querySelectorAll(".input-price-table tbody tr").length === 1,
+  );
   await page
     .getByRole("cell", { name: "TEST NPK (15:15:15)", exact: false })
     .waitFor();
@@ -103,6 +118,7 @@ try {
   await page
     .getByRole("button", { name: "Pripremi izabrane nacrte", exact: true })
     .click();
+  await page.locator(".pricing-manual > summary").click();
   await page.locator(".pricing-table").waitFor();
   await page
     .getByLabel("Pretraga zajedničkih stavki")

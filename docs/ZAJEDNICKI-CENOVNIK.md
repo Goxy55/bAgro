@@ -4,9 +4,11 @@ U **Administracija → Zajednički cenovnik** ista stavka i jedinica imaju jedno
 
 ## Rad kroz tabelu
 
+Za preuzete referentne cene početni tok je **Popuni cene iz STIPS-a**. Predlozi proizvoda, pakovanja i cena se prikazuju automatski pri otvaranju nacrta; izaberite samo nejasne veze i jednom potvrdite grupnu primenu. Izbor se pamti za sledeću verziju. Kartice **Predlozi**, **Bez STIPS cene** i **Već popunjene** skraćuju pregled. Detaljna matrica je pod **Ručni unos i raspored cena po kulturama**. [Pravila prepoznavanja, izvora i pakovanja](STIPS-INPUTI.md#primena-u-zajedničkom-cenovniku).
+
 1. Izaberite izvornu kategoriju, početno „Usevi“. Kategorije i nazivi iz izvornog Excela ostaju sačuvani.
 2. Ako nemate nacrte, izaberite kulture, izvornu verziju svake kulture, naziv nove serije, period i razlog. **Pripremi izabrane nacrte** pravi više nacrta odjednom. Normirane količine i izvorne ćelije ostaju iste, a nove cene su prazne. Ponovljen isti zahtev ne pravi duplikate.
-3. Izaberite po jedan nacrt za svaku kulturu, sa istim periodom, i otvorite zajedničku tabelu. Možete pretraživati redove.
+3. Izaberite po jedan nacrt za svaku kulturu, sa istim periodom, i otvorite zajedničku tabelu. Za ručni rad otvorite sklopljeni detalj; možete pretraživati redove.
 4. Unesite cenu jednom u odgovarajući red. Podržani su EUR i RSD i zajednički datum referentne cene/kursa. Kada potvrđujete nejasnu izvornu jedinicu, izaberite jasnu jedinicu i označite **Jedinica potvrđena**.
 5. Navedite razlog i izaberite **Sačuvaj cene u nacrtima**. Čuvaju se samo izmenjeni redovi, u svim prikazanim kulturama u kojima stavka postoji. Količine se ne prepisuju niti dele među kulturama.
 6. Dugme **Pregledaj [kulturu]** otvara pojedinačni normativ. Tu pregledajte osnovu, količine, jedinice, alternative, isključenja i sve ostale nalaze i eksplicitno aktivirajte kompletan model. Tabela zajedničkih cena sama ne aktivira normative.

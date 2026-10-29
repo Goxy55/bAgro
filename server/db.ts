@@ -63,6 +63,7 @@ export async function migrate() {
     "002_stips",
     "003_stips_inputs",
     "004_statistic_provenance",
+    "005_input_price_links",
   ]) {
     if (
       (

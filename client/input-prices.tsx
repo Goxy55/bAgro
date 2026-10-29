@@ -474,8 +474,9 @@ export function StipsInputAdmin() {
         <h2>Preuzete cene</h2>
         <InputPricesGrid refresh={refresh} />
         <p className="hint">
-          Za primenu otvorite Zajednički cenovnik i uz odgovarajuću stavku
-          izaberite „Izaberi STIPS cenu“.
+          Za grupnu primenu otvorite Zajednički cenovnik → „Popuni cene iz
+          STIPS-a“. Prepoznati proizvodi i potvrđene veze dobijaju predlog;
+          pojedinačni izbor ostaje dostupan u ručnom unosu.
         </p>
       </section>
     </>

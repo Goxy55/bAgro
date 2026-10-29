@@ -1841,6 +1841,77 @@ hr {
 .pricing-dirty {
   background: #f1f5e8;
 }
+.stips-suggestions {
+  min-width: 0;
+  padding: 20px 0;
+}
+.stips-suggestions h3 {
+  margin: 0 0 8px;
+}
+.stips-suggestions .table-scroll {
+  width: 100%;
+  margin: 16px 0;
+}
+.suggestions-table {
+  min-width: 940px;
+  table-layout: fixed;
+}
+.suggestions-table th,
+.suggestions-table td {
+  white-space: normal;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.suggestions-table th:nth-child(1) {
+  width: 23%;
+}
+.suggestions-table th:nth-child(2) {
+  width: 35%;
+}
+.suggestions-table th:nth-child(3) {
+  width: 23%;
+}
+.suggestions-table th:nth-child(4) {
+  width: 19%;
+}
+.suggestions-table tbody th {
+  font-weight: 400;
+  text-align: left;
+}
+.suggestions-table select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 9px;
+  border: 1px solid #d6dfcc;
+  border-radius: 8px;
+  background: white;
+}
+.suggestions-table small {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 400;
+}
+.suggestions-table details {
+  margin-top: 8px;
+  font-size: 11px;
+}
+.pending-price {
+  color: #855013;
+}
+.suggestion-approval {
+  margin: 16px 0;
+}
+.pricing-manual {
+  border-top: 1px solid #d6dfcc;
+  padding-top: 18px;
+}
+.pricing-manual > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 0 18px;
+}
 .input-prices-panel {
   min-width: 0;
 }

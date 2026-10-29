@@ -3,6 +3,7 @@ import { api } from "./api";
 import type { PricingRow, PricingTable } from "../shared/pricing";
 import type { InputReferenceSelection } from "../shared/inputs";
 import { InputPricePicker } from "./input-prices";
+import { StipsPriceSuggestions } from "./price-suggestions";
 
 type Any = any;
 type Edit = {
@@ -132,6 +133,27 @@ export function SharedPriceTable({
         ...value,
       },
     }));
+  }
+  async function saveRows(rows: any[], saveReason: string) {
+    if (!table) return;
+    const result = await api(
+      "/admin/pricing/table",
+      {
+        versionIds: table.versions.map((v) => v.id),
+        revision: table.revision,
+        date: priceDate,
+        reason: saveReason,
+        rows,
+      },
+      "PUT",
+    );
+    setTable(result.table);
+    setEdits({});
+    setWarnings(result.warnings);
+    await onDone();
+    setMessage(
+      `Cene su sačuvane u ${result.changedVersions} nacrta. Normirane količine nisu menjane.`,
+    );
   }
   return (
     <>
@@ -396,27 +418,13 @@ export function SharedPriceTable({
           onSubmit={(e) => {
             e.preventDefault();
             void run(async () => {
-              const result = await api(
-                "/admin/pricing/table",
-                {
-                  versionIds: table.versions.map((v) => v.id),
-                  revision: table.revision,
-                  date: priceDate,
-                  reason,
-                  rows: Object.entries(edits).map(([key, value]) => ({
-                    key,
-                    ...value,
-                    price: value.price === "" ? null : value.price,
-                  })),
-                },
-                "PUT",
-              );
-              setTable(result.table);
-              setEdits({});
-              setWarnings(result.warnings);
-              await onDone();
-              setMessage(
-                `Cene su sačuvane u ${result.changedVersions} nacrta. Normirane količine nisu menjane.`,
+              await saveRows(
+                Object.entries(edits).map(([key, value]) => ({
+                  key,
+                  ...value,
+                  price: value.price === "" ? null : value.price,
+                })),
+                reason,
               );
             });
           }}
@@ -433,330 +441,345 @@ export function SharedPriceTable({
               Nacrti · bez automatskog aktiviranja
             </span>
           </div>
-          <div className="form-grid">
+          <StipsPriceSuggestions
+            table={table}
+            disabled={busy || !!dirty}
+            onApply={(rows, why) => run(() => saveRows(rows, why))}
+          />
+          <details className="pricing-manual">
+            <summary>Ručni unos i raspored cena po kulturama</summary>
+            <div className="form-grid">
+              <label className="field">
+                <span>Pretraga stavki</span>
+                <input
+                  aria-label="Pretraga zajedničkih stavki"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Npr. NPK, oranje, seme…"
+                />
+              </label>
+              <label className="field">
+                <span>Datum referentne cene / kursa</span>
+                <input
+                  aria-label="Datum cene cenovnika"
+                  type="date"
+                  value={priceDate}
+                  onChange={(e) => setPriceDate(e.target.value)}
+                  required
+                  disabled={busy}
+                />
+              </label>
+            </div>
+            <p className="hint">
+              Količine i iznosi u kolonama odnose se na referentnu osnovu svake
+              karte. Red „Seme“ i drugi materijali zavisni od kulture imaju
+              zasebne cene. kg i t, kao i nejasne jedinice, ne spajaju se
+              automatski. Promena valute unosa koristi zvanični kurs za navedeni
+              datum.
+            </p>
+            <div
+              className="table-scroll pricing-scroll"
+              tabIndex={0}
+              role="region"
+              aria-label="Tabela zajedničkih cena po kulturama"
+            >
+              <table className="pricing-table">
+                <caption>
+                  Jedna cena po stavci i jedinici; količine po kulturama se ne
+                  menjaju.
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Vrsta troška / izvor</th>
+                    <th scope="col">Jedinična cena</th>
+                    <th scope="col">Jedinica mere</th>
+                    {table.versions.map((v) => (
+                      <th scope="col" key={v.id}>
+                        {v.name}
+                        <small>
+                          Za {v.reference} {v.basis}
+                        </small>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {table.rows
+                    .filter((row) =>
+                      row.name
+                        .toLocaleLowerCase()
+                        .includes(query.toLocaleLowerCase()),
+                    )
+                    .map((row) => {
+                      const edit = edits[row.key] || baseEdit(row);
+                      return (
+                        <tr
+                          key={row.key}
+                          data-price-row={row.key}
+                          className={edits[row.key] ? "pricing-dirty" : ""}
+                        >
+                          <th scope="row">
+                            <strong>{row.name}</strong>
+                            <small>
+                              {row.cultureSpecific
+                                ? "Cena zasebna za kulturu / kategoriju"
+                                : "Zajednička cena za prikazane kulture"}
+                            </small>
+                            <details>
+                              <summary>
+                                Izvorne stavke ({row.occurrences.length})
+                              </summary>
+                              {row.occurrences.map((o) => (
+                                <p key={o.versionId + o.itemId}>
+                                  {
+                                    table.versions.find(
+                                      (v) => v.id === o.versionId,
+                                    )?.name
+                                  }
+                                  : {o.sheet}!{o.quantityCell || o.itemId} ·
+                                  cena {o.priceCell || "ručni unos hraniva"}
+                                  <br />
+                                  {o.name}
+                                  {o.alternativeGroup
+                                    ? " · alternativa: " + o.alternativeGroup
+                                    : ""}
+                                  {o.lastInput
+                                    ? ` · poslednji unos ${o.lastInput.amount} ${o.lastInput.currency} (${o.lastInput.date})${o.lastInput.pendingRate ? " — čeka kurs" : ""}`
+                                    : ""}
+                                  {o.lastInput?.reference && (
+                                    <small className="input-price-reference">
+                                      STIPS: {o.lastInput.reference.product} ·{" "}
+                                      {o.lastInput.reference.place} ·{" "}
+                                      {o.lastInput.reference.periodStart.slice(
+                                        0,
+                                        7,
+                                      )}{" "}
+                                      · {o.lastInput.reference.sheet}!
+                                      {o.lastInput.reference.cell} ·{" "}
+                                      <a
+                                        href={o.lastInput.reference.sourceUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                      >
+                                        Izvor cene
+                                      </a>
+                                    </small>
+                                  )}
+                                </p>
+                              ))}
+                            </details>
+                          </th>
+                          <td>
+                            <label className="field">
+                              <span>Nova / važeća cena</span>
+                              <input
+                                aria-label={`Cena ${row.name}`}
+                                type="number"
+                                step="any"
+                                min="0"
+                                disabled={busy}
+                                value={edit.price}
+                                placeholder={
+                                  row.mixed
+                                    ? "Različite cene"
+                                    : "Nedostaje cena"
+                                }
+                                onChange={(e) =>
+                                  change(row, { price: e.target.value })
+                                }
+                              />
+                            </label>
+                            <label className="field">
+                              <span>Valuta unosa</span>
+                              <select
+                                aria-label={`Valuta ${row.name}`}
+                                value={edit.currency}
+                                disabled={busy}
+                                onChange={(e) =>
+                                  change(row, {
+                                    currency: e.target.value as "EUR" | "RSD",
+                                  })
+                                }
+                              >
+                                <option>EUR</option>
+                                <option>RSD</option>
+                              </select>
+                            </label>
+                            <small>
+                              {row.mixed
+                                ? "Postojeće cene se razlikuju; novi unos ih usklađuje."
+                                : `Sačuvano: ${number(row.priceEur)} EUR / jm`}
+                            </small>
+                            <button
+                              type="button"
+                              className="text-button"
+                              disabled={
+                                busy ||
+                                ![
+                                  "kg",
+                                  "t",
+                                  "l",
+                                  "kom",
+                                  "sj",
+                                  "biljka",
+                                ].includes(edit.unit)
+                              }
+                              onClick={() => setSourceRow(row)}
+                            >
+                              Izaberi STIPS cenu
+                            </button>
+                            {!["kg", "t", "l", "kom", "sj", "biljka"].includes(
+                              edit.unit,
+                            ) && (
+                              <small>
+                                Za izbor cene prvo izaberite jedinicu materijala
+                                u koloni „Jedinica mere“.
+                              </small>
+                            )}
+                            {edit.reference && (
+                              <small className="input-price-reference">
+                                Izabrano: {edit.referenceLabel} · {edit.price}{" "}
+                                RSD/{edit.unit} · datum kursa{" "}
+                                {edit.reference.date}
+                              </small>
+                            )}
+                            {/^0(?:\.0*)?$/.test(edit.price) && (
+                              <label className="field">
+                                <span>Razlog nulte cene</span>
+                                <input
+                                  aria-label={`Razlog nule ${row.name}`}
+                                  value={edit.zeroReason}
+                                  disabled={busy}
+                                  onChange={(e) =>
+                                    change(row, { zeroReason: e.target.value })
+                                  }
+                                  maxLength={300}
+                                />
+                              </label>
+                            )}
+                          </td>
+                          <td>
+                            <label className="field">
+                              <span>Jedinica</span>
+                              <select
+                                aria-label={`Jedinica ${row.name}`}
+                                value={edit.unit}
+                                disabled={busy}
+                                onChange={(e) =>
+                                  change(row, { unit: e.target.value })
+                                }
+                              >
+                                {!units.includes(row.unit) && (
+                                  <option value={row.unit}>
+                                    {row.unit || "Nije potvrđena"}
+                                  </option>
+                                )}
+                                {units.map((u) => (
+                                  <option key={u}>{u}</option>
+                                ))}
+                              </select>
+                            </label>
+                            <label className="checkbox">
+                              <input
+                                aria-label={`Potvrđena jedinica ${row.name}`}
+                                type="checkbox"
+                                checked={edit.confirmUnit}
+                                disabled={busy}
+                                onChange={(e) =>
+                                  change(row, { confirmUnit: e.target.checked })
+                                }
+                              />
+                              <span>Jedinica potvrđena</span>
+                            </label>
+                          </td>
+                          {table.versions.map((v) => (
+                            <td key={v.id}>
+                              {row.occurrences
+                                .filter((o) => o.versionId === v.id)
+                                .map((o) => (
+                                  <div className="pricing-cell" key={o.itemId}>
+                                    <strong>
+                                      {number(o.quantity)} {row.unit}
+                                    </strong>
+                                    <small>
+                                      {o.included
+                                        ? `${number(o.costEur)} EUR`
+                                        : "Isključena stavka"}
+                                    </small>
+                                    {!o.unitConfirmed && (
+                                      <small>Jedinica čeka proveru</small>
+                                    )}
+                                    {o.quantity === null && (
+                                      <small>Nedostaje osnova količine</small>
+                                    )}
+                                  </div>
+                                ))}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th scope="row" colSpan={3}>
+                      Zbir poznatih uključenih stavki · EUR
+                      <br />
+                      <small>Potpunost se proverava pre aktiviranja.</small>
+                    </th>
+                    {table.versions.map((v) => (
+                      <td key={v.id}>
+                        <strong>{number(v.knownCostEur)} EUR</strong>
+                        <small>
+                          {v.errors.length
+                            ? `${v.errors.length} nalaza za pregled`
+                            : "Kompletne stavke"}
+                        </small>
+                        <button
+                          type="button"
+                          className="text-button"
+                          disabled={busy || !!dirty}
+                          onClick={() => onEdit(v.id)}
+                        >
+                          Pregledaj {v.name}
+                        </button>
+                      </td>
+                    ))}
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
             <label className="field">
-              <span>Pretraga stavki</span>
+              <span>Razlog izmene zajedničkih cena</span>
               <input
-                aria-label="Pretraga zajedničkih stavki"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Npr. NPK, oranje, seme…"
-              />
-            </label>
-            <label className="field">
-              <span>Datum referentne cene / kursa</span>
-              <input
-                aria-label="Datum cene cenovnika"
-                type="date"
-                value={priceDate}
-                onChange={(e) => setPriceDate(e.target.value)}
+                aria-label="Razlog izmene zajedničkih cena"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
                 required
+                maxLength={300}
                 disabled={busy}
               />
             </label>
-          </div>
-          <p className="hint">
-            Količine i iznosi u kolonama odnose se na referentnu osnovu svake
-            karte. Red „Seme“ i drugi materijali zavisni od kulture imaju
-            zasebne cene. kg i t, kao i nejasne jedinice, ne spajaju se
-            automatski. Promena valute unosa koristi zvanični kurs za navedeni
-            datum.
-          </p>
-          <div
-            className="table-scroll pricing-scroll"
-            tabIndex={0}
-            role="region"
-            aria-label="Tabela zajedničkih cena po kulturama"
-          >
-            <table className="pricing-table">
-              <caption>
-                Jedna cena po stavci i jedinici; količine po kulturama se ne
-                menjaju.
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Vrsta troška / izvor</th>
-                  <th scope="col">Jedinična cena</th>
-                  <th scope="col">Jedinica mere</th>
-                  {table.versions.map((v) => (
-                    <th scope="col" key={v.id}>
-                      {v.name}
-                      <small>
-                        Za {v.reference} {v.basis}
-                      </small>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {table.rows
-                  .filter((row) =>
-                    row.name
-                      .toLocaleLowerCase()
-                      .includes(query.toLocaleLowerCase()),
-                  )
-                  .map((row) => {
-                    const edit = edits[row.key] || baseEdit(row);
-                    return (
-                      <tr
-                        key={row.key}
-                        data-price-row={row.key}
-                        className={edits[row.key] ? "pricing-dirty" : ""}
-                      >
-                        <th scope="row">
-                          <strong>{row.name}</strong>
-                          <small>
-                            {row.cultureSpecific
-                              ? "Cena zasebna za kulturu / kategoriju"
-                              : "Zajednička cena za prikazane kulture"}
-                          </small>
-                          <details>
-                            <summary>
-                              Izvorne stavke ({row.occurrences.length})
-                            </summary>
-                            {row.occurrences.map((o) => (
-                              <p key={o.versionId + o.itemId}>
-                                {
-                                  table.versions.find(
-                                    (v) => v.id === o.versionId,
-                                  )?.name
-                                }
-                                : {o.sheet}!{o.quantityCell || o.itemId} · cena{" "}
-                                {o.priceCell || "ručni unos hraniva"}
-                                <br />
-                                {o.name}
-                                {o.alternativeGroup
-                                  ? " · alternativa: " + o.alternativeGroup
-                                  : ""}
-                                {o.lastInput
-                                  ? ` · poslednji unos ${o.lastInput.amount} ${o.lastInput.currency} (${o.lastInput.date})${o.lastInput.pendingRate ? " — čeka kurs" : ""}`
-                                  : ""}
-                                {o.lastInput?.reference && (
-                                  <small className="input-price-reference">
-                                    STIPS: {o.lastInput.reference.product} ·{" "}
-                                    {o.lastInput.reference.place} ·{" "}
-                                    {o.lastInput.reference.periodStart.slice(
-                                      0,
-                                      7,
-                                    )}{" "}
-                                    · {o.lastInput.reference.sheet}!
-                                    {o.lastInput.reference.cell} ·{" "}
-                                    <a
-                                      href={o.lastInput.reference.sourceUrl}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                    >
-                                      Izvor cene
-                                    </a>
-                                  </small>
-                                )}
-                              </p>
-                            ))}
-                          </details>
-                        </th>
-                        <td>
-                          <label className="field">
-                            <span>Nova / važeća cena</span>
-                            <input
-                              aria-label={`Cena ${row.name}`}
-                              type="number"
-                              step="any"
-                              min="0"
-                              disabled={busy}
-                              value={edit.price}
-                              placeholder={
-                                row.mixed ? "Različite cene" : "Nedostaje cena"
-                              }
-                              onChange={(e) =>
-                                change(row, { price: e.target.value })
-                              }
-                            />
-                          </label>
-                          <label className="field">
-                            <span>Valuta unosa</span>
-                            <select
-                              aria-label={`Valuta ${row.name}`}
-                              value={edit.currency}
-                              disabled={busy}
-                              onChange={(e) =>
-                                change(row, {
-                                  currency: e.target.value as "EUR" | "RSD",
-                                })
-                              }
-                            >
-                              <option>EUR</option>
-                              <option>RSD</option>
-                            </select>
-                          </label>
-                          <small>
-                            {row.mixed
-                              ? "Postojeće cene se razlikuju; novi unos ih usklađuje."
-                              : `Sačuvano: ${number(row.priceEur)} EUR / jm`}
-                          </small>
-                          <button
-                            type="button"
-                            className="text-button"
-                            disabled={
-                              busy ||
-                              !["kg", "t", "l", "kom", "sj", "biljka"].includes(
-                                edit.unit,
-                              )
-                            }
-                            onClick={() => setSourceRow(row)}
-                          >
-                            Izaberi STIPS cenu
-                          </button>
-                          {!["kg", "t", "l", "kom", "sj", "biljka"].includes(
-                            edit.unit,
-                          ) && (
-                            <small>
-                              Za izbor cene prvo izaberite jedinicu materijala u
-                              koloni „Jedinica mere“.
-                            </small>
-                          )}
-                          {edit.reference && (
-                            <small className="input-price-reference">
-                              Izabrano: {edit.referenceLabel} · {edit.price}{" "}
-                              RSD/{edit.unit} · datum kursa{" "}
-                              {edit.reference.date}
-                            </small>
-                          )}
-                          {/^0(?:\.0*)?$/.test(edit.price) && (
-                            <label className="field">
-                              <span>Razlog nulte cene</span>
-                              <input
-                                aria-label={`Razlog nule ${row.name}`}
-                                value={edit.zeroReason}
-                                disabled={busy}
-                                onChange={(e) =>
-                                  change(row, { zeroReason: e.target.value })
-                                }
-                                maxLength={300}
-                              />
-                            </label>
-                          )}
-                        </td>
-                        <td>
-                          <label className="field">
-                            <span>Jedinica</span>
-                            <select
-                              aria-label={`Jedinica ${row.name}`}
-                              value={edit.unit}
-                              disabled={busy}
-                              onChange={(e) =>
-                                change(row, { unit: e.target.value })
-                              }
-                            >
-                              {!units.includes(row.unit) && (
-                                <option value={row.unit}>
-                                  {row.unit || "Nije potvrđena"}
-                                </option>
-                              )}
-                              {units.map((u) => (
-                                <option key={u}>{u}</option>
-                              ))}
-                            </select>
-                          </label>
-                          <label className="checkbox">
-                            <input
-                              aria-label={`Potvrđena jedinica ${row.name}`}
-                              type="checkbox"
-                              checked={edit.confirmUnit}
-                              disabled={busy}
-                              onChange={(e) =>
-                                change(row, { confirmUnit: e.target.checked })
-                              }
-                            />
-                            <span>Jedinica potvrđena</span>
-                          </label>
-                        </td>
-                        {table.versions.map((v) => (
-                          <td key={v.id}>
-                            {row.occurrences
-                              .filter((o) => o.versionId === v.id)
-                              .map((o) => (
-                                <div className="pricing-cell" key={o.itemId}>
-                                  <strong>
-                                    {number(o.quantity)} {row.unit}
-                                  </strong>
-                                  <small>
-                                    {o.included
-                                      ? `${number(o.costEur)} EUR`
-                                      : "Isključena stavka"}
-                                  </small>
-                                  {!o.unitConfirmed && (
-                                    <small>Jedinica čeka proveru</small>
-                                  )}
-                                  {o.quantity === null && (
-                                    <small>Nedostaje osnova količine</small>
-                                  )}
-                                </div>
-                              ))}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th scope="row" colSpan={3}>
-                    Zbir poznatih uključenih stavki · EUR
-                    <br />
-                    <small>Potpunost se proverava pre aktiviranja.</small>
-                  </th>
-                  {table.versions.map((v) => (
-                    <td key={v.id}>
-                      <strong>{number(v.knownCostEur)} EUR</strong>
-                      <small>
-                        {v.errors.length
-                          ? `${v.errors.length} nalaza za pregled`
-                          : "Kompletne stavke"}
-                      </small>
-                      <button
-                        type="button"
-                        className="text-button"
-                        disabled={busy || !!dirty}
-                        onClick={() => onEdit(v.id)}
-                      >
-                        Pregledaj {v.name}
-                      </button>
-                    </td>
-                  ))}
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-          <label className="field">
-            <span>Razlog izmene zajedničkih cena</span>
-            <input
-              aria-label="Razlog izmene zajedničkih cena"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              required
-              maxLength={300}
-              disabled={busy}
-            />
-          </label>
-          <div className="toolbar">
-            <button className="primary" disabled={busy || !dirty}>
-              {busy ? "Čuvanje…" : `Sačuvaj cene u nacrtima (${dirty})`}
-            </button>
-            <button
-              type="button"
-              className="secondary"
-              disabled={busy || !dirty}
-              onClick={() => setEdits({})}
-            >
-              Odbaci izmene
-            </button>
-          </div>
-          <p className="hint">
-            Čuvaju se samo izmenjeni redovi u svim prikazanim kulturama u kojima
-            stavka postoji. Prazna cena ostaje nepotpun podatak; nula zahteva
-            razlog. Količine, izbor alternativa i obuhvat troškova ostaju u
-            pojedinačnim kartama.
-          </p>
+            <div className="toolbar">
+              <button className="primary" disabled={busy || !dirty}>
+                {busy ? "Čuvanje…" : `Sačuvaj cene u nacrtima (${dirty})`}
+              </button>
+              <button
+                type="button"
+                className="secondary"
+                disabled={busy || !dirty}
+                onClick={() => setEdits({})}
+              >
+                Odbaci izmene
+              </button>
+            </div>
+            <p className="hint">
+              Čuvaju se samo izmenjeni redovi u svim prikazanim kulturama u
+              kojima stavka postoji. Prazna cena ostaje nepotpun podatak; nula
+              zahteva razlog. Količine, izbor alternativa i obuhvat troškova
+              ostaju u pojedinačnim kartama.
+            </p>
+          </details>
         </form>
       )}
     </>

@@ -32,6 +32,10 @@ try {
   await page
     .getByRole("button", { name: "Zajednički cenovnik", exact: true })
     .click();
+  if (!(await page.getByLabel("Izvor JEČAM", { exact: true }).isVisible()))
+    await page
+      .getByRole("button", { name: "Novi nacrti za više kultura", exact: true })
+      .click();
   await page.getByLabel("Izvor JEČAM", { exact: true }).check();
   await page.getByLabel("Izvor PŠENICA", { exact: true }).check();
   await page
@@ -45,6 +49,7 @@ try {
   await page
     .getByRole("button", { name: "Pripremi izabrane nacrte", exact: true })
     .click();
+  await page.locator(".pricing-manual > summary").click();
   await page.locator(".pricing-table").waitFor();
   await page
     .getByLabel("Pretraga zajedničkih stavki")
@@ -139,6 +144,7 @@ try {
   await page
     .getByRole("button", { name: "Otvori zajedničku tabelu", exact: true })
     .click();
+  await page.locator(".pricing-manual > summary").click();
   await page
     .getByLabel("Pretraga zajedničkih stavki")
     .fill("NPK đubrivo 15:15:15");

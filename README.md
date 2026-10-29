@@ -44,6 +44,8 @@ Nalog sa globalnom admin ulogom **ne dobija automatski pristup privatnim farmama
 
 U **Administracija → Zajednički cenovnik** pripremite nacrte za više kultura istog perioda i unosite cenu iste stavke jednom. Tabela zadržava posebne normirane količine i troškove u kolonama kultura. Podržani su EUR i RSD sa datumom kursa; seme različitih kultura i različite jedinice ostaju odvojeni. Čuvanje cena ne aktivira normative. Detaljno [uputstvo za zajednički cenovnik](docs/ZAJEDNICKI-CENOVNIK.md).
 
+**Popuni cene iz STIPS-a** sada automatski priprema predloge iz preuzetih cenovnika: proizvod, pakovanje, lokalno mesto, mesec i jediničnu RSD cenu. Jedna potvrda primenjuje izabrane cene u svim nacrtima i pamti veze za buduće verzije. Nepokrivene i već popunjene stavke imaju odvojene preglede, a ručna matrica je sklopljena. Nejasni proizvodi/osnove i istorijske reference traže pregled; [postupak i ograničenja](docs/STIPS-INPUTI.md#primena-u-zajedničkom-cenovniku).
+
 ### Standardni rad
 
 - Unesite ostvarenu površinu/broj grla i količinu proizvoda. Nacrt može biti nepotpun; završena evidencija pravi količinski ulaz na zalihu.

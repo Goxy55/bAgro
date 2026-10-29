@@ -6,6 +6,7 @@ import { id, text, date, dec, currency } from "../validation.js";
 import { D } from "../domain.js";
 import { rateFor } from "../reports.js";
 import { inputReferenceSchema, referencePrice } from "../inputs/service.js";
+import { costKey, suggestPrices } from "./suggestions.js";
 import {
   buildPricingTable,
   hash,
@@ -57,6 +58,38 @@ adminPricing.get("/table", async (req, res) => {
     { versions: selected },
   );
   res.json(table);
+});
+adminPricing.post("/stips-suggestions", async (req: any, res) => {
+  const b = z
+    .object({
+      versionIds: ids,
+      revision: z.string().regex(/^[a-f0-9]{64}$/),
+      asOf: date,
+      place: z.string().trim().max(100).optional(),
+      includeExisting: z.boolean().default(false),
+    })
+    .parse(req.body);
+  if (b.asOf > new Date().toISOString().slice(0, 10))
+    throw Error("Datum izbora STIPS cena ne može biti u budućnosti.");
+  const table = buildPricingTable(await versions(db, b.versionIds));
+  if (table.revision !== b.revision)
+    throw conflict(
+      "Cenovnik je u međuvremenu promenjen. Ponovo otvorite tabelu.",
+    );
+  const result = await suggestPrices(db, table, b);
+  await audit(
+    db,
+    req.user.id,
+    "stips_price_suggestions",
+    "shared_price_table",
+    {
+      versionIds: b.versionIds,
+      asOf: b.asOf,
+      place: result.place,
+      matched: result.rows.filter((r) => r.status === "matched").length,
+    },
+  );
+  res.json(result);
 });
 adminPricing.post("/drafts", async (req: any, res) => {
   const b = z
@@ -222,6 +255,43 @@ adminPricing.put("/table", async (req: any, res) => {
         warnings.push(
           `${row.name}: unos RSD je sačuvan, ali nedostaje zvanični kurs za ${priceDate}; EUR cena ostaje prazna.`,
         );
+      if (source) {
+        const key = costKey(row),
+          previous = (
+            await tx.query(
+              "SELECT * FROM input_price_links WHERE cost_key=$1 AND unit=$2",
+              [key, unit],
+            )
+          ).rows[0];
+        await tx.query(
+          `INSERT INTO input_price_links(cost_key,unit,product,manufacturer,packaging,units_per_price,observation_id,updated_by)
+           VALUES($1,$2,$3,$4,$5,$6,$7,$8)
+           ON CONFLICT(cost_key,unit) DO UPDATE SET product=EXCLUDED.product,manufacturer=EXCLUDED.manufacturer,packaging=EXCLUDED.packaging,units_per_price=EXCLUDED.units_per_price,observation_id=EXCLUDED.observation_id,updated_by=EXCLUDED.updated_by,updated_at=now()`,
+          [
+            key,
+            unit,
+            source.snapshot.product,
+            source.snapshot.manufacturer,
+            source.snapshot.packaging,
+            r.reference!.unitsPerPrice,
+            source.snapshot.observationId,
+            req.user.id,
+          ],
+        );
+        await audit(tx, req.user.id, "stips_price_link", key, {
+          batchId,
+          reason: b.reason,
+          before: previous || null,
+          after: {
+            unit,
+            product: source.snapshot.product,
+            manufacturer: source.snapshot.manufacturer,
+            packaging: source.snapshot.packaging,
+            unitsPerPrice: r.reference!.unitsPerPrice,
+            observationId: source.snapshot.observationId,
+          },
+        });
+      }
       for (const v of selected) {
         const changes: any[] = [];
         const memberIds = new Set(

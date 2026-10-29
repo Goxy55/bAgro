@@ -6,7 +6,7 @@ Sa nove putanje prošli su `npm ci --cache /tmp/agro-npm-cache`, `npm run build`
 
 - `npm ci`: uspešna instalacija zaključanih zavisnosti.
 - `npm run build`: stroga TypeScript provera i produkcioni frontend build prolaze.
-- `npm test`: **57 prolazi, 0 pada, 0 preskočeno**. Test baze i sintetički TEST podaci su u odvojenom privremenom direktorijumu. Uključena je provera zahteva za javni HTTPS, adresu aplikacije, tajnu i eksplicitno poverenje u proxy, kao i zajednički admin cenovnik.
+- `npm test`: **85 prolazi, 0 pada, 0 preskočeno**. Test baze i sintetički TEST podaci su u odvojenom privremenom direktorijumu. Uključena je provera zahteva za javni HTTPS, adresu aplikacije, tajnu i eksplicitno poverenje u proxy, zajednički admin cenovnik i grupni STIPS predlozi.
 - Ekstrakcija: 10 originalnih sheetova, 88 predložaka, 44 spoljne formule, 342 zabeležena nalaza. Svih pet zadatih istorijskih regresija prolazi toleranciju 0,000001 EUR.
 - Originalni XLSX je bajt-po-bajt upoređen sa prilogom; SHA-256 je `422571958ad758ed1eaf206cce6b5751b4dc4546629940a7edad9aff53314a5a`.
 - Browser: registracija, otvaranje gazdinstva, unos proizvodnje, nacrt i ponovna dopuna prodaje, tržišno prazno stanje, reload sesije, 390px telefon bez horizontalnog skrola. Nema browser pageerror-a. Izvršeno na razvojnom i lokalnom produkcionom serveru, sa odvojenom test bazom.
@@ -40,3 +40,15 @@ Cene 2017 ostaju arhiva. Stvarni aktuelni cenovnici i zvanične kursne liste zah
 - Posle restarta samo aplikacionog procesa ostali su važeća sesija, poslovni podaci, snapshot i izolacija dve farme.
 
 Stvarni Render deploy, njegovi memorijski limiti, HTTPS/proxy, DNS, SMTP i Render backup/restore čekaju vlasnikov nalog i proveru prve objave. Lokalna provera PostgreSQL-a ne potvrđuje te spoljne usluge. [Postupak i cena](RENDER.md), [koraci za testere](USER-TESTING.md).
+
+## Grupno povezivanje STIPS cena — 29.10.2026.
+
+Migracija `005_input_price_links.sql` dodaje potvrđene veze materijala, jedinice, proizvoda/proizvođača, pakovanja i delioca, bez izmene privatnih poslovnih zapisa ili originalnog Excela. Ponovljena migracija čuva postojeću bazu.
+
+Prošlo je svih 85 testova i produkcioni build. Pokriveni su: nedvosmisleni nazivi, različite formulacije i nutritivni procenti, kg/g/t naspram l/ml, nejasne setvene jedinice, seme naspram stočne hrane, lokalno mesto i izvorni period, više ponuda, čuvanje postojećih cena, nedostajući kurs uz sačuvan RSD, zaštita zastarelog prozora, prava pristupa i poništavanje cele transakcije pri grešci. Poziv predloga ne popunjava bazu normativa i ne aktivira verzije.
+
+Browser provera na zasebnom lokalnom produkcionom serveru proverava automatski predlog, primenu na ječam/pšenicu, poreklo i konverziju, trajnost posle reload-a i pamćenje veze za sledeći izbor. Više operacija istog materijala prikazuje se kao jedna odluka o ceni uz zasebne očuvane količine. Telefon 390 px nema horizontalno prekoračenje stranice, a sve kolone ostaju dostupne u tabeli. Slike u `docs/screens/stips-suggestions-*.png` su sintetički označene.
+
+Ponovljene su i postojeće browser provere zajedničke ručne cene i pojedinačnog STIPS izbora: čuvanje/reload, različita semena, eksplicitna osnova, kurs izvornog meseca, poreklo, Escape i mobilni prikaz prolaze. Skripte otvaraju novi sklopljeni detalj kada testiraju ručnu matricu.
+
+Svih 21 ranije preuzetih javnih STIPS XLS/XLSX originala uvezeno je u odvojenu bazu i provereno povezivanje sa svih 88 predložaka, bez aktiviranja normativa, upisa cena u njihove modele ili dodavanja kurseva. [Javni audit pokrivenosti](../source/stips-price-coverage-2026-10-29.json) navodi stvarni obuhvat za Beograd / 29.10.2026. Pesticidi, đubriva i semenski cenovnici ne pokrivaju sve operacije i stočarska hraniva. Ova provera nije novo mrežno osvežavanje.
