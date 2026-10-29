@@ -3195,14 +3195,26 @@ function Admin({ onDone }: Any) {
                     88 predložaka · 10 izvornih sheetova · original bez izmena
                   </p>
                 </div>
-                <Form
-                  label="Ponovi idempotentan uvoz"
-                  secondary
-                  onSubmit={async () => {
-                    await api("/admin/import", {});
-                    await done();
-                  }}
-                />
+                <div className="toolbar">
+                  <button
+                    type="button"
+                    className="primary"
+                    onClick={() => {
+                      setTab("pricing");
+                      setVersion(null);
+                    }}
+                  >
+                    Popuni cenovnik iz STIPS-a
+                  </button>
+                  <Form
+                    label="Ponovi idempotentan uvoz"
+                    secondary
+                    onSubmit={async () => {
+                      await api("/admin/import", {});
+                      await done();
+                    }}
+                  />
+                </div>
               </div>
               <div className="filter-row">
                 <Field

@@ -46,8 +46,11 @@ try {
     .getByRole("button", { name: "Administracija", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Zajednički cenovnik", exact: true })
+    .getByRole("button", { name: "Popuni cenovnik iz STIPS-a", exact: true })
     .click();
+  await page
+    .getByRole("heading", { name: "Popuni cene iz STIPS-a", exact: true })
+    .waitFor();
   await page.getByLabel("Izvor JEČAM", { exact: true }).check();
   await page.getByLabel("Izvor PŠENICA", { exact: true }).check();
   await page

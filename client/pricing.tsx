@@ -157,6 +157,32 @@ export function SharedPriceTable({
   }
   return (
     <>
+      {!table && (
+        <section
+          className="panel pricing-panel"
+          aria-labelledby="stips-start-title"
+        >
+          <h2 id="stips-start-title">Popuni cene iz STIPS-a</h2>
+          <p>
+            Predlozi cena prikazuju se kada otvorite nacrte za izabrane kulture.
+          </p>
+          <ol>
+            <li>
+              Ako već imate nacrte, označite po jedan za svaku kulturu i
+              kliknite <strong>Otvori zajedničku tabelu</strong>.
+            </li>
+            <li>
+              Za novi cenovnik izaberite kulture, naziv i period u odeljku{" "}
+              <strong>Novi nacrti za više kultura</strong>, pa kliknite{" "}
+              <strong>Pripremi izabrane nacrte</strong>.
+            </li>
+            <li>
+              U otvorenom cenovniku pregledajte STIPS predloge i potvrdite
+              grupnu primenu cena.
+            </li>
+          </ol>
+        </section>
+      )}
       {sourceRow && table && (
         <InputPricePicker
           name={sourceRow.name}

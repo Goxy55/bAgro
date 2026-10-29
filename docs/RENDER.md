@@ -58,6 +58,16 @@ Za testiranje unosa, navigacije, nacrta i praznih stanja dovoljna je sveža inst
 
 U Render **Environment** podesite `SMTP_URL` i `MAIL_FROM` iz svog email servisa pre testiranja zaboravljene lozinke. Registracija i prijava rade bez SMTP-a, ali produkciono slanje reset poruke tada nije spremno. Lozinke, SMTP podatke i sesijsku tajnu unosite samo u privatna polja okruženja, ne u poruke ili Git.
 
+## Kada objavljena aplikacija ne prikazuje novu funkciju
+
+Uspešan GitHub commit/CI nije dokaz da je Render već objavio taj kod. U Render dashboard-u otvorite postojeći web servis **agro-portal-test → Events** i proverite commit poslednjeg uspešnog deploy-a. Ako je stariji od grane `main`, izaberite **Manual Deploy → Deploy latest commit**. Ta radnja objavljuje kod na postojećem servisu; nije potrebno praviti novu bazu, ponovo se registrovati ili brisati poslovne podatke.
+
+Sačekajte **Live**, pa osvežite stranicu sa `Ctrl+Shift+R` (na macOS-u `Cmd+Shift+R`). Ako deploy ne uspe, prethodna verzija može ostati dostupna; pregledajte prvi konkretan uzrok u **Logs / Events**. Ne delite tokene ili konekcione stringove iz logova.
+
+Za dalje automatske objave proverite da servis koristi repozitorijum `Goxy55/bAgro`, granu `main` i Auto-Deploy opciju za objavu posle uspešnih provera. Postavke korenskog Blueprint-a treba da budu primenjene na upravo taj servis; sačuvan `render.yaml` sam po sebi ne menja ručno kreiran servis ili neprimenjenu Blueprint izmenu.
+
+Novom prikazu pristupa administrator preko **Administracija → Popuni cenovnik iz STIPS-a** ili **Zajednički cenovnik**. Predlozi se otvaraju nakon izbora/pripreme nacrta. Ako nalog nema stavku Administracija, proverite dodelu uloge postojećem nalogu opisanu iznad.
+
 ## Sopstveni domen, kasnije
 
 Prvo proverite rad preko dodeljenog `onrender.com` linka. Zatim u Render **Settings → Custom Domains** dodajte `agroportal.fitkoncept.rs`. U DNS panelu svog domena unesite baš zapis koji Render prikaže za taj poddomen; nije potrebno premeštati glavni sajt ili ceo domen. Sačekajte potvrdu DNS-a i HTTPS sertifikata.
