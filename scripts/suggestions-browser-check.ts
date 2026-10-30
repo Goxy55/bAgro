@@ -48,6 +48,7 @@ try {
   await page
     .getByRole("button", { name: "Popuni cenovnik iz STIPS-a", exact: true })
     .click();
+  await page.locator(".legacy-pricing > summary").click();
   await page
     .getByRole("heading", { name: "Popuni cene iz STIPS-a", exact: true })
     .waitFor();
@@ -80,7 +81,7 @@ try {
   );
   assert.equal(
     await page
-      .getByRole("button", { name: /^Primeni STIPS cene u nacrtima/ })
+      .getByRole("button", { name: /^Primeni referentne cene u cenovniku/ })
       .isDisabled(),
     true,
   );
@@ -122,14 +123,14 @@ try {
     fullPage: true,
   });
   await page.setViewportSize({ width: 1440, height: 1080 });
-  await page.getByLabel("Potvrđujem STIPS proizvode i osnovu cene").check();
+  await page.getByLabel("Potvrđujem referentne proizvode i osnovu cene").check();
   const saved = page.waitForResponse(
     (r) =>
       r.url().endsWith("/api/admin/pricing/table") &&
       r.request().method() === "PUT",
   );
   await page
-    .getByRole("button", { name: /^Primeni STIPS cene u nacrtima/ })
+    .getByRole("button", { name: /^Primeni referentne cene u cenovniku/ })
     .click();
   const response = await saved;
   assert.equal(response.status(), 200);
@@ -163,6 +164,7 @@ try {
   await page
     .getByRole("button", { name: "Zajednički cenovnik", exact: true })
     .click();
+  await page.locator(".legacy-pricing > summary").click();
   for (const input of await page
     .locator(".pricing-drafts input[type=checkbox]")
     .all())
@@ -188,7 +190,7 @@ try {
     .waitFor();
   assert.equal(
     await page
-      .getByLabel("Potvrđujem STIPS proizvode i osnovu cene")
+      .getByLabel("Potvrđujem referentne proizvode i osnovu cene")
       .isChecked(),
     false,
   );
@@ -238,14 +240,14 @@ try {
   await page
     .getByLabel("Osnova STIPS cene za NPK đubrivo 15:15:15", { exact: true })
     .fill("50");
-  await page.getByLabel("Potvrđujem STIPS proizvode i osnovu cene").check();
+  await page.getByLabel("Potvrđujem referentne proizvode i osnovu cene").check();
   const groupedSave = page.waitForResponse(
     (r) =>
       r.url().endsWith("/api/admin/pricing/table") &&
       r.request().method() === "PUT",
   );
   await page
-    .getByRole("button", { name: /^Primeni STIPS cene u nacrtima/ })
+    .getByRole("button", { name: /^Primeni referentne cene u cenovniku/ })
     .click();
   const groupedResponse = await groupedSave;
   assert.equal(groupedResponse.status(), 200);

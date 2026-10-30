@@ -1,3 +1,4 @@
+import { todayInSerbia } from "../shared/dates";
 import React, { useMemo, useRef, useState } from "react";
 import { api } from "./api";
 import type { PricingRow, PricingTable } from "../shared/pricing";
@@ -362,7 +363,7 @@ export function SharedPriceTable({
                   aria-label="Cenovnik važi od"
                   name="validFrom"
                   type="date"
-                  defaultValue={`${new Date().getFullYear()}-01-01`}
+                  defaultValue={`${Number(todayInSerbia().slice(0, 4))}-01-01`}
                   required
                 />
               </label>
@@ -372,7 +373,7 @@ export function SharedPriceTable({
                   aria-label="Cenovnik važi do"
                   name="validTo"
                   type="date"
-                  defaultValue={`${new Date().getFullYear()}-12-31`}
+                  defaultValue={`${Number(todayInSerbia().slice(0, 4))}-12-31`}
                   required
                 />
               </label>

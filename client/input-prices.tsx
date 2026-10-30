@@ -1,3 +1,4 @@
+import { todayInSerbia } from "../shared/dates";
 import React, { useEffect, useRef, useState } from "react";
 import { api } from "./api";
 import type { InputReferenceSelection } from "../shared/inputs";
@@ -33,7 +34,7 @@ export function InputPricesGrid({
   refresh?: number;
   initialQuery?: string;
 }) {
-  const [year, setYear] = useState(String(new Date().getFullYear())),
+  const [year, setYear] = useState(String(Number(todayInSerbia().slice(0, 4)))),
     [category, setCategory] = useState(""),
     [place, setPlace] = useState(""),
     [query, setQuery] = useState(initialQuery),
@@ -62,7 +63,7 @@ export function InputPricesGrid({
       clearTimeout(timer);
     };
   }, [year, category, place, query, status, page, refresh]);
-  const currentYear = new Date().getFullYear();
+  const currentYear = Number(todayInSerbia().slice(0, 4));
   return (
     <>
       <div className="form-grid">
@@ -267,7 +268,7 @@ export function InputPricesGrid({
 export function StipsInputAdmin() {
   const [data, setData] = useState<Any>(),
     [reports, setReports] = useState<Any[]>([]),
-    [year, setYear] = useState(String(new Date().getFullYear())),
+    [year, setYear] = useState(String(Number(todayInSerbia().slice(0, 4)))),
     [selected, setSelected] = useState<string[]>([]),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
@@ -323,8 +324,13 @@ export function StipsInputAdmin() {
               }}
             >
               {Array.from(
-                { length: Math.max(1, new Date().getFullYear() - 2008) },
-                (_, i) => new Date().getFullYear() - i,
+                {
+                  length: Math.max(
+                    1,
+                    Number(todayInSerbia().slice(0, 4)) - 2008,
+                  ),
+                },
+                (_, i) => Number(todayInSerbia().slice(0, 4)) - i,
               ).map((y) => (
                 <option key={y}>{y}</option>
               ))}

@@ -4,9 +4,17 @@ import { z } from "zod";
 import { db, transaction, type Conn } from "../db.js";
 import { id, text, date, dec, currency } from "../validation.js";
 import { D } from "../domain.js";
+import { todayInSerbia } from "../../shared/dates.js";
 import { rateFor } from "../reports.js";
 import { inputReferenceSchema, referencePrice } from "../inputs/service.js";
 import { costKey, suggestPrices } from "./suggestions.js";
+import {
+  rzsReferenceSchema,
+  rzsReferencePrice,
+  retrieveRzsPrices,
+  ingestRzsPrices,
+  rzsPriceUrl,
+} from "./rzs-prices.js";
 import {
   buildPricingTable,
   hash,
@@ -16,6 +24,26 @@ import {
 } from "./model.js";
 
 export const adminPricing = Router();
+adminPricing.get("/rzs-prices", async (req: any, res) => {
+  const rows = (
+    await db.query(
+      "SELECT count(*)::int AS count,max(year) AS latest_year FROM rzs_reference_prices",
+    )
+  ).rows[0];
+  const document = (
+    await db.query(
+      "SELECT source_url,retrieved_at,sha256 FROM rzs_price_documents ORDER BY retrieved_at DESC LIMIT 1",
+    )
+  ).rows[0];
+  await audit(db, req.user.id, "admin_price_read", "rzs_reference_prices", {});
+  res.json({ ...rows, document: document || null, source: rzsPriceUrl });
+});
+adminPricing.post("/rzs-prices/refresh", async (req: any, res) => {
+  const content = await retrieveRzsPrices();
+  res.json(
+    await transaction((tx) => ingestRzsPrices(tx, content, req.user.id)),
+  );
+});
 const ids = z
   .array(id)
   .min(1)
@@ -33,6 +61,28 @@ async function versions(conn: Conn, selected: string[], lock = false) {
   ).rows;
   if (rows.length !== selected.length)
     throw Error("Jedna od izabranih verzija ne postoji.");
+  const bookIds = [
+    ...new Set(rows.map((v) => v.price_book_id).filter(Boolean)),
+  ];
+  if (bookIds.length) {
+    if (
+      bookIds.length !== 1 ||
+      rows.some((v) => v.price_book_id !== bookIds[0])
+    )
+      throw Error(
+        "Zajednički cenovnik se otvara u celini, bez mešanja različitih cenovnika.",
+      );
+    const count = (
+      await conn.query(
+        "SELECT count(*)::int AS count FROM norm_versions WHERE price_book_id=$1",
+        [bookIds[0]],
+      )
+    ).rows[0].count;
+    if (count !== rows.length)
+      throw Error(
+        "Otvorite ceo imenovani cenovnik. Cene se raspoređuju na sve njegove kulture.",
+      );
+  }
   return rows;
 }
 async function audit(
@@ -69,7 +119,7 @@ adminPricing.post("/stips-suggestions", async (req: any, res) => {
       includeExisting: z.boolean().default(false),
     })
     .parse(req.body);
-  if (b.asOf > new Date().toISOString().slice(0, 10))
+  if (b.asOf > todayInSerbia())
     throw Error("Datum izbora STIPS cena ne može biti u budućnosti.");
   const table = buildPricingTable(await versions(db, b.versionIds));
   if (table.revision !== b.revision)
@@ -187,6 +237,7 @@ adminPricing.put("/table", async (req: any, res) => {
             confirmUnit: z.boolean(),
             zeroReason: z.string().trim().max(300).default(""),
             reference: inputReferenceSchema.optional(),
+            rzsReference: rzsReferenceSchema.optional(),
           }),
         )
         .min(1)
@@ -226,9 +277,13 @@ adminPricing.put("/table", async (req: any, res) => {
         row.occurrences.some((o) => o.quantity === null || D(o.quantity).gt(0))
       )
         throw Error(`${row.name}: nulta cena zahteva izričit razlog.`);
-      const source = r.reference
-        ? await referencePrice(tx, r.reference, unit, table.validFrom)
-        : null;
+      if (r.reference && r.rzsReference)
+        throw Error("Izaberite jedan izvor cene.");
+      const source = r.rzsReference
+        ? await rzsReferencePrice(tx, r.rzsReference, unit, table.validFrom)
+        : r.reference
+          ? await referencePrice(tx, r.reference, unit, table.validFrom)
+          : null;
       if (
         source &&
         (r.currency !== "RSD" ||
@@ -236,7 +291,7 @@ adminPricing.put("/table", async (req: any, res) => {
           !D(r.price).eq(source.amount))
       )
         throw Error(
-          "Izabrana STIPS cena ne odgovara unosu. Ponovite izbor izvora ili uklonite vezu ručnom izmenom cene.",
+          "Izabrana referentna cena ne odgovara unosu. Ponovite izbor izvora ili uklonite vezu ručnom izmenom cene.",
         );
       const priceDate = source?.date || b.date;
       const amount =
@@ -255,7 +310,38 @@ adminPricing.put("/table", async (req: any, res) => {
         warnings.push(
           `${row.name}: unos RSD je sačuvan, ali nedostaje zvanični kurs za ${priceDate}; EUR cena ostaje prazna.`,
         );
-      if (source) {
+      if (source && r.rzsReference) {
+        const key = costKey(row);
+        const before = (
+          await tx.query(
+            "SELECT * FROM rzs_input_links WHERE cost_key=$1 AND unit=$2",
+            [key, unit],
+          )
+        ).rows[0];
+        await tx.query(
+          "INSERT INTO rzs_input_links(cost_key,unit,source_unit,product,observation_id,updated_by) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(cost_key,unit) DO UPDATE SET source_unit=EXCLUDED.source_unit,product=EXCLUDED.product,observation_id=EXCLUDED.observation_id,updated_by=EXCLUDED.updated_by,updated_at=now()",
+          [
+            key,
+            unit,
+            r.rzsReference.sourceUnit,
+            source.snapshot.product,
+            r.rzsReference.observationId,
+            req.user.id,
+          ],
+        );
+        await audit(tx, req.user.id, "rzs_price_link", key, {
+          batchId,
+          reason: b.reason,
+          before: before || null,
+          after: {
+            unit,
+            sourceUnit: r.rzsReference.sourceUnit,
+            product: source.snapshot.product,
+            observationId: r.rzsReference.observationId,
+          },
+        });
+      }
+      if (source && r.reference) {
         const key = costKey(row),
           previous = (
             await tx.query(
@@ -271,8 +357,8 @@ adminPricing.put("/table", async (req: any, res) => {
             key,
             unit,
             source.snapshot.product,
-            source.snapshot.manufacturer,
-            source.snapshot.packaging,
+            (source.snapshot as any).manufacturer,
+            (source.snapshot as any).packaging,
             r.reference!.unitsPerPrice,
             source.snapshot.observationId,
             req.user.id,
@@ -285,8 +371,8 @@ adminPricing.put("/table", async (req: any, res) => {
           after: {
             unit,
             product: source.snapshot.product,
-            manufacturer: source.snapshot.manufacturer,
-            packaging: source.snapshot.packaging,
+            manufacturer: (source.snapshot as any).manufacturer,
+            packaging: (source.snapshot as any).packaging,
             unitsPerPrice: r.reference!.unitsPerPrice,
             observationId: source.snapshot.observationId,
           },

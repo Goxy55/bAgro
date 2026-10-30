@@ -29,6 +29,8 @@ import { api, download, selectFarm } from "./api";
 import "./styles.css";
 import { StipsAdmin, StipsMarket } from "./stips";
 import { StipsInputAdmin } from "./input-prices";
+import { PriceBooks } from "./price-books";
+import { todayInSerbia } from "../shared/dates";
 import { SharedPriceTable } from "./pricing";
 type Any = any;
 const number = (v: Any, digits = 2) =>
@@ -38,8 +40,8 @@ const number = (v: Any, digits = 2) =>
         maximumFractionDigits: digits,
         minimumFractionDigits: digits,
       }).format(Number(v));
-const today = () => new Date().toISOString().slice(0, 10);
-const year = () => new Date().getFullYear();
+const today = todayInSerbia;
+const year = () => Number(today().slice(0, 4));
 const labels: Record<string, string> = {
   sale: "Prodaja",
   cost: "Trošak",
@@ -1573,7 +1575,9 @@ function ProductionForm({ boot, onDone, existing }: Any) {
       />
       <p className="hint">
         Normativni rezultat ostaje nepotpun dok administrator ne odobri
-        kompletan cenovnik i kurs.
+        kompletan cenovnik i kurs. Kurs normativa proverava se za „Kraj
+        perioda“; ako je taj datum u budućnosti, završni preračun ostaje
+        nepotpun.
       </p>
     </Form>
   );
@@ -1767,9 +1771,21 @@ function ProductionDetail({
               </p>
               <p>
                 Kursna lista:{" "}
-                {r.norm.money?.rateDate || "Nema potvrđenog kursa"}
+                {r.norm.exchangeRate?.validFrom ||
+                  r.norm.money?.rateDate ||
+                  "Nedostaje lista za datum obračuna"}
               </p>
-              <p>Kurs EUR/RSD: {r.norm.money?.rate || "—"}</p>
+              <p>Datum obračuna kursa: {r.norm.exchangeRate?.date || "—"}</p>
+              <p>
+                Kurs EUR/RSD:{" "}
+                {r.norm.exchangeRate?.value || r.norm.money?.rate || "—"}
+              </p>
+              {r.norm.exchangeRate?.value && !r.norm.money && (
+                <p className="hint">
+                  Kurs postoji. Obračun čeka kompletan odobren troškovnik i
+                  proizvodne podatke.
+                </p>
+              )}
               <p className="hint">{data.report.coverage}</p>
               <button className="secondary" onClick={() => setModal("export")}>
                 <Download size={16} />
@@ -3165,14 +3181,26 @@ function Admin({ onDone }: Any) {
         ))}
       </div>
       {tab === "pricing" && (
-        <SharedPriceTable
-          data={data}
-          onDone={done}
-          onEdit={(id: string) => {
-            setVersion(data.versions.find((v: Any) => v.id === id));
-            setTab("catalog");
-          }}
-        />
+        <>
+          <PriceBooks
+            onDone={done}
+            onEdit={(id: string) => {
+              setVersion(data.versions.find((v: Any) => v.id === id));
+              setTab("catalog");
+            }}
+          />
+          <details className="legacy-pricing">
+            <summary>Napredni izbor pojedinačnih nacrta</summary>
+            <SharedPriceTable
+              data={data}
+              onDone={done}
+              onEdit={(id: string) => {
+                setVersion(data.versions.find((v: Any) => v.id === id));
+                setTab("catalog");
+              }}
+            />
+          </details>
+        </>
       )}
       {tab === "inputPrices" && <StipsInputAdmin />}
       {tab === "catalog" &&
@@ -3370,8 +3398,11 @@ function Admin({ onDone }: Any) {
             </p>
             <Form
               onSubmit={async (v: Any) => {
-                await api("/admin/rates", v);
+                const result = await api("/admin/rates", v);
                 await done();
+                setMessage(
+                  `Kurs je sačuvan. Preračunato stavki koje su čekale kurs: ${result.reconciled.items} u ${result.reconciled.versions} nacrta.`,
+                );
               }}
             >
               <div className="form-grid">

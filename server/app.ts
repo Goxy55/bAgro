@@ -1,3 +1,4 @@
+import { todayInSerbia } from "../shared/dates.js";
 import express from "express";
 import { toNodeHandler, fromNodeHeaders } from "better-auth/node";
 import { randomUUID } from "node:crypto";
@@ -26,6 +27,8 @@ import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
 import { importStatistics } from "./statistics.js";
 import { versionRevision, type PricingVersion } from "./pricing/model.js";
+import { reconcileDraftRates } from "./pricing/rates.js";
+import { adminPriceBooks } from "./pricing/books.js";
 export const app = express();
 app.disable("x-powered-by");
 app.set("trust proxy", runtime.trustProxyHops);
@@ -1098,7 +1101,7 @@ app.get("/api/market", async (_req, res) => {
       ...s,
       summary: fiveYears(
         observations.filter((o) => o.series_id === s.id),
-        new Date().getUTCFullYear(),
+        Number(todayInSerbia().slice(0, 4)),
       ),
     })),
     buyers: (await db.query("SELECT * FROM buyers")).rows,
@@ -1118,6 +1121,7 @@ app.use("/api/admin", (req: any, res, next) =>
 );
 app.use("/api/admin/stips", adminStips);
 app.use("/api/admin/pricing", adminPricing);
+app.use("/api/admin/price-books", adminPriceBooks);
 app.use("/api/admin/input-prices", adminInputPrices);
 app.get("/api/admin", async (req: any, res) => {
   await audit(db, req.user.id, null, "admin_read", "catalog");
@@ -1224,6 +1228,10 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
         ),
         { status: 409 },
       );
+    if (b.activate && v.price_book_id)
+      throw Error(
+        "Ovaj normativ pripada zajedničkom cenovniku. Aktivirajte cenovnik jednom za sve kulture.",
+      );
     for (const item of b.model.items) {
       const old = v.model.items.find((i: any) => i.id === item.id);
       if (
@@ -1268,6 +1276,16 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
 app.post("/api/admin/versions/:id/archive", async (req: any, res) => {
   const reason = text.parse(req.body.reason);
   await transaction(async (tx) => {
+    const version = (
+      await tx.query(
+        "SELECT price_book_id FROM norm_versions WHERE id=$1 FOR UPDATE",
+        [id.parse(req.params.id)],
+      )
+    ).rows[0];
+    if (version?.price_book_id)
+      throw Error(
+        "Arhivirajte zajednički cenovnik da bi sve kulture zadržale isti status.",
+      );
     await tx.query("UPDATE norm_versions SET status='archive' WHERE id=$1", [
       id.parse(req.params.id),
     ]);
@@ -1293,7 +1311,15 @@ app.post("/api/admin/rates", async (req: any, res) => {
     b.validFrom > b.validTo
   )
     throw Error("Kurs mora imati provereni NBS izvor i ispravan period.");
-  await transaction(async (tx) => {
+  const reconciled = await transaction(async (tx) => {
+    await tx.query("LOCK TABLE exchange_rates IN SHARE ROW EXCLUSIVE MODE");
+    const before =
+      (
+        await tx.query(
+          "SELECT *,valid_from::text,valid_to::text,published_at::text FROM exchange_rates WHERE valid_from=$1",
+          [b.validFrom],
+        )
+      ).rows[0] || null;
     const overlaps = (
       await tx.query(
         "SELECT id FROM exchange_rates WHERE valid_from<=$1 AND valid_to>=$2 AND valid_from<>$2",
@@ -1318,9 +1344,12 @@ app.post("/api/admin/rates", async (req: any, res) => {
     );
     await audit(tx, req.user.id, null, "upsert", "exchange_rate", {
       date: b.validFrom,
+      before,
+      after: b,
     });
+    return reconcileDraftRates(tx, req.user.id);
   });
-  res.json({ ok: true });
+  res.json({ ok: true, reconciled });
 });
 app.post("/api/admin/statistics", async (req: any, res) => {
   const result = await importStatistics(req.body, req.user.id);

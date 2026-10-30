@@ -1,0 +1,25 @@
+{
+  "sourceUrl": "https://data.stat.gov.rs/Home/Result/0302010302?languageCode=sr-Latn",
+  "retrievedAt": "2026-10-30T23:03:53.831Z",
+  "sha256": "a232e9ac7dc94f6686fdcbfc748a530639ff5bbb13e9f9597f7907c96022e9ca",
+  "bytes": 826329,
+  "rows": 204,
+  "products": 68,
+  "years": [
+    2023,
+    2024,
+    2025
+  ],
+  "available": 199,
+  "sourceUnits": [
+    "0"
+  ],
+  "geography": "Srbija",
+  "priceType": "Prosečna godišnja otkupna cena",
+  "limitations": [
+    "Izvod IDJedinicaMere=0, indikator [nema]: jedinica nije potvrđena.",
+    "Nije cena repromaterijala dobavljača; primena kao referenca inputa zahteva admin potvrdu proizvoda, jedinice i aproksimacije.",
+    "RZS indeksi cena se ne uvoze kao jedinične cene.",
+    "Datum objave nije utvrđen; čuva se datum preuzimanja."
+  ]
+}

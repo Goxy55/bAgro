@@ -14,6 +14,7 @@
     "import": "python3 scripts/extract.py && tsx scripts/import.ts",
     "import:inputs": "tsx scripts/import-inputs.ts",
     "import:rzs": "tsx scripts/import-rzs.ts",
+    "import:rzs-prices": "tsx scripts/import-rzs-prices.ts",
     "collect:rzs": "tsx scripts/collect-rzs.ts",
     "prepare:hosted-test": "tsx scripts/prepare-hosted-test.ts",
     "admin": "tsx scripts/admin.ts",

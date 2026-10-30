@@ -4,7 +4,7 @@ Portal za poljoprivrednu proizvodnju. Funkcionalna lokalna aplikacija na srpskoj
 
 ## Testiranje preko jednog linka
 
-Pripremljena je **[objava sa GitHub-a na Render](https://render.com/deploy?repo=https://github.com/Goxy55/bAgro)**, sa aplikacijom i zasebnim PostgreSQL-om. Vlasnik prvo pregleda i potvrđuje plaćene resurse: osnovne instance su oko **13 USD mesečno** prema cenovniku od 29.10.2026, uz eventualni porez i dodatnu potrošnju. Aplikacija još nije javno objavljena. [Koraci za vlasnika](docs/RENDER.md) i [kratko uputstvo za testere](docs/USER-TESTING.md).
+Pripremljena je **[objava sa GitHub-a na Render](https://render.com/deploy?repo=https://github.com/Goxy55/bAgro)**, sa aplikacijom i zasebnim PostgreSQL-om. Vlasnik prvo pregleda i potvrđuje plaćene resurse: osnovne instance su oko **13 USD mesečno** prema cenovniku od 29.10.2026, uz eventualni porez i dodatnu potrošnju. Korisnik je objavio testnu aplikaciju na https://agro-portal-test.onrender.com/; verzija na toj adresi zavisi od uspešnog Render deploy-a. [Koraci za vlasnika](docs/RENDER.md) i [kratko uputstvo za testere](docs/USER-TESTING.md).
 
 Posle objave svaki tester otvara isti HTTPS link i pravi svoj nalog/gazdinstvo. Nisu potrebni terminal, instalacija ili GitHub nalog testera. Za prvi krug mogu se testirati forme i nacrti; potpuni obračuni zahtevaju prethodno administratorsko odobrenje aktuelnih normativa i proverene kurseve.
 
@@ -42,9 +42,11 @@ Nalog sa globalnom admin ulogom **ne dobija automatski pristup privatnim farmama
 
 ### Zajednički unos cena po kulturama
 
-U **Administracija → Zajednički cenovnik** pripremite nacrte za više kultura istog perioda i unosite cenu iste stavke jednom. Tabela zadržava posebne normirane količine i troškove u kolonama kultura. Podržani su EUR i RSD sa datumom kursa; seme različitih kultura i različite jedinice ostaju odvojeni. Čuvanje cena ne aktivira normative. Detaljno [uputstvo za zajednički cenovnik](docs/ZAJEDNICKI-CENOVNIK.md).
+U **Administracija → Zajednički cenovnik** napravite jedan imenovani cenovnik za ceo katalog. Svih 88 predložaka uključeno je bez biranja kultura. Unesite nedostajuće cene jednom u zajedničkoj tabeli; raspoređuju se na sve odgovarajuće karte. Jedna grupna provera i potvrda aktivira kompletan cenovnik. Nerešene jedinice, alternative i hranidbene osnove ostaju konkretni nalazi pre aktiviranja. [Postupak za administratora](docs/ZAJEDNICKI-CENOVNIK.md).
 
-**Popuni cene iz STIPS-a** sada automatski priprema predloge iz preuzetih cenovnika: proizvod, pakovanje, lokalno mesto, mesec i jediničnu RSD cenu. Jedna potvrda primenjuje izabrane cene u svim nacrtima i pamti veze za buduće verzije. Nepokrivene i već popunjene stavke imaju odvojene preglede, a ručna matrica je sklopljena. Nejasni proizvodi/osnove i istorijske reference traže pregled; [postupak i ograničenja](docs/STIPS-INPUTI.md#primena-u-zajedničkom-cenovniku).
+**STIPS i RZS dopuna** nude referentne cene uz zapamćene veze materijala. STIPS ima prednost; odgovarajuće RZS godišnje otkupne cene mogu se izričito odobriti za seme/hranu gde nema STIPS kandidata. Potrebna je potvrda izvorne jedinice i vrste reference. RZS indeksi nisu jedinične cene. [STIPS postupak](docs/STIPS-INPUTI.md), [RZS obuhvat i ograničenja](docs/RZS-CENE.md).
+
+Naknadni unos NBS kursa automatski dopunjava nerešene RSD cene u nacrtima, bez ponovnog unosa. Trag obračuna prikazuje kurs i traženi datum nezavisno od kompletnosti normativa. Aktivne verzije i istorijski snapshot-i ostaju sačuvani.
 
 ### Standardni rad
 

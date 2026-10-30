@@ -2,10 +2,12 @@ import "dotenv/config";
 import express from "express";
 import { app } from "./app.js";
 import { importSource } from "./importer.js";
-import { closeDatabase } from "./db.js";
+import { closeDatabase, transaction } from "./db.js";
+import { reconcileDraftRates } from "./pricing/rates.js";
 import { createServer } from "vite";
 import { startStipsScheduler } from "./stips/crawler.js";
 await importSource();
+await transaction((tx) => reconcileDraftRates(tx, "operator:startup"));
 const stopStipsScheduler = startStipsScheduler();
 const port = Number(process.env.PORT || 3000);
 app.use((req, res, next) => {

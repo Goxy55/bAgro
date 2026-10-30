@@ -32,6 +32,7 @@ try {
   await page
     .getByRole("button", { name: "Zajednički cenovnik", exact: true })
     .click();
+  await page.locator(".legacy-pricing > summary").click();
   if (!(await page.getByLabel("Izvor JEČAM", { exact: true }).isVisible()))
     await page
       .getByRole("button", { name: "Novi nacrti za više kultura", exact: true })
@@ -135,6 +136,7 @@ try {
   await page
     .getByRole("button", { name: "Zajednički cenovnik", exact: true })
     .click();
+  await page.locator(".legacy-pricing > summary").click();
   await page
     .getByRole("checkbox", { name: /^Nacrt JEČAM · TEST zajednički/ })
     .check();

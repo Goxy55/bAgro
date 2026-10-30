@@ -19,6 +19,8 @@ export interface PricingOccurrence {
     date: string;
     pendingRate: boolean;
     reference?: {
+      kind?: string;
+      priceType?: string;
       product: string;
       place: string;
       periodStart: string;
@@ -30,6 +32,7 @@ export interface PricingOccurrence {
 }
 export interface PricingRow {
   key: string;
+  groupKey?: string;
   name: string;
   unit: string;
   cultureSpecific: boolean;

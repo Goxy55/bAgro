@@ -1971,3 +1971,66 @@ hr {
     flex-wrap: wrap;
   }
 }
+/* Shared, named price books. Keep input decisions readable on small screens. */
+.price-book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.price-book-list button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  white-space: normal;
+}
+.price-book-list small {
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 6px;
+}
+.book-inputs {
+  min-width: 740px;
+  width: 100%;
+}
+.book-inputs td:first-child {
+  min-width: 220px;
+  max-width: 330px;
+}
+.book-inputs td:last-child {
+  max-width: 300px;
+}
+.book-inputs input {
+  min-width: 120px;
+  max-width: 200px;
+}
+.book-inputs input,
+.book-inputs select {
+  border: 1px solid #d9e1d2;
+  border-radius: 6px;
+  background: white;
+  color: #304d37;
+  padding: 10px 11px;
+  min-height: 42px;
+  margin: 3px 5px 3px 0;
+}
+.book-inputs input:focus,
+.book-inputs select:focus {
+  outline: 2px solid #9fbd7c;
+  outline-offset: 1px;
+}
+.book-inputs select {
+  min-width: 75px;
+  max-width: 220px;
+}
+.book-inputs small,
+.book-inputs a {
+  display: block;
+  margin: 5px 0;
+}
+.book-issues {
+  max-height: 500px;
+  overflow: auto;
+  margin: 16px 0;
+}

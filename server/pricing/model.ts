@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { costKey } from "./identity.js";
 import { D, validateModel } from "../domain.js";
 import type { PricingTable, PricingRow } from "../../shared/pricing.js";
 
@@ -11,6 +12,7 @@ export interface PricingVersion {
   valid_to: string;
   reason: string;
   model: any;
+  price_book_id?: string | null;
 }
 function canonical(value: any): any {
   if (value instanceof Date) return value.toISOString();
@@ -182,6 +184,7 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
     });
   }
   for (const row of rows.values()) {
+    row.groupKey = costKey(row);
     const prices = [...new Set(row.occurrences.map((o) => o.priceEur))];
     row.mixed = prices.length > 1;
     row.priceEur = prices.length === 1 ? prices[0] : null;

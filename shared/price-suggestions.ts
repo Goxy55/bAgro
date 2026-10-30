@@ -1,4 +1,7 @@
 export interface PriceSuggestion {
+  sourceKind?: "stips" | "rzs";
+  sourceUnit?: string;
+  priceType?: string;
   observationId: string;
   product: string;
   manufacturer: string;
@@ -33,5 +36,6 @@ export interface PriceSuggestions {
   asOf: string;
   place: string;
   places: string[];
+  rzsCount?: number;
   rows: PriceSuggestionRow[];
 }

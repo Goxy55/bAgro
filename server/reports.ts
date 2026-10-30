@@ -25,6 +25,14 @@ export async function snapshotMoney(
 export async function normFor(p: any, conn: Conn = db) {
   const date = p.details.end || `${p.year}-12-31`,
     start = p.details.start || `${p.year}-01-01`;
+  const rate = await rateFor(date, conn);
+  const exchangeRate = {
+    date,
+    value: rate ? D(rate.rate).toString() : null,
+    validFrom: rate?.valid_from || null,
+    validTo: rate?.valid_to || null,
+    source: rate?.source_url || null,
+  };
   const version = (
     await conn.query(
       "SELECT *,valid_from::text AS valid_from,valid_to::text AS valid_to FROM norm_versions WHERE template_id=$1 AND status='active' AND valid_from<=$2 AND valid_to>=$3 ORDER BY created_at DESC LIMIT 1",
@@ -38,19 +46,20 @@ export async function normFor(p: any, conn: Conn = db) {
       errors: ["Nema aktivnog kompletnog normativa za ceo period."],
       version: null,
       money: null,
+      exchangeRate,
     };
   const calc = calculateNorm(version.model, p.details);
-  const rate = await rateFor(date, conn);
   return {
     ...calc,
     version,
+    exchangeRate,
     money:
       calc.total && rate
         ? currencySnapshot(calc.total, "EUR", date, rate)
         : null,
     errors: [
       ...calc.errors,
-      ...(!rate ? ["Nedostaje zvanični kurs za datum obračuna."] : []),
+      ...(!rate ? [`Nedostaje zvanični kurs za datum obračuna ${date}.`] : []),
     ],
   };
 }

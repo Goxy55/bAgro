@@ -1,3 +1,4 @@
+import { todayInSerbia } from "../shared/dates.js";
 import { z } from "zod";
 import { randomUUID } from "node:crypto";
 import { db, transaction } from "./db.js";
@@ -77,7 +78,9 @@ export async function importStatistics(input: unknown, actor: string) {
   const b = statisticsSchema.parse(input);
   if (b.series.currency && !b.series.priceType)
     throw Error("Monetarna serija zahteva vrstu cene.");
-  if (b.observations.some((o) => o.period > new Date().getUTCFullYear()))
+  if (
+    b.observations.some((o) => o.period > Number(todayInSerbia().slice(0, 4)))
+  )
     throw Error(
       "Buduće projekcije nisu ostvareni statistički podaci prve faze.",
     );

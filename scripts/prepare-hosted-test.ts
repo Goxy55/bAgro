@@ -44,6 +44,10 @@ try {
         },
       },
       {
+        id: "RZS-purchase-prices-initial",
+        run: () => run("scripts/import-rzs-prices.ts"),
+      },
+      {
         id: "STIPS-inputs-initial",
         run: () =>
           run("scripts/import-inputs.ts", [

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Decimal from "decimal.js";
 import { api } from "./api";
+import { todayInSerbia } from "../shared/dates";
 import type { PricingTable } from "../shared/pricing";
 import type {
   PriceSuggestion,
@@ -20,7 +21,12 @@ function grouped(rows: PriceSuggestionRow[]) {
     groups.set(groupKey(r), [...(groups.get(groupKey(r)) || []), r]);
   return [...groups.values()];
 }
-type Choice = { id: string; divisor: string; enabled: boolean };
+type Choice = {
+  id: string;
+  divisor: string;
+  enabled: boolean;
+  sourceUnit?: string;
+};
 export function StipsPriceSuggestions({
   table,
   disabled,
@@ -31,13 +37,14 @@ export function StipsPriceSuggestions({
   onApply: (rows: any[], reason: string) => Promise<void>;
 }) {
   const [asOf, setAsOf] = useState(
-      () => [table.validTo, new Date().toISOString().slice(0, 10)].sort()[0],
+      () => [table.validTo, todayInSerbia()].sort()[0],
     ),
     [place, setPlace] = useState(""),
     [includeExisting, setIncludeExisting] = useState(false),
     [preview, setPreview] = useState<PriceSuggestions | null>(null),
     [choices, setChoices] = useState<Record<string, Choice>>({}),
     [accepted, setAccepted] = useState(false),
+    [proxy, setProxy] = useState(false),
     [historical, setHistorical] = useState(false),
     [filter, setFilter] = useState("suggestions"),
     [loading, setLoading] = useState(false),
@@ -49,6 +56,7 @@ export function StipsPriceSuggestions({
     setLoading(true);
     setError("");
     setAccepted(false);
+    setProxy(false);
     setHistorical(false);
     api("/admin/pricing/stips-suggestions", {
       versionIds: table.versions.map((v) => v.id),
@@ -78,6 +86,7 @@ export function StipsPriceSuggestions({
                 {
                   id: c?.observationId || "",
                   divisor: c?.unitsPerPrice || "",
+                  sourceUnit: c?.sourceUnit || "",
                   enabled: !!c && !c.historical,
                 },
               ];
@@ -110,7 +119,12 @@ export function StipsPriceSuggestions({
     r.candidates.some((c) => c.historical),
   );
   const old = selected.some((s) => s.candidate.historical),
-    invalid = selected.some((s) => !validDivisor(s.choice.divisor));
+    invalid = selected.some(
+      (s) =>
+        !validDivisor(s.choice.divisor) ||
+        (s.candidate.sourceKind === "rzs" && !s.choice.sourceUnit),
+    );
+  const hasRzs = selected.some((s) => s.candidate.sourceKind === "rzs");
   const working = disabled || loading;
   function choose(key: string, c: PriceSuggestion | undefined) {
     const row = preview?.rows.find((r) => r.key === key);
@@ -127,12 +141,14 @@ export function StipsPriceSuggestions({
           next[r.key] = {
             id: same?.observationId || "",
             divisor: same?.unitsPerPrice || "",
+            sourceUnit: same?.sourceUnit || "",
             enabled: !!same,
           };
       }
       return next;
     });
     setAccepted(false);
+    setProxy(false);
   }
   function editGroup(row: PriceSuggestionRow, patch: Partial<Choice>) {
     setChoices((v) => {
@@ -145,6 +161,7 @@ export function StipsPriceSuggestions({
       return next;
     });
     setAccepted(false);
+    setProxy(false);
   }
   async function apply() {
     if (
@@ -152,11 +169,12 @@ export function StipsPriceSuggestions({
       !accepted ||
       !selected.length ||
       invalid ||
+      (hasRzs && !proxy) ||
       (old && !historical) ||
       working
     )
       return;
-    const reason = `STIPS referentne cene — ${preview.place}, izbor do ${preview.asOf}`;
+    const reason = `STIPS / RZS referentne cene — STIPS: ${preview.place || "nema mesta"}, izbor do ${preview.asOf}`;
     await onApply(
       selected.map(({ row, candidate: c, choice }) => ({
         key: row.key,
@@ -168,15 +186,30 @@ export function StipsPriceSuggestions({
         unit: c.unit,
         confirmUnit: true,
         zeroReason: "",
-        reference: {
-          observationId: c.observationId,
-          unitsPerPrice: choice.divisor,
-          date: c.date,
-          confirmedProduct: true,
-          confirmedBasis: true,
-          allowHistorical: c.historical && historical,
-          note: `${reason}. Administrator je grupno potvrdio proizvod i osnovu: izvorna cena za ${choice.divisor} ${c.unit}.`,
-        },
+        ...(c.sourceKind === "rzs"
+          ? {
+              rzsReference: {
+                observationId: c.observationId,
+                sourceUnit: choice.sourceUnit,
+                date: c.date,
+                confirmedProduct: true,
+                confirmedBasis: true,
+                confirmedProxy: true,
+                allowHistorical: c.historical && historical,
+                note: `${reason}. RZS otkupna cena je odobrena kao referenca inputa; administrator je proverio jedinicu ${choice.sourceUnit}.`,
+              },
+            }
+          : {
+              reference: {
+                observationId: c.observationId,
+                unitsPerPrice: choice.divisor,
+                date: c.date,
+                confirmedProduct: true,
+                confirmedBasis: true,
+                allowHistorical: c.historical && historical,
+                note: `${reason}. Administrator je grupno potvrdio proizvod i osnovu: izvorna cena za ${choice.divisor} ${c.unit}.`,
+              },
+            }),
       })),
       reason,
     );
@@ -188,7 +221,9 @@ export function StipsPriceSuggestions({
     >
       <div className="panel-head">
         <div>
-          <h3 id="stips-suggestions-title">Popuni cene iz STIPS-a</h3>
+          <h3 id="stips-suggestions-title">
+            Referentne cene: STIPS i RZS dopuna
+          </h3>
           <p>
             Prepoznate stavke dobijaju predlog cene. Potvrđene veze pamte se za
             sledeći cenovnik.
@@ -210,7 +245,7 @@ export function StipsPriceSuggestions({
             aria-label="STIPS cene do datuma"
             type="date"
             value={asOf}
-            max={new Date().toISOString().slice(0, 10)}
+            max={todayInSerbia()}
             disabled={working}
             onChange={(e) => setAsOf(e.target.value)}
           />
@@ -268,7 +303,7 @@ export function StipsPriceSuggestions({
               ],
               [
                 "missing",
-                "Bez STIPS cene",
+                "Bez referentne cene",
                 grouped(preview.rows.filter((r) => r.status === "missing"))
                   .length,
               ],
@@ -299,7 +334,7 @@ export function StipsPriceSuggestions({
               <thead>
                 <tr>
                   <th scope="col">Stavka troškovnika</th>
-                  <th scope="col">STIPS proizvod i pakovanje</th>
+                  <th scope="col">Izvor, proizvod i osnova cene</th>
                   <th scope="col">Referentna cena</th>
                   <th scope="col">Primena / status</th>
                 </tr>
@@ -363,7 +398,7 @@ export function StipsPriceSuggestions({
                         {r.candidates.length ? (
                           <>
                             <select
-                              aria-label={`STIPS proizvod za ${r.name}`}
+                              aria-label={`Referentni proizvod za ${r.name}`}
                               value={choice?.id || ""}
                               disabled={working}
                               onChange={(e) =>
@@ -393,9 +428,14 @@ export function StipsPriceSuggestions({
                             {c && (
                               <>
                                 <small>
+                                  {c.sourceKind === "rzs"
+                                    ? "RZS · godišnja otkupna cena · "
+                                    : "STIPS · "}
                                   {c.place} · {c.periodStart.slice(0, 7)} ·{" "}
-                                  {number(c.originalPrice)} RSD za izvorno
-                                  pakovanje {c.packaging}
+                                  {number(c.originalPrice)} RSD
+                                  {c.sourceKind === "rzs"
+                                    ? " · izvornu jedinicu potvrdite ispod"
+                                    : ` za izvorno pakovanje ${c.packaging}`}
                                 </small>
                                 <a
                                   href={c.sourceUrl}
@@ -404,38 +444,90 @@ export function StipsPriceSuggestions({
                                 >
                                   Izvor: {c.sheet}!{c.cell}
                                 </a>
-                                <details>
-                                  <summary>Osnova pakovanja</summary>
+                                {c.sourceKind === "rzs" ? (
                                   <label className="field">
                                     <span>
-                                      Izvorna cena važi za koliko {c.unit}?
+                                      Proverena izvorna jedinica RZS cene
                                     </span>
-                                    <input
-                                      aria-label={`Osnova STIPS cene za ${r.name}`}
-                                      type="number"
-                                      min="0.000000001"
-                                      step="any"
-                                      value={choice.divisor}
+                                    <select
+                                      aria-label={`Izvorna jedinica RZS za ${r.name}`}
+                                      value={choice.sourceUnit || ""}
                                       disabled={working}
                                       onChange={(e) => {
+                                        const u = e.target.value;
+                                        const divisor =
+                                          u === c.unit
+                                            ? "1"
+                                            : c.unit === "t" && u === "kg"
+                                              ? "0.001"
+                                              : c.unit === "kg" && u === "t"
+                                                ? "1000"
+                                                : "";
                                         editGroup(r, {
-                                          divisor: e.target.value,
+                                          sourceUnit: u,
+                                          divisor,
                                         });
                                       }}
-                                    />
+                                    >
+                                      <option value="">
+                                        Potvrdite jedinicu iz izvora
+                                      </option>
+                                      {["kg", "t", "l", "kom"]
+                                        .filter(
+                                          (u) =>
+                                            u === c.unit ||
+                                            (["kg", "t"].includes(u) &&
+                                              ["kg", "t"].includes(c.unit)),
+                                        )
+                                        .map((u) => (
+                                          <option key={u}>{u}</option>
+                                        ))}
+                                    </select>
+                                    <small>
+                                      Izvod označava jedinicu kao „nema“.
+                                      Proverite metodologiju/izvor pre potvrde;
+                                      ne pretpostavljamo kg.
+                                    </small>
                                   </label>
-                                  <small>
-                                    Prikazana količina se koristi kao delilac.
-                                    Ispravite ako cena u izvoru važi za drugu
-                                    osnovu.
-                                  </small>
-                                </details>
+                                ) : (
+                                  <details>
+                                    <summary>Osnova pakovanja</summary>
+                                    <label className="field">
+                                      <span>
+                                        Izvorna cena važi za koliko {c.unit}?
+                                      </span>
+                                      <input
+                                        aria-label={`Osnova STIPS cene za ${r.name}`}
+                                        type="number"
+                                        min="0.000000001"
+                                        step="any"
+                                        value={choice.divisor}
+                                        disabled={working}
+                                        onChange={(e) => {
+                                          editGroup(r, {
+                                            divisor: e.target.value,
+                                          });
+                                        }}
+                                      />
+                                    </label>
+                                    <small>
+                                      Prikazana količina se koristi kao delilac.
+                                      Ispravite ako cena u izvoru važi za drugu
+                                      osnovu.
+                                    </small>
+                                  </details>
+                                )}
                               </>
                             )}
                           </>
                         ) : saved?.reference ? (
                           <>
                             <strong>{saved.reference.product}</strong>
+                            <small>
+                              {saved.reference.kind === "rzs_purchase_price"
+                                ? "RZS · godišnja otkupna referenca"
+                                : "STIPS · lokalna referenca"}
+                            </small>
                             <small>
                               {saved.reference.place} ·{" "}
                               {saved.reference.periodStart.slice(0, 7)}
@@ -550,7 +642,7 @@ export function StipsPriceSuggestions({
             <label className="checkbox">
               <input
                 type="checkbox"
-                aria-label="Prihvatam starije STIPS reference"
+                aria-label="Prihvatam starije referentne cene"
                 checked={historical}
                 disabled={working}
                 onChange={(e) => {
@@ -576,10 +668,26 @@ export function StipsPriceSuggestions({
               </span>
             </label>
           )}
+          {hasRzs && (
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                aria-label="Odobravam RZS otkupne cene kao referencu inputa"
+                checked={proxy}
+                disabled={working || invalid}
+                onChange={(e) => setProxy(e.target.checked)}
+              />
+              <span>
+                Proverio sam proizvode i izvorne jedinice. Odobravam označene
+                godišnje RZS otkupne cene kao referencu za inpute; nisu ponuda
+                dobavljača niti ostvareni trošak gazdinstva.
+              </span>
+            </label>
+          )}
           <label className="checkbox suggestion-approval">
             <input
               type="checkbox"
-              aria-label="Potvrđujem STIPS proizvode i osnovu cene"
+              aria-label="Potvrđujem referentne proizvode i osnovu cene"
               checked={accepted}
               disabled={working || !selected.length}
               onChange={(e) => setAccepted(e.target.checked)}
@@ -597,11 +705,12 @@ export function StipsPriceSuggestions({
               !accepted ||
               !selected.length ||
               invalid ||
+              (hasRzs && !proxy) ||
               (old && !historical)
             }
             onClick={() => void apply()}
           >
-            Primeni STIPS cene u nacrtima (
+            Primeni referentne cene u cenovniku (
             {new Set(selected.map((s) => groupKey(s.row))).size})
           </button>
           <p className="hint">

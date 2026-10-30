@@ -6,31 +6,10 @@ import type {
   PriceSuggestions,
 } from "../../shared/price-suggestions.js";
 import { hash, normalizedPriceUnit } from "./model.js";
+import { addRzsSuggestions } from "./rzs-prices.js";
 
-// Remove application counts and descriptive roles, never product grades or concentrations.
-export function materialName(value: string): string {
-  return value
-    .normalize("NFKD")
-    .replace(/đ/gi, "dj")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/\((?:herbicidi?|fungicidi?|inse[ck]ticidi?)\)/g, " ")
-    .replace(/\s*-\s*\d+\.?\s*put(?:a)?\.?\s*$/g, "")
-    .replace(/(?:\s+ili|\s*\+)\s*$/g, "")
-    .replace(/\b(?:djubrivo|djubriva)\b/g, "")
-    .replace(/[^a-z0-9:%]+/g, " ")
-    .trim()
-    .replace(/\s+/g, " ");
-}
-export function costKey(row: PricingRow) {
-  return hash([
-    materialName(row.occurrences[0]?.name || row.name),
-    row.occurrences.some((o) => o.sheet.startsWith("Stočarstvo"))
-      ? "livestock-input"
-      : "crop-input",
-    row.cultureSpecific ? row.occurrences[0]?.templateId : null,
-  ]);
-}
+export { materialName, costKey } from "./identity.js";
+import { materialName, costKey } from "./identity.js";
 export function packagingBasis(
   packaging: string,
 ): { unit: string; quantity: string } | null {
@@ -290,5 +269,13 @@ export async function suggestPrices(
     result.candidates = result.candidates.slice(0, 30);
     return result;
   });
-  return { revision: table.revision, asOf: options.asOf, place, places, rows };
+  const rzsCount = await addRzsSuggestions(conn, table, rows, options.asOf);
+  return {
+    revision: table.revision,
+    asOf: options.asOf,
+    place,
+    places,
+    rows,
+    rzsCount,
+  };
 }
