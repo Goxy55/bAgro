@@ -44,6 +44,8 @@ Nalog sa globalnom admin ulogom **ne dobija automatski pristup privatnim farmama
 
 U **Administracija → Zajednički cenovnik** napravite jedan imenovani cenovnik za ceo katalog. Svih 88 predložaka uključeno je bez biranja kultura. Unesite nedostajuće cene jednom u zajedničkoj tabeli; raspoređuju se na sve odgovarajuće karte. Jedna grupna provera i potvrda aktivira kompletan cenovnik. Nerešene jedinice, alternative i hranidbene osnove ostaju konkretni nalazi pre aktiviranja. [Postupak za administratora](docs/ZAJEDNICKI-CENOVNIK.md).
 
+**Mašinske operacije** imaju jedno zasebno polje za cenu goriva po litru u celom cenovniku. Operacije zadržavaju različite normirane potrošnje; nejasne usluge i potvrđene druge jedinice ostaju odvojene. [Postupak i izvorni obuhvat](docs/MASINSKE-OPERACIJE.md).
+
 **STIPS i RZS dopuna** nude referentne cene uz zapamćene veze materijala. STIPS ima prednost; odgovarajuće RZS godišnje otkupne cene mogu se izričito odobriti za seme/hranu gde nema STIPS kandidata. Potrebna je potvrda izvorne jedinice i vrste reference. RZS indeksi nisu jedinične cene. [STIPS postupak](docs/STIPS-INPUTI.md), [RZS obuhvat i ograničenja](docs/RZS-CENE.md).
 
 Naknadni unos NBS kursa automatski dopunjava nerešene RSD cene u nacrtima, bez ponovnog unosa. Trag obračuna prikazuje kurs i traženi datum nezavisno od kompletnosti normativa. Aktivne verzije i istorijski snapshot-i ostaju sačuvani.

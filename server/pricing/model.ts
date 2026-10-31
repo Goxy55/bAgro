@@ -63,6 +63,12 @@ export function versionRevision(v: PricingVersion) {
   ]);
 }
 export function priceIdentity(v: PricingVersion, item: any) {
+  if (item.pricingGroup === "diesel" && normalizedPriceUnit(item.unit) === "l")
+    return {
+      key: hash(["shared-diesel-price", "l"]),
+      specific: false,
+      name: "Mašinske operacije — gorivo",
+    };
   const name = normalize(item.name);
   // These generic labels do not identify the same purchasable material/service
   // across cultures or animal categories. Keep their prices template-specific.
@@ -122,6 +128,10 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
           name: identity.name,
           unit: item.unit,
           cultureSpecific: identity.specific,
+          ...(item.pricingGroup === "diesel" &&
+          normalizedPriceUnit(item.unit) === "l"
+            ? { pricingGroup: "diesel" as const }
+            : {}),
           priceEur: null,
           mixed: false,
           occurrences: [],

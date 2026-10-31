@@ -1,0 +1,7860 @@
+{
+  "sourceHash": "422571958ad758ed1eaf206cce6b5751b4dc4546629940a7edad9aff53314a5a",
+  "method": "Izričite reference iz izvornih formula Potrošnja goriva; cena nije kriterijum klasifikacije.",
+  "summaries": [
+    {
+      "sheet": "Usevi",
+      "cell": "E28",
+      "formula": "=E5+E7+E8+E9+E10+E11+E13+E14+E16+E17+E18+E24+E26"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E63",
+      "formula": "=E40+E42+E43+E44+E45+E46+E48+E49+E51+E52+E53+E59+E61"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E96",
+      "formula": "=E73+E75+E76+E77+E78+E79+E81+E82+E84+E85+E86+E92+E94+E93"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E132",
+      "formula": "=E107+E108+E109+E110+E111+E113+E114+E115+E117+E118+E119+E125+E127+E128+E130"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E167",
+      "formula": "=E142+E143+E144+E145+E146+E148+E149+E150+E152+E153+E154+E160+E162+E163+E164+E165"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E200",
+      "formula": "=E179+E181+E182+E183+E184+E186+E187+E188+E193+E195+E196+E198"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E237",
+      "formula": "=E210+E211+E212+E213+E214+E216+E217+E218+E220+E221+E223+E224+E225+E232+E233"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E277",
+      "formula": "=E247+E248+E249+E251+E252+E253+E255+E256+E257+E259+E260+E261+E264+E265+E266+E273+E275"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E305",
+      "formula": "=E287+E289+E290+E291+E292+E293+E295+E296+E297+E303"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E340",
+      "formula": "=E316+E317+E319+E320+E321+E322+E324+E325+E327+E328+E329+E336+E337"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E374",
+      "formula": "=E351+E353+E354+E355+E356+E357+E359+E360+E362+E363+E364+E370+E371+E372"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E407",
+      "formula": "=E384+E386+E387+E388+E389+E390+E392+E393+E395+E396+E397+E403+E404+E405"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E435",
+      "formula": "=E417+E419+E420+E421+E422+E424+E425+E426+E429+E431+E433"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E479",
+      "formula": "=E445+E446+E448+E449+E454+E456+E457+E459+E460+E462+E463+E464+E465+E467+E468+E469+E470+E474+E476+E477"
+    },
+    {
+      "sheet": "Usevi",
+      "cell": "E502",
+      "formula": "=E490+E491+E492+E493+E494+E496+E497+E498+E499+E500"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E38",
+      "formula": "=E5+E6+E7+E8+E9+E11+E12+E13+E14+E16+E17+E18+E21+E23+E24+E25+E33+E34+E36"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E79",
+      "formula": "=E48+E49+E50+E52+E53+E54+E56+E57+E58+E60+E61+E62+E65+E66+E67+E69+E70+E71+E77"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E110",
+      "formula": "=E89+E91+E92+E93+E94+E95+E97+E98+E100+E101+E102+E105+E106+E107+E108"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E141",
+      "formula": "=E120+E122+E123+E124+E125+E127+E128+E130+E131+E132+E136+E137+E138+E139"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E179",
+      "formula": "=E151+E152+E153+E155+E156+E157+E159+E160+E161+E163+E164+E165+E167+E168+E170+E171+E172+E177"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E215",
+      "formula": "=E190+E191+E192+E193+E194+E196+E197+E198+E200+E201+E203+E204+E205+E210+E211+E212+E213"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E266",
+      "formula": "=E226+E227+E228+E229+E230+E232+E233+E238+E240+E241+E243+E244+E246+E247+E248+E250+E251+E252+E254+E255+E264"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E303",
+      "formula": "=E276+E277+E278+E279+E280+E282+E283+E284+E286+E287+E290+E298+E299+E301"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E337",
+      "formula": "=E313+E314+E315+E316+E317+E319+E320+E321+E323+E324+E326+E327+E328+E332+E333+E335"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E382",
+      "formula": "=E347+E348+E349+E350+E351+E353+E354+E359+E361+E362+E363+E365+E366+E369+E370+E371+E376+E377+E378+E380"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E409",
+      "formula": "=E392+E394+E395+E396+E397+E399+E400+E401+E403+E405+E407"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E450",
+      "formula": "=E419+E420+E421+E422+E423+E425+E426+E428+E430+E431+E433+E434+E437+E438+E439+E444+E445+E446+E447+E448"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E486",
+      "formula": "=E460+E462+E463+E464+E466+E468+E469+E471+E472+E474+E475+E476+E480+E481+E482+E484"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E522",
+      "formula": "=E496+E498+E499+E500+E502+E504+E505+E507+E508+E510+E511+E512+E516+E517+E518+E520"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E554",
+      "formula": "=E532+E533+E535+E537+E538+E540+E541+E543+E544+E545+E549+E550+E552"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E585",
+      "formula": "=E564+E566+E567+E568+E570+E572+E573+E575+E576+E577+E578+E579+E583"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E620",
+      "formula": "=E595+E596+E597+E598+E599+E601+E602+E603+E605+E606+E608+E610+E611+E612+E615+E616+E618"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E655",
+      "formula": "=E630+E631+E632+E633+E634+E636+E637+E638+E640+E641+E643+E645+E646+E647+E650+E651+E653"
+    },
+    {
+      "sheet": "Povrće",
+      "cell": "E692",
+      "formula": "=E665+E667+E668+E669+E671+E673+E674+E676+E677+E679+E680+E681+E686+E687+E688+E689+E690"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E20",
+      "formula": "=E5+E7+E8+E9+E11+E12+E13+E18"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E53",
+      "formula": "=E30+E31+E33+E34+E35+E37+E38+E39+E51"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E82",
+      "formula": "=E63+E64+E66+E67+E68+E70+E71+E72+E80"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E132",
+      "formula": "=E92+E93+E95+E96+E97+E99+E100+E101+E130"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E179",
+      "formula": "=E142+E143+E145+E146+E147+E149+E150+E151+E177"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E213",
+      "formula": "=E189+E190+E192+E193+E194+E196+E197+E198+E211"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E238",
+      "formula": "=E223+E224+E226+E227+E228+E230+E231+E232+E236"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E279",
+      "formula": "=E249+E251+E248+E252+E253+E255+E256+E257+E277"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E309",
+      "formula": "=E289+E290+E292+E293+E294+E296+E297+E298+E307"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E344",
+      "formula": "=E320+E322+E319+E323+E324+E326+E327+E328+E342"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E370",
+      "formula": "=E354+E356+E357+E358+E360+E361+E362+E368"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E395",
+      "formula": "=E380+E381+E383+E384+E385+E387+E388+E389+E393"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E420",
+      "formula": "=E405+E406+E408+E409+E410+E412+E413+E414+E418"
+    },
+    {
+      "sheet": "Voće",
+      "cell": "E455",
+      "formula": "=E430+E431+E432+E433+E434+E436+E437+E438+E440+E441+E442+E453"
+    },
+    {
+      "sheet": "Ostalo",
+      "cell": "E13",
+      "formula": "=E9+E10+E11"
+    },
+    {
+      "sheet": "Ostalo",
+      "cell": "E35",
+      "formula": "=E33"
+    },
+    {
+      "sheet": "Aromatično i lekovito bilje",
+      "cell": "E28",
+      "formula": "=E5+E6+E7+E9+E10+E11+E12+E14+E15+E16+E18+E20+E21+E22+E23+E24+E26"
+    },
+    {
+      "sheet": "Aromatično i lekovito bilje",
+      "cell": "E66",
+      "formula": "=E43+E44+E45+E46+E47+E49+E50+E51+E52+E54+E55+E56+E58+E59+E60+E62+E63+E64"
+    },
+    {
+      "sheet": "Aromatično i lekovito bilje",
+      "cell": "E96",
+      "formula": "=E79+E81+E82+E83+E85+E86+E87+E88+E90+E92+E93+E94"
+    },
+    {
+      "sheet": "Aromatično i lekovito bilje",
+      "cell": "E137",
+      "formula": "=E109+E110+E111+E112+E113+E115+E116+E117+E122+E123+E124+E125+E126+E128+E129+E130+E132+E133+E134+E135"
+    }
+  ],
+  "items": [
+    {
+      "templateId": "s0-B1",
+      "itemId": "F5",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E5",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F7",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E7",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F8",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E8",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F9",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E9",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F10",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E10",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F11",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E11",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F13",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E13",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F14",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E14",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F16",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E16",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F17",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E17",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F18",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E18",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F24",
+      "sheet": "Usevi",
+      "name": "Transport ječma",
+      "quantityCell": "E24",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F26",
+      "sheet": "Usevi",
+      "name": "Transport slame",
+      "quantityCell": "E26",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F40",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E40",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F42",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E42",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F43",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E43",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F44",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E44",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F45",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E45",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F46",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E46",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F48",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E48",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F49",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E49",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F51",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E51",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F52",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E52",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F53",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E53",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F59",
+      "sheet": "Usevi",
+      "name": "Transport pšenice",
+      "quantityCell": "E59",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F61",
+      "sheet": "Usevi",
+      "name": "Transport slame",
+      "quantityCell": "E61",
+      "summaryCells": [
+        "E63"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F73",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E73",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F75",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E75",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F76",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E76",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F77",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E77",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F78",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E78",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F79",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E79",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F81",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E81",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F82",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E82",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F84",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E84",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F85",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E85",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F86",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E86",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F92",
+      "sheet": "Usevi",
+      "name": "Transport tritikala",
+      "quantityCell": "E92",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F93",
+      "sheet": "Usevi",
+      "name": "Balranje slame (bale)",
+      "quantityCell": "E93",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F94",
+      "sheet": "Usevi",
+      "name": "Transport slame",
+      "quantityCell": "E94",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F107",
+      "sheet": "Usevi",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E107",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F108",
+      "sheet": "Usevi",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E108",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F109",
+      "sheet": "Usevi",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E109",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F110",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E110",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F111",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E111",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F113",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E113",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F114",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E114",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F115",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E115",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F117",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E117",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F118",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E118",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F119",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E119",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F125",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E125",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F127",
+      "sheet": "Usevi",
+      "name": "Međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E127",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F128",
+      "sheet": "Usevi",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E128",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F130",
+      "sheet": "Usevi",
+      "name": "Transport kukuruza",
+      "quantityCell": "E130",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F142",
+      "sheet": "Usevi",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E142",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F143",
+      "sheet": "Usevi",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E143",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F144",
+      "sheet": "Usevi",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E144",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F145",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E145",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F146",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E146",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F148",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E148",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F149",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E149",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F150",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E150",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F152",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E152",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F153",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E153",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F154",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E154",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F160",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E160",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F162",
+      "sheet": "Usevi",
+      "name": "Međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E162",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F163",
+      "sheet": "Usevi",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E163",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F164",
+      "sheet": "Usevi",
+      "name": "Žetva kukuruza za silažu",
+      "quantityCell": "E164",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B138",
+      "itemId": "F165",
+      "sheet": "Usevi",
+      "name": "Transport zelene mase",
+      "quantityCell": "E165",
+      "summaryCells": [
+        "E167"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F179",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E179",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F181",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E181",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F182",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E182",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F183",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E183",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F184",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E184",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F186",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E186",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F187",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E187",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F188",
+      "sheet": "Usevi",
+      "name": "Zaštita biljaka - 2 puta",
+      "quantityCell": "E188",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F193",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E193",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F195",
+      "sheet": "Usevi",
+      "name": "Međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E195",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F196",
+      "sheet": "Usevi",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E196",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F198",
+      "sheet": "Usevi",
+      "name": "Transport suncokreta",
+      "quantityCell": "E198",
+      "summaryCells": [
+        "E200"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F210",
+      "sheet": "Usevi",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E210",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F211",
+      "sheet": "Usevi",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E211",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F212",
+      "sheet": "Usevi",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E212",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F213",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E213",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F214",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E214",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F216",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E216",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F217",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E217",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F218",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E218",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F220",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E220",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F221",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E221",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F223",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E223",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F224",
+      "sheet": "Usevi",
+      "name": "Transport vode - 6 puta",
+      "quantityCell": "E224",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F225",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 6 puta",
+      "quantityCell": "E225",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F232",
+      "sheet": "Usevi",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E232",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F233",
+      "sheet": "Usevi",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E233",
+      "summaryCells": [
+        "E237"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F247",
+      "sheet": "Usevi",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E247",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F248",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E248",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F249",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E249",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F251",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E251",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F252",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E252",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F253",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E253",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F255",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E255",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F256",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E256",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F257",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E257",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F259",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E259",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F260",
+      "sheet": "Usevi",
+      "name": "Transport vode",
+      "quantityCell": "E260",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F261",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E261",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F264",
+      "sheet": "Usevi",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E264",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F265",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E265",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F266",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - herbicidi - 2 puta",
+      "quantityCell": "E266",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F273",
+      "sheet": "Usevi",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E273",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F275",
+      "sheet": "Usevi",
+      "name": "Transport soje",
+      "quantityCell": "E275",
+      "summaryCells": [
+        "E277"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F287",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E287",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F289",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E289",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F290",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E290",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F291",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E291",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F292",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E292",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F293",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E293",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F295",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E295",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F296",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E296",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F297",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - herbicidi - 2 puta",
+      "quantityCell": "E297",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F303",
+      "sheet": "Usevi",
+      "name": "Transport stočnog graška",
+      "quantityCell": "E303",
+      "summaryCells": [
+        "E305"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F316",
+      "sheet": "Usevi",
+      "name": "Zaoravanje strnjike (1/4)",
+      "quantityCell": "E316",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F317",
+      "sheet": "Usevi",
+      "name": "Transport đubriva (1/4)",
+      "quantityCell": "E317",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F319",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva (1/4)",
+      "quantityCell": "E319",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F320",
+      "sheet": "Usevi",
+      "name": "Oranje (1/4)",
+      "quantityCell": "E320",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F321",
+      "sheet": "Usevi",
+      "name": "Tanjiranje (1/4)",
+      "quantityCell": "E321",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F322",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta (1/4)",
+      "quantityCell": "E322",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F324",
+      "sheet": "Usevi",
+      "name": "Setva (1/4)",
+      "quantityCell": "E324",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F325",
+      "sheet": "Usevi",
+      "name": "Transport đubriva (1/4)",
+      "quantityCell": "E325",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F327",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva (1/4)",
+      "quantityCell": "E327",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F328",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta (1/4)",
+      "quantityCell": "E328",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F329",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta (1/4)",
+      "quantityCell": "E329",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F336",
+      "sheet": "Usevi",
+      "name": "Transport sena",
+      "quantityCell": "E336",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F337",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - (postavljanje mamaca)",
+      "quantityCell": "E337",
+      "summaryCells": [
+        "E340"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F351",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E351",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F353",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E353",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F354",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E354",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F355",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E355",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F356",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E356",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F357",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E357",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F359",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E359",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F360",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E360",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F362",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E362",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F363",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E363",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F364",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E364",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F370",
+      "sheet": "Usevi",
+      "name": "Transport raži",
+      "quantityCell": "E370",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F371",
+      "sheet": "Usevi",
+      "name": "Balranje slame (bale)",
+      "quantityCell": "E371",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F372",
+      "sheet": "Usevi",
+      "name": "Transport slame",
+      "quantityCell": "E372",
+      "summaryCells": [
+        "E374"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F384",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E384",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F386",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E386",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F387",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E387",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F388",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E388",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F389",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E389",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F390",
+      "sheet": "Usevi",
+      "name": "Transport semena",
+      "quantityCell": "E390",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F392",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E392",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F393",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E393",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F395",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E395",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F396",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E396",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F397",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E397",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F403",
+      "sheet": "Usevi",
+      "name": "Transport ovsa",
+      "quantityCell": "E403",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F404",
+      "sheet": "Usevi",
+      "name": "Balranje slame (bale)",
+      "quantityCell": "E404",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F405",
+      "sheet": "Usevi",
+      "name": "Transport slame",
+      "quantityCell": "E405",
+      "summaryCells": [
+        "E407"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F417",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E417",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F419",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E419",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F420",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E420",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F421",
+      "sheet": "Usevi",
+      "name": "Tanjiranje",
+      "quantityCell": "E421",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F422",
+      "sheet": "Usevi",
+      "name": "Drljanje",
+      "quantityCell": "E422",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F424",
+      "sheet": "Usevi",
+      "name": "Setva",
+      "quantityCell": "E424",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F425",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E425",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F426",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E426",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F429",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E429",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F431",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E431",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F433",
+      "sheet": "Usevi",
+      "name": "Transport uljane repice",
+      "quantityCell": "E433",
+      "summaryCells": [
+        "E435"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F445",
+      "sheet": "Usevi",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E445",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F446",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E446",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F448",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E448",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F449",
+      "sheet": "Usevi",
+      "name": "Oranje",
+      "quantityCell": "E449",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F454",
+      "sheet": "Usevi",
+      "name": "Transport đubriva",
+      "quantityCell": "E454",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F456",
+      "sheet": "Usevi",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E456",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F457",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E457",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F459",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E459",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F460",
+      "sheet": "Usevi",
+      "name": "Transport duvana",
+      "quantityCell": "E460",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F462",
+      "sheet": "Usevi",
+      "name": "Navodnjavanje",
+      "quantityCell": "E462",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F463",
+      "sheet": "Usevi",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E463",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F464",
+      "sheet": "Usevi",
+      "name": "Transport vode",
+      "quantityCell": "E464",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F465",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja",
+      "quantityCell": "E465",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F467",
+      "sheet": "Usevi",
+      "name": "Navodnjavanje",
+      "quantityCell": "E467",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F468",
+      "sheet": "Usevi",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E468",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F469",
+      "sheet": "Usevi",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E469",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F470",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E470",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F474",
+      "sheet": "Usevi",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E474",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F476",
+      "sheet": "Usevi",
+      "name": "Transport duvana",
+      "quantityCell": "E476",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F477",
+      "sheet": "Usevi",
+      "name": "Sušenje duvana",
+      "quantityCell": "E477",
+      "summaryCells": [
+        "E479"
+      ]
+    },
+    {
+      "templateId": "s0-B486",
+      "itemId": "F491",
+      "sheet": "Usevi",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E491",
+      "summaryCells": [
+        "E502"
+      ]
+    },
+    {
+      "templateId": "s0-B486",
+      "itemId": "F493",
+      "sheet": "Usevi",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E493",
+      "summaryCells": [
+        "E502"
+      ]
+    },
+    {
+      "templateId": "s0-B486",
+      "itemId": "F497",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E497",
+      "summaryCells": [
+        "E502"
+      ]
+    },
+    {
+      "templateId": "s0-B486",
+      "itemId": "F498",
+      "sheet": "Usevi",
+      "name": "Transport heljde",
+      "quantityCell": "E498",
+      "summaryCells": [
+        "E502"
+      ]
+    },
+    {
+      "templateId": "s0-B486",
+      "itemId": "F499",
+      "sheet": "Usevi",
+      "name": "Baliranje žetvenih ostataka",
+      "quantityCell": "E499",
+      "summaryCells": [
+        "E502"
+      ]
+    },
+    {
+      "templateId": "s0-B486",
+      "itemId": "F500",
+      "sheet": "Usevi",
+      "name": "Transport žetvenih ostataka",
+      "quantityCell": "E500",
+      "summaryCells": [
+        "E502"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F5",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E5",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F6",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E6",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F7",
+      "sheet": "Povrće",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E7",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F8",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E8",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F9",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E9",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F11",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E11",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F12",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E12",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F13",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E13",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F14",
+      "sheet": "Povrće",
+      "name": "Transport semena",
+      "quantityCell": "E14",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F16",
+      "sheet": "Povrće",
+      "name": "Sađenje semena",
+      "quantityCell": "E16",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F17",
+      "sheet": "Povrće",
+      "name": "Transport vode",
+      "quantityCell": "E17",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F18",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E18",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F21",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E21",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F23",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E23",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F24",
+      "sheet": "Povrće",
+      "name": "Transport vode - 4 puta",
+      "quantityCell": "E24",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F25",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 4 puta",
+      "quantityCell": "E25",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F33",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E33",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F34",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E34",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F36",
+      "sheet": "Povrće",
+      "name": "Transport krompira",
+      "quantityCell": "E36",
+      "summaryCells": [
+        "E38"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F48",
+      "sheet": "Povrće",
+      "name": "Zaoravanje strnjike",
+      "quantityCell": "E48",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F49",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E49",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F50",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E50",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F52",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E52",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F53",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E53",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F54",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E54",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F56",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E56",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F57",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E57",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F58",
+      "sheet": "Povrće",
+      "name": "Transport semena",
+      "quantityCell": "E58",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F60",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E60",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F61",
+      "sheet": "Povrće",
+      "name": "Transport vode",
+      "quantityCell": "E61",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F62",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E62",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F65",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E65",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F66",
+      "sheet": "Povrće",
+      "name": "Transport vode",
+      "quantityCell": "E66",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F67",
+      "sheet": "Povrće",
+      "name": "Zaštita biljaka",
+      "quantityCell": "E67",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F69",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E69",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F70",
+      "sheet": "Povrće",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E70",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F71",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E71",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F77",
+      "sheet": "Povrće",
+      "name": "Transport pasulja",
+      "quantityCell": "E77",
+      "summaryCells": [
+        "E79"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F89",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E89",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F91",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E91",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F92",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E92",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F93",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E93",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F94",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E94",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F95",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E95",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F97",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E97",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F98",
+      "sheet": "Povrće",
+      "name": "Drljanje",
+      "quantityCell": "E98",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F100",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E100",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F101",
+      "sheet": "Povrće",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E101",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F102",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E102",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F105",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje - 2 puta",
+      "quantityCell": "E105",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F106",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E106",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F107",
+      "sheet": "Povrće",
+      "name": "Vađenje rotkvice",
+      "quantityCell": "E107",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B85",
+      "itemId": "F108",
+      "sheet": "Povrće",
+      "name": "Transport rotkvice",
+      "quantityCell": "E108",
+      "summaryCells": [
+        "E110"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F120",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E120",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F122",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E122",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F123",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E123",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F124",
+      "sheet": "Povrće",
+      "name": "Drljanje - dva puta",
+      "quantityCell": "E124",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F125",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E125",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F127",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E127",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F128",
+      "sheet": "Povrće",
+      "name": "Transport semena",
+      "quantityCell": "E128",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F130",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E130",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F131",
+      "sheet": "Povrće",
+      "name": "Transport vode - 3 puta",
+      "quantityCell": "E131",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F132",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 3 puta",
+      "quantityCell": "E132",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F136",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje - 2 puta",
+      "quantityCell": "E136",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F137",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E137",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F138",
+      "sheet": "Povrće",
+      "name": "Žetva graška",
+      "quantityCell": "E138",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B116",
+      "itemId": "F139",
+      "sheet": "Povrće",
+      "name": "Transport graška",
+      "quantityCell": "E139",
+      "summaryCells": [
+        "E141"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F151",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E151",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F152",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E152",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F153",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E153",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F155",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E155",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F156",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E156",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F157",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E157",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F159",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E159",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F160",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E160",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F161",
+      "sheet": "Povrće",
+      "name": "Transport semena",
+      "quantityCell": "E161",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F163",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E163",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F164",
+      "sheet": "Povrće",
+      "name": "Transport vode",
+      "quantityCell": "E164",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F165",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E165",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F167",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E167",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F168",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E168",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F170",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E170",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F171",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E171",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F172",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E172",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F177",
+      "sheet": "Povrće",
+      "name": "Transport boranije",
+      "quantityCell": "E177",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F190",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E190",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F191",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E191",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F192",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E192",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F193",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E193",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F194",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E194",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F196",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E196",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F197",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E197",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F198",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E198",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F200",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E200",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F201",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E201",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F203",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E203",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F204",
+      "sheet": "Povrće",
+      "name": "Transport vode - 6 puta",
+      "quantityCell": "E204",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F205",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 6 puta",
+      "quantityCell": "E205",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F210",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje - 2 puta",
+      "quantityCell": "E210",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F211",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E211",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F212",
+      "sheet": "Povrće",
+      "name": "Vađenje crnog luka",
+      "quantityCell": "E212",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B186",
+      "itemId": "F213",
+      "sheet": "Povrće",
+      "name": "Transport crnog luka",
+      "quantityCell": "E213",
+      "summaryCells": [
+        "E215"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F226",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E226",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F227",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E227",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F228",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E228",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F229",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E229",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F230",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E230",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F232",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E232",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F233",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E233",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F238",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E238",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F240",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E240",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F241",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E241",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F243",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E243",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F244",
+      "sheet": "Povrće",
+      "name": "Transport paprike",
+      "quantityCell": "E244",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F246",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E246",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F247",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E247",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F248",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E248",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F250",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E250",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F251",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E251",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F252",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E252",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F254",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 8 puta",
+      "quantityCell": "E254",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F255",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 4 puta",
+      "quantityCell": "E255",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F264",
+      "sheet": "Povrće",
+      "name": "Transport paprike",
+      "quantityCell": "E264",
+      "summaryCells": [
+        "E266"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F276",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E276",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F277",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E277",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F278",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E278",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F279",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E279",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F280",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E280",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F282",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E282",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F283",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E283",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F284",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E284",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F286",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E286",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F287",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E287",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F290",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 6 puta",
+      "quantityCell": "E290",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F298",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje - 2 puta",
+      "quantityCell": "E298",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F299",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 3 puta",
+      "quantityCell": "E299",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F301",
+      "sheet": "Povrće",
+      "name": "Transport krastavca",
+      "quantityCell": "E301",
+      "summaryCells": [
+        "E303"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F313",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E313",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F314",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E314",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F315",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E315",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F316",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E316",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F317",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E317",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F319",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E319",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F320",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E320",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F321",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E321",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F323",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E323",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F324",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E324",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F326",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E326",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F327",
+      "sheet": "Povrće",
+      "name": "Transport vode - 3 puta",
+      "quantityCell": "E327",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F328",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 3 puta",
+      "quantityCell": "E328",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F332",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje - 2 puta",
+      "quantityCell": "E332",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F333",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E333",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F335",
+      "sheet": "Povrće",
+      "name": "Transport cvekle",
+      "quantityCell": "E335",
+      "summaryCells": [
+        "E337"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F347",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E347",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F348",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E348",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F349",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E349",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F350",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E350",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F351",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E351",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F353",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E353",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F354",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E354",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F359",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E359",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F361",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E361",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F362",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E362",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F363",
+      "sheet": "Povrće",
+      "name": "Transport paradajza",
+      "quantityCell": "E363",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F365",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E365",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F366",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E366",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F369",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E369",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F370",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E370",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F371",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 4 puta",
+      "quantityCell": "E371",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F376",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E376",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F377",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E377",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F378",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 4 puta",
+      "quantityCell": "E378",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F380",
+      "sheet": "Povrće",
+      "name": "Transport paradajza",
+      "quantityCell": "E380",
+      "summaryCells": [
+        "E382"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F392",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E392",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F394",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E394",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F395",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E395",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F396",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E396",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F397",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E397",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F399",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E399",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F400",
+      "sheet": "Povrće",
+      "name": "Transport vode",
+      "quantityCell": "E400",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F401",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E401",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F403",
+      "sheet": "Povrće",
+      "name": "Drljanje",
+      "quantityCell": "E403",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F405",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E405",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F407",
+      "sheet": "Povrće",
+      "name": "Transport spanaća",
+      "quantityCell": "E407",
+      "summaryCells": [
+        "E409"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F419",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E419",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F420",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E420",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F421",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E421",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F422",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E422",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F423",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E423",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F425",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E425",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F426",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E426",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F428",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E428",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F430",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E430",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F431",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E431",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F433",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E433",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F434",
+      "sheet": "Povrće",
+      "name": "Transport lubenica",
+      "quantityCell": "E434",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F437",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E437",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F438",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E438",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F439",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 4 puta",
+      "quantityCell": "E439",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F444",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E444",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F445",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E445",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F446",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E446",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F447",
+      "sheet": "Povrće",
+      "name": "Branje lubenica",
+      "quantityCell": "E447",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F448",
+      "sheet": "Povrće",
+      "name": "Transport lubenica",
+      "quantityCell": "E448",
+      "summaryCells": [
+        "E450"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F460",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E460",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F462",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E462",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F463",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E463",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F464",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E464",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F466",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E466",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F468",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E468",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F469",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E469",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F471",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E471",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F472",
+      "sheet": "Povrće",
+      "name": "Transport karfiola",
+      "quantityCell": "E472",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F474",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E474",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F475",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E475",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F476",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 5 puta",
+      "quantityCell": "E476",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F480",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E480",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F481",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E481",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F482",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E482",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F484",
+      "sheet": "Povrće",
+      "name": "Transport karfiola",
+      "quantityCell": "E484",
+      "summaryCells": [
+        "E486"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F496",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E496",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F498",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E498",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F499",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E499",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F500",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E500",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F502",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E502",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F504",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E504",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F505",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E505",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F507",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E507",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F508",
+      "sheet": "Povrće",
+      "name": "Transport kupusa",
+      "quantityCell": "E508",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F510",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E510",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F511",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E511",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F512",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 5 puta",
+      "quantityCell": "E512",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F516",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E516",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F517",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E517",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F518",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E518",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F520",
+      "sheet": "Povrće",
+      "name": "Transport kupusa",
+      "quantityCell": "E520",
+      "summaryCells": [
+        "E522"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F532",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E532",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F533",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E533",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F535",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E535",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F537",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E537",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F538",
+      "sheet": "Povrće",
+      "name": "Zaštita biljaka",
+      "quantityCell": "E538",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F540",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E540",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F541",
+      "sheet": "Povrće",
+      "name": "Transport kupusa",
+      "quantityCell": "E541",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F543",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E543",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F544",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E544",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F545",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 5 puta",
+      "quantityCell": "E545",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F549",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E549",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F550",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E550",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F552",
+      "sheet": "Povrće",
+      "name": "Transport kupusa",
+      "quantityCell": "E552",
+      "summaryCells": [
+        "E554"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F564",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E564",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F566",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E566",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F567",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E567",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F568",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E568",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F570",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E570",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F572",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E572",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F573",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja",
+      "quantityCell": "E573",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F575",
+      "sheet": "Povrće",
+      "name": "Drljanje",
+      "quantityCell": "E575",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F576",
+      "sheet": "Povrće",
+      "name": "Sađenje salate",
+      "quantityCell": "E576",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F577",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 2 puta",
+      "quantityCell": "E577",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F578",
+      "sheet": "Povrće",
+      "name": "Međuredno kultiviranje",
+      "quantityCell": "E578",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F579",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E579",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F583",
+      "sheet": "Povrće",
+      "name": "Transport salate",
+      "quantityCell": "E583",
+      "summaryCells": [
+        "E585"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F595",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E595",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F596",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E596",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F597",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E597",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F598",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E598",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F599",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E599",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F601",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E601",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F602",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E602",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F603",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E603",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F605",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E605",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F606",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E606",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F608",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E608",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F610",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E610",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F611",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E611",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F612",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E612",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F615",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E615",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F616",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E616",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F618",
+      "sheet": "Povrće",
+      "name": "Transport šargarepe",
+      "quantityCell": "E618",
+      "summaryCells": [
+        "E620"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F630",
+      "sheet": "Povrće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E630",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F631",
+      "sheet": "Povrće",
+      "name": "Utovar stajnjaka",
+      "quantityCell": "E631",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F632",
+      "sheet": "Povrće",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E632",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F633",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E633",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F634",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E634",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F636",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E636",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F637",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E637",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F638",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E638",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F640",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E640",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F641",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E641",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F643",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E643",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F645",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E645",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F646",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E646",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F647",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E647",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F650",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E650",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F651",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E651",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F653",
+      "sheet": "Povrće",
+      "name": "Transport peršuna",
+      "quantityCell": "E653",
+      "summaryCells": [
+        "E655"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F665",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E665",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F667",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E667",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F668",
+      "sheet": "Povrće",
+      "name": "Oranje",
+      "quantityCell": "E668",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F669",
+      "sheet": "Povrće",
+      "name": "Tanjiranje",
+      "quantityCell": "E669",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F671",
+      "sheet": "Povrće",
+      "name": "Transport đubriva",
+      "quantityCell": "E671",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F673",
+      "sheet": "Povrće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E673",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F674",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - herbicidi",
+      "quantityCell": "E674",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F676",
+      "sheet": "Povrće",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E676",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F677",
+      "sheet": "Povrće",
+      "name": "Transport plavog patlidžana",
+      "quantityCell": "E677",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F679",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E679",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F680",
+      "sheet": "Povrće",
+      "name": "Prvo međuredno kultiviranje",
+      "quantityCell": "E680",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F681",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja - 5 puta",
+      "quantityCell": "E681",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F686",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje",
+      "quantityCell": "E686",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F687",
+      "sheet": "Povrće",
+      "name": "Drugo međuredno kultiviranje",
+      "quantityCell": "E687",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F688",
+      "sheet": "Povrće",
+      "name": "Navodnjavanje - 5 puta",
+      "quantityCell": "E688",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F689",
+      "sheet": "Povrće",
+      "name": "Branje plavog patlidžana",
+      "quantityCell": "E689",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F690",
+      "sheet": "Povrće",
+      "name": "Transport plavog patlidžana",
+      "quantityCell": "E690",
+      "summaryCells": [
+        "E692"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F5",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E5",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F7",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E7",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F8",
+      "sheet": "Voće",
+      "name": "Kultiviranje/košenje - 2 puta",
+      "quantityCell": "E8",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F9",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E9",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F11",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E11",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F12",
+      "sheet": "Voće",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E12",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F13",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E13",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B1",
+      "itemId": "F18",
+      "sheet": "Voće",
+      "name": "Transport šljive",
+      "quantityCell": "E18",
+      "summaryCells": [
+        "E20"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F30",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E30",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F31",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E31",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F33",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E33",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F34",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E34",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F35",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E35",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F37",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E37",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F38",
+      "sheet": "Voće",
+      "name": "Transport vode - 7 puta",
+      "quantityCell": "E38",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F39",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 7 puta",
+      "quantityCell": "E39",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B26",
+      "itemId": "F51",
+      "sheet": "Voće",
+      "name": "Transport šljive",
+      "quantityCell": "E51",
+      "summaryCells": [
+        "E53"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F63",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E63",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F64",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E64",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F66",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E66",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F67",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E67",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F68",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E68",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F70",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E70",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F71",
+      "sheet": "Voće",
+      "name": "Transport vode - 4 puta",
+      "quantityCell": "E71",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F72",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 4 puta",
+      "quantityCell": "E72",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B59",
+      "itemId": "F80",
+      "sheet": "Voće",
+      "name": "Transport jabuka",
+      "quantityCell": "E80",
+      "summaryCells": [
+        "E82"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F92",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E92",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F93",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E93",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F95",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E95",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F96",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E96",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F97",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E97",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F99",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E99",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F100",
+      "sheet": "Voće",
+      "name": "Transport vode - 11 puta",
+      "quantityCell": "E100",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F101",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 11 puta",
+      "quantityCell": "E101",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B88",
+      "itemId": "F130",
+      "sheet": "Voće",
+      "name": "Transport jabuka",
+      "quantityCell": "E130",
+      "summaryCells": [
+        "E132"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F142",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E142",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F143",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E143",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F145",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E145",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F146",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E146",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F147",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E147",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F149",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E149",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F150",
+      "sheet": "Voće",
+      "name": "Transport vode - 10 puta",
+      "quantityCell": "E150",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F151",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 10 puta",
+      "quantityCell": "E151",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B138",
+      "itemId": "F177",
+      "sheet": "Voće",
+      "name": "Transport krušaka",
+      "quantityCell": "E177",
+      "summaryCells": [
+        "E179"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F189",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E189",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F190",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E190",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F192",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E192",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F193",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E193",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F194",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E194",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F196",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E196",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F197",
+      "sheet": "Voće",
+      "name": "Transport vode - 8 puta",
+      "quantityCell": "E197",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F198",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 8 puta",
+      "quantityCell": "E198",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B185",
+      "itemId": "F211",
+      "sheet": "Voće",
+      "name": "Transport bresaka",
+      "quantityCell": "E211",
+      "summaryCells": [
+        "E213"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F223",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E223",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F224",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E224",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F226",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E226",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F227",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E227",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F228",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E228",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F230",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E230",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F231",
+      "sheet": "Voće",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E231",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F232",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E232",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B219",
+      "itemId": "F236",
+      "sheet": "Voće",
+      "name": "Transport kajsija",
+      "quantityCell": "E236",
+      "summaryCells": [
+        "E238"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F248",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E248",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F249",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E249",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F251",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E251",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F252",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E252",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F253",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E253",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F255",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E255",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F256",
+      "sheet": "Voće",
+      "name": "Transport vode - 7 puta",
+      "quantityCell": "E256",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F257",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 7 puta",
+      "quantityCell": "E257",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B244",
+      "itemId": "F277",
+      "sheet": "Voće",
+      "name": "Transport grožđa",
+      "quantityCell": "E277",
+      "summaryCells": [
+        "E279"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F289",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E289",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F290",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E290",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F292",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E292",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F293",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E293",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F294",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E294",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F296",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E296",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F297",
+      "sheet": "Voće",
+      "name": "Transport vode - 7 puta",
+      "quantityCell": "E297",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F298",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 7 puta",
+      "quantityCell": "E298",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B285",
+      "itemId": "F307",
+      "sheet": "Voće",
+      "name": "Transport proizvoda",
+      "quantityCell": "E307",
+      "summaryCells": [
+        "E309"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F319",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E319",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F320",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E320",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F322",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E322",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F323",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E323",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F324",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E324",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F326",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E326",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F327",
+      "sheet": "Voće",
+      "name": "Transport vode - 6 puta",
+      "quantityCell": "E327",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F328",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 6 puta",
+      "quantityCell": "E328",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B315",
+      "itemId": "F342",
+      "sheet": "Voće",
+      "name": "Transport višanja",
+      "quantityCell": "E342",
+      "summaryCells": [
+        "E344"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F354",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E354",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F356",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E356",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F357",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E357",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F358",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E358",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F360",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E360",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F361",
+      "sheet": "Voće",
+      "name": "Transport vode - 4 puta",
+      "quantityCell": "E361",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F362",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 4 puta",
+      "quantityCell": "E362",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B350",
+      "itemId": "F368",
+      "sheet": "Voće",
+      "name": "Transport jagoda",
+      "quantityCell": "E368",
+      "summaryCells": [
+        "E370"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F380",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E380",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F381",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E381",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F383",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E383",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F384",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E384",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F385",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E385",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F387",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E387",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F388",
+      "sheet": "Voće",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E388",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F389",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E389",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B376",
+      "itemId": "F393",
+      "sheet": "Voće",
+      "name": "Transport dunja",
+      "quantityCell": "E393",
+      "summaryCells": [
+        "E395"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F405",
+      "sheet": "Voće",
+      "name": "Površinska obrada zemljišta",
+      "quantityCell": "E405",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F406",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E406",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F408",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E408",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F409",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E409",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F410",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E410",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F412",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E412",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F413",
+      "sheet": "Voće",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E413",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F414",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 2 puta",
+      "quantityCell": "E414",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B401",
+      "itemId": "F418",
+      "sheet": "Voće",
+      "name": "Transport mušmula",
+      "quantityCell": "E418",
+      "summaryCells": [
+        "E420"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F430",
+      "sheet": "Voće",
+      "name": "Utovar stajnjaka (1/4)",
+      "quantityCell": "E430",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F431",
+      "sheet": "Voće",
+      "name": "Transport i rasturanje stajnjaka (1/4)",
+      "quantityCell": "E431",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F432",
+      "sheet": "Voće",
+      "name": "Zaoravanje stajnajka (1/4)",
+      "quantityCell": "E432",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F433",
+      "sheet": "Voće",
+      "name": "Tanjiranje",
+      "quantityCell": "E433",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F434",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E434",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F436",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E436",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F437",
+      "sheet": "Voće",
+      "name": "Međuredno kultiviranje - 4 puta",
+      "quantityCell": "E437",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F438",
+      "sheet": "Voće",
+      "name": "Transport đubriva",
+      "quantityCell": "E438",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F440",
+      "sheet": "Voće",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E440",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F441",
+      "sheet": "Voće",
+      "name": "Transport vode - 7 puta",
+      "quantityCell": "E441",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F442",
+      "sheet": "Voće",
+      "name": "Zaštita bilja - 7 puta",
+      "quantityCell": "E442",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s2-B426",
+      "itemId": "F453",
+      "sheet": "Voće",
+      "name": "Transport lešnika",
+      "quantityCell": "E453",
+      "summaryCells": [
+        "E455"
+      ]
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F9",
+      "sheet": "Ostalo",
+      "name": "Transport sena",
+      "quantityCell": "E9",
+      "summaryCells": [
+        "E13"
+      ]
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F10",
+      "sheet": "Ostalo",
+      "name": "Utovar stajnjaka (1/4)",
+      "quantityCell": "E10",
+      "summaryCells": [
+        "E13"
+      ]
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F11",
+      "sheet": "Ostalo",
+      "name": "Transport i rasturanje stajnjaka",
+      "quantityCell": "E11",
+      "summaryCells": [
+        "E13"
+      ]
+    },
+    {
+      "templateId": "s4-B20",
+      "itemId": "F33",
+      "sheet": "Ostalo",
+      "name": "Transport šampinjona",
+      "quantityCell": "E33",
+      "summaryCells": [
+        "E35"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F5",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaoravanje strnjike (1/6)",
+      "quantityCell": "E5",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F6",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Tanjiranje (1/6)",
+      "quantityCell": "E6",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F7",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E7",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F9",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Rasipanje min. đ. - 1. god. (1/6)",
+      "quantityCell": "E9",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F10",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Međ. kultiv. sa đ. - od 2-6. god. (5/6)",
+      "quantityCell": "E10",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F11",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Oranje (1/6)",
+      "quantityCell": "E11",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F12",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Predsetvena priprema zemljišta (1/6)",
+      "quantityCell": "E12",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F14",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Setva (1/6)",
+      "quantityCell": "E14",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F15",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport vode",
+      "quantityCell": "E15",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F16",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaštita insekticidima",
+      "quantityCell": "E16",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F18",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E18",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F20",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "I međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E20",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F21",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E21",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F22",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport komorača",
+      "quantityCell": "E22",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F23",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Košenje ",
+      "quantityCell": "E23",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F24",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E24",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B1",
+      "itemId": "F26",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "II međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E26",
+      "summaryCells": [
+        "E28"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F43",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Utovar stajnjaka (1/2)",
+      "quantityCell": "E43",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F44",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport i rasturanje stajnjaka (1/2)",
+      "quantityCell": "E44",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F45",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaoravanje strnjike (1/2)",
+      "quantityCell": "E45",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F46",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Tanjiranje (1/2)",
+      "quantityCell": "E46",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F47",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E47",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F49",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E49",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F50",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Oranje (1/2)",
+      "quantityCell": "E50",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F51",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Predsetvena priprema zemljišta (1/2)",
+      "quantityCell": "E51",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F52",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport stolona (1/2)",
+      "quantityCell": "E52",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F54",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Sadnja (1/2)",
+      "quantityCell": "E54",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F55",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Navodnjavanje (1/2)",
+      "quantityCell": "E55",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F56",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva - 3 puta",
+      "quantityCell": "E56",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F58",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Međuredno kultiviranje sa đ. - 3 puta",
+      "quantityCell": "E58",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F59",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport vode - 2 puta",
+      "quantityCell": "E59",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F60",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaštita bilja - 2 puta (lisna rđa)",
+      "quantityCell": "E60",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F62",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Košenje - 2 puta",
+      "quantityCell": "E62",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F63",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Sakupljanje lisne mase - 2 puta",
+      "quantityCell": "E63",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B39",
+      "itemId": "F64",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport lisne mase - 2 puta",
+      "quantityCell": "E64",
+      "summaryCells": [
+        "E66"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F79",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E79",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F81",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E81",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F82",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Oranje",
+      "quantityCell": "E82",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F83",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Predsetvena priprema zemljišta",
+      "quantityCell": "E83",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F85",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Setva",
+      "quantityCell": "E85",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F86",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Valjanje",
+      "quantityCell": "E86",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F87",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport vode",
+      "quantityCell": "E87",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F88",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaštita bilja (herbicidi protiv korova)",
+      "quantityCell": "E88",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F90",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E90",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F92",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Rasipanje mineralnih đubriva",
+      "quantityCell": "E92",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F93",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Žetva kamilice",
+      "quantityCell": "E93",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B75",
+      "itemId": "F94",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport kamilice",
+      "quantityCell": "E94",
+      "summaryCells": [
+        "E96"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F109",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Utovar stajnjaka (1/5)",
+      "quantityCell": "E109",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F110",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport i rasturanje stajnjaka (1/5)",
+      "quantityCell": "E110",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F111",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaoravanje strnjike (1/5)",
+      "quantityCell": "E111",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F112",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Tanjiranje (1/5)",
+      "quantityCell": "E112",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F113",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E113",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F115",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Rasipanje min. đubriva - 1. god. (1/5)",
+      "quantityCell": "E115",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F116",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Međ. kultiv. sa đ. - od 2-5. god. (4/5)",
+      "quantityCell": "E116",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F117",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Oranje  (1/5)",
+      "quantityCell": "E117",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F122",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Predsetvena priprema zemljišta (1/5)",
+      "quantityCell": "E122",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F123",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport sadnica matičnjaka (1/5)",
+      "quantityCell": "E123",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F124",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Sadnja (1/5)",
+      "quantityCell": "E124",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F125",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Navodnjavanje (1/5)",
+      "quantityCell": "E125",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F126",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport đubriva",
+      "quantityCell": "E126",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F128",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "I međuredno kultiviranje sa đubrenjem",
+      "quantityCell": "E128",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F129",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport vode",
+      "quantityCell": "E129",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F130",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaštita bilja (herbicidi)",
+      "quantityCell": "E130",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F132",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "II međuredno kultiviranje",
+      "quantityCell": "E132",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F133",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Košenje - 2 puta",
+      "quantityCell": "E133",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F134",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Sakupljanje lisne mase - 2 puta",
+      "quantityCell": "E134",
+      "summaryCells": [
+        "E137"
+      ]
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F135",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Transport lisne mase - 2 puta",
+      "quantityCell": "E135",
+      "summaryCells": [
+        "E137"
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "templateId": "s0-B1",
+      "itemId": "F23",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E23"
+    },
+    {
+      "templateId": "s0-B1",
+      "itemId": "F25",
+      "sheet": "Usevi",
+      "name": "Balranje slame (bale)",
+      "quantityCell": "E25"
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F58",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E58"
+    },
+    {
+      "templateId": "s0-B36",
+      "itemId": "F60",
+      "sheet": "Usevi",
+      "name": "Balranje slame (bale)",
+      "quantityCell": "E60"
+    },
+    {
+      "templateId": "s0-B69",
+      "itemId": "F91",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E91"
+    },
+    {
+      "templateId": "s0-B103",
+      "itemId": "F129",
+      "sheet": "Usevi",
+      "name": "Žetva - branje kukuruza",
+      "quantityCell": "E129"
+    },
+    {
+      "templateId": "s0-B175",
+      "itemId": "F197",
+      "sheet": "Usevi",
+      "name": "Žetva suncokreta",
+      "quantityCell": "E197"
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F234",
+      "sheet": "Usevi",
+      "name": "Žetva šećerne repe",
+      "quantityCell": "E234"
+    },
+    {
+      "templateId": "s0-B206",
+      "itemId": "F235",
+      "sheet": "Usevi",
+      "name": "Transport šećerne repe",
+      "quantityCell": "E235"
+    },
+    {
+      "templateId": "s0-B243",
+      "itemId": "F274",
+      "sheet": "Usevi",
+      "name": "Žetva soje",
+      "quantityCell": "E274"
+    },
+    {
+      "templateId": "s0-B283",
+      "itemId": "F302",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E302"
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F333",
+      "sheet": "Usevi",
+      "name": "Košenje ",
+      "quantityCell": "E333"
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F334",
+      "sheet": "Usevi",
+      "name": "Sakupljanje sena",
+      "quantityCell": "E334"
+    },
+    {
+      "templateId": "s0-B312",
+      "itemId": "F335",
+      "sheet": "Usevi",
+      "name": "Baliranje sena (bale)",
+      "quantityCell": "E335"
+    },
+    {
+      "templateId": "s0-B347",
+      "itemId": "F369",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E369"
+    },
+    {
+      "templateId": "s0-B380",
+      "itemId": "F402",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E402"
+    },
+    {
+      "templateId": "s0-B413",
+      "itemId": "F432",
+      "sheet": "Usevi",
+      "name": "Žetva kombajnom",
+      "quantityCell": "E432"
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F451",
+      "sheet": "Usevi",
+      "name": "Zaštita bilja (manuelno)",
+      "quantityCell": "E451"
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F461",
+      "sheet": "Usevi",
+      "name": "Sađenje duvana",
+      "quantityCell": "E461"
+    },
+    {
+      "templateId": "s0-B441",
+      "itemId": "F475",
+      "sheet": "Usevi",
+      "name": "Branje duvana",
+      "quantityCell": "E475"
+    },
+    {
+      "templateId": "s1-B1",
+      "itemId": "F35",
+      "sheet": "Povrće",
+      "name": "Vađenje krompira",
+      "quantityCell": "E35"
+    },
+    {
+      "templateId": "s1-B44",
+      "itemId": "F76",
+      "sheet": "Povrće",
+      "name": "Žetva pasulja",
+      "quantityCell": "E76"
+    },
+    {
+      "templateId": "s1-B147",
+      "itemId": "F176",
+      "sheet": "Povrće",
+      "name": "Branje boranije",
+      "quantityCell": "E176"
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F235",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja (manuelno)",
+      "quantityCell": "E235"
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F245",
+      "sheet": "Povrće",
+      "name": "Sađenje paprike",
+      "quantityCell": "E245"
+    },
+    {
+      "templateId": "s1-B222",
+      "itemId": "F263",
+      "sheet": "Povrće",
+      "name": "Branje paprike",
+      "quantityCell": "E263"
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F289",
+      "sheet": "Povrće",
+      "name": "Setva",
+      "quantityCell": "E289"
+    },
+    {
+      "templateId": "s1-B272",
+      "itemId": "F300",
+      "sheet": "Povrće",
+      "name": "Branje krastavca",
+      "quantityCell": "E300"
+    },
+    {
+      "templateId": "s1-B309",
+      "itemId": "F334",
+      "sheet": "Povrće",
+      "name": "Vađenje cvekle",
+      "quantityCell": "E334"
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F356",
+      "sheet": "Povrće",
+      "name": "Zaštita bilja (manuelno)",
+      "quantityCell": "E356"
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F364",
+      "sheet": "Povrće",
+      "name": "Sađenje paradajza",
+      "quantityCell": "E364"
+    },
+    {
+      "templateId": "s1-B343",
+      "itemId": "F379",
+      "sheet": "Povrće",
+      "name": "Branje paradajza",
+      "quantityCell": "E379"
+    },
+    {
+      "templateId": "s1-B388",
+      "itemId": "F406",
+      "sheet": "Povrće",
+      "name": "Branje spanaća",
+      "quantityCell": "E406"
+    },
+    {
+      "templateId": "s1-B415",
+      "itemId": "F435",
+      "sheet": "Povrće",
+      "name": "Sađenje lubenice",
+      "quantityCell": "E435"
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F473",
+      "sheet": "Povrće",
+      "name": "Sađenje karfiola",
+      "quantityCell": "E473"
+    },
+    {
+      "templateId": "s1-B456",
+      "itemId": "F483",
+      "sheet": "Povrće",
+      "name": "Branje karfiola",
+      "quantityCell": "E483"
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F509",
+      "sheet": "Povrće",
+      "name": "Sađenje kupusa",
+      "quantityCell": "E509"
+    },
+    {
+      "templateId": "s1-B492",
+      "itemId": "F519",
+      "sheet": "Povrće",
+      "name": "Sečenje kupusa",
+      "quantityCell": "E519"
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F542",
+      "sheet": "Povrće",
+      "name": "Sađenje kupusa",
+      "quantityCell": "E542"
+    },
+    {
+      "templateId": "s1-B528",
+      "itemId": "F551",
+      "sheet": "Povrće",
+      "name": "Sečenje kupusa",
+      "quantityCell": "E551"
+    },
+    {
+      "templateId": "s1-B560",
+      "itemId": "F582",
+      "sheet": "Povrće",
+      "name": "Sečenje salate",
+      "quantityCell": "E582"
+    },
+    {
+      "templateId": "s1-B591",
+      "itemId": "F617",
+      "sheet": "Povrće",
+      "name": "Vađenje šargarepe",
+      "quantityCell": "E617"
+    },
+    {
+      "templateId": "s1-B626",
+      "itemId": "F652",
+      "sheet": "Povrće",
+      "name": "Vađenje peršuna",
+      "quantityCell": "E652"
+    },
+    {
+      "templateId": "s1-B661",
+      "itemId": "F678",
+      "sheet": "Povrće",
+      "name": "Sađenje plavog patlidžana",
+      "quantityCell": "E678"
+    },
+    {
+      "templateId": "s3-B1",
+      "itemId": "F18",
+      "sheet": "Plastenici",
+      "name": "Konopac-vezivanje struka u plasten.",
+      "quantityCell": "D18"
+    },
+    {
+      "templateId": "s3-B1",
+      "itemId": "F19",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D19"
+    },
+    {
+      "templateId": "s3-B26",
+      "itemId": "F46",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D46"
+    },
+    {
+      "templateId": "s3-B53",
+      "itemId": "F73",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D73"
+    },
+    {
+      "templateId": "s3-B80",
+      "itemId": "F102",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D102"
+    },
+    {
+      "templateId": "s3-B109",
+      "itemId": "F131",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D131"
+    },
+    {
+      "templateId": "s3-B138",
+      "itemId": "F151",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D151"
+    },
+    {
+      "templateId": "s3-B158",
+      "itemId": "F170",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D170"
+    },
+    {
+      "templateId": "s3-B177",
+      "itemId": "F189",
+      "sheet": "Plastenici",
+      "name": "Navodnjavanje",
+      "quantityCell": "D189"
+    },
+    {
+      "templateId": "s3-B196",
+      "itemId": "E206",
+      "sheet": "Plastenici",
+      "name": "POKRIVANJE",
+      "quantityCell": "C206"
+    },
+    {
+      "templateId": "s3-B196",
+      "itemId": "E207",
+      "sheet": "Plastenici",
+      "name": "POKRIVANJE AGRIL FOLIJOM",
+      "quantityCell": "C207"
+    },
+    {
+      "templateId": "s3-B219",
+      "itemId": "E227",
+      "sheet": "Plastenici",
+      "name": "ZALIVANJE",
+      "quantityCell": "C227"
+    },
+    {
+      "templateId": "s3-B219",
+      "itemId": "E228",
+      "sheet": "Plastenici",
+      "name": "POKRIVANJE AGRIL FOLIJOM",
+      "quantityCell": "C228"
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F5",
+      "sheet": "Ostalo",
+      "name": "Zaštita bilja - rodencidi",
+      "quantityCell": "E5"
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F6",
+      "sheet": "Ostalo",
+      "name": "Košenje - žetva",
+      "quantityCell": "E6"
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F7",
+      "sheet": "Ostalo",
+      "name": "Sakupljanje",
+      "quantityCell": "E7"
+    },
+    {
+      "templateId": "s4-B1",
+      "itemId": "F8",
+      "sheet": "Ostalo",
+      "name": "Baliranje livadskog sena (bale)",
+      "quantityCell": "E8"
+    },
+    {
+      "templateId": "s6-B105",
+      "itemId": "F119",
+      "sheet": "Aromatično i lekovito bilje",
+      "name": "Zaštita bilja (manuelno)",
+      "quantityCell": "E119"
+    }
+  ],
+  "missingReferences": [
+    "Usevi!E490",
+    "Usevi!E492",
+    "Usevi!E494",
+    "Usevi!E496"
+  ]
+}

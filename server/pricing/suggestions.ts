@@ -144,6 +144,13 @@ export async function suggestPrices(
       selectedId: null,
       candidates: [],
     };
+    if (row.pricingGroup === "diesel")
+      return {
+        ...result,
+        status: "excluded" as const,
+        message:
+          "Zajednička cena goriva unosi se u posebnom polju mašinskih operacija.",
+      };
     if (row.occurrences.every((o) => !o.included || o.quantity === "0"))
       return {
         ...result,

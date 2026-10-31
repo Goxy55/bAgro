@@ -8,6 +8,7 @@ import { todayInSerbia } from "../../shared/dates.js";
 import { rateFor } from "../reports.js";
 import { inputReferenceSchema, referencePrice } from "../inputs/service.js";
 import { costKey, suggestPrices } from "./suggestions.js";
+import { previewFuel, bindFuel } from "./fuel.js";
 import {
   rzsReferenceSchema,
   rzsReferencePrice,
@@ -108,6 +109,14 @@ adminPricing.get("/table", async (req, res) => {
     { versions: selected },
   );
   res.json(table);
+});
+adminPricing.get("/fuel", async (req: any, res) => {
+  const selected = ids.parse(z.string().parse(req.query.versionIds).split(","));
+  const preview = previewFuel(await versions(db, selected));
+  await audit(db, req.user.id, "admin_price_read", "fuel_price", {
+    versions: selected,
+  });
+  res.json(preview);
 });
 adminPricing.post("/stips-suggestions", async (req: any, res) => {
   const b = z
@@ -227,6 +236,14 @@ adminPricing.put("/table", async (req: any, res) => {
       revision: z.string().regex(/^[a-f0-9]{64}$/),
       date,
       reason: text,
+      fuel: z
+        .object({
+          price: dec.nullable(),
+          currency,
+          confirmed: z.literal(true),
+          zeroReason: z.string().trim().max(300).default(""),
+        })
+        .optional(),
       rows: z
         .array(
           z.object({
@@ -240,24 +257,54 @@ adminPricing.put("/table", async (req: any, res) => {
             rzsReference: rzsReferenceSchema.optional(),
           }),
         )
-        .min(1)
+        .min(0)
         .max(2000),
     })
+    .refine(
+      (b) => b.rows.length > 0 || !!b.fuel,
+      "Unesite cene ili zajedničku cenu goriva.",
+    )
     .parse(req.body);
+  if (b.fuel && b.rows.length)
+    throw Error(
+      "Zajedničku cenu goriva sačuvajte odvojeno od ostalih izmena cena.",
+    );
   if (new Set(b.rows.map((r) => r.key)).size !== b.rows.length)
     throw Error("Ista vrsta troška je uneta više puta.");
   const result = await transaction(async (tx) => {
     const selected = await versions(tx, b.versionIds, true);
-    const table = buildPricingTable(selected);
+    let table = buildPricingTable(selected);
     if (table.revision !== b.revision)
       throw conflict(
         "Cenovnik je u međuvremenu promenjen. Ponovo otvorite tabelu pre čuvanja.",
       );
     const batchId = randomUUID(),
       warnings: string[] = [];
+    let rows = b.rows;
+    if (b.fuel) {
+      const classifications = bindFuel(selected, req.user.id, b.reason);
+      table = buildPricingTable(selected);
+      const fuelRow = table.rows.find((r) => r.pricingGroup === "diesel")!;
+      rows = [
+        {
+          key: fuelRow.key,
+          price: b.fuel.price,
+          currency: b.fuel.currency,
+          unit: "l",
+          confirmUnit: true,
+          zeroReason: b.fuel.zeroReason,
+        },
+      ];
+      for (const change of classifications)
+        await audit(tx, req.user.id, "fuel_classification", change.versionId, {
+          batchId,
+          reason: b.reason,
+          items: change.items,
+        });
+    }
     const updates = new Map<string, any>();
     const rates = new Map<string, Awaited<ReturnType<typeof rateFor>>>();
-    for (const r of b.rows) {
+    for (const r of rows) {
       const row = table.rows.find((row) => row.key === r.key);
       if (!row) throw Error("Stavka ne pripada izabranom skupu normativa.");
       const unit = normalizedPriceUnit(r.unit);

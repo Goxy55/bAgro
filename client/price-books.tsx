@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { api } from "./api";
 import type { PricingRow, PricingTable } from "../shared/pricing";
+import { FuelPrice } from "./fuel-price";
 import { StipsPriceSuggestions } from "./price-suggestions";
 import { todayInSerbia } from "../shared/dates";
 
@@ -83,6 +84,7 @@ export function PriceBooks({
     [book, setBook] = useState<any>(null),
     [table, setTable] = useState<PricingTable | null>(null),
     [busy, setBusy] = useState(false),
+    [fuelDirty, setFuelDirty] = useState(false),
     [error, setError] = useState(""),
     [message, setMessage] = useState(""),
     [create, setCreate] = useState(false),
@@ -121,14 +123,28 @@ export function PriceBooks({
     const r = await api("/admin/price-books/" + id);
     setBook(r.book);
     setTable(r.table);
+    setFuelDirty(false);
     setEdits({});
     setCheck(null);
     setConfirmed(false);
     setConfirmUnits(false);
     setReplace(false);
     setCreate(false);
+    setFuelDirty(false);
   }
-  async function save(rows: any[], why: string) {
+  async function save(
+    rows: any[],
+    why: string,
+    extra?: {
+      date: string;
+      fuel: {
+        price: string;
+        currency: "RSD" | "EUR";
+        confirmed: true;
+        zeroReason: string;
+      };
+    },
+  ) {
     if (!table) return;
     const r = await api(
       "/admin/pricing/table",
@@ -138,10 +154,12 @@ export function PriceBooks({
         date,
         reason: why,
         rows,
+        ...extra,
       },
       "PUT",
     );
     setTable(r.table);
+    setFuelDirty(false);
     setEdits({});
     setCheck(null);
     setConfirmed(false);
@@ -165,7 +183,7 @@ export function PriceBooks({
           <button
             type="button"
             className="primary"
-            disabled={busy || !!dirty}
+            disabled={busy || !!dirty || fuelDirty}
             onClick={() => {
               setCreate(!create);
               requestId.current = crypto.randomUUID();
@@ -181,7 +199,7 @@ export function PriceBooks({
               type="button"
               className={book?.id === b.id ? "secondary active" : "secondary"}
               key={b.id}
-              disabled={busy || !!dirty}
+              disabled={busy || !!dirty || fuelDirty}
               onClick={() => void run(() => open(b.id))}
             >
               <strong>{b.name}</strong>
@@ -208,7 +226,7 @@ export function PriceBooks({
                 type="button"
                 className="secondary"
                 key={[v.name, v.valid_from, v.valid_to].join(":")}
-                disabled={busy || !!dirty}
+                disabled={busy || !!dirty || fuelDirty}
                 onClick={() =>
                   void run(async () => {
                     const r = await api("/admin/price-books", {
@@ -291,7 +309,7 @@ export function PriceBooks({
               Odobrene savremene cene mogu se preneti u nacrt; cene iz arhive
               2017 se ne aktiviraju.
             </p>
-            <button className="primary" disabled={busy}>
+            <button className="primary" disabled={busy || fuelDirty}>
               Pripremi kompletan cenovnik
             </button>
           </form>
@@ -324,7 +342,7 @@ export function PriceBooks({
           {book.status === "active" && (
             <button
               className="secondary"
-              disabled={busy}
+              disabled={busy || fuelDirty}
               onClick={() =>
                 void run(async () => {
                   await api(`/admin/price-books/${book.id}/archive`, {
@@ -358,10 +376,20 @@ export function PriceBooks({
               Cene se raspoređuju na sve odgovarajuće karte. Seme različitih
               kultura i različite jedinice ostaju zasebne stavke.
             </p>
+          </section>
+          <FuelPrice
+            table={table}
+            disabled={busy || !!dirty}
+            onDirty={setFuelDirty}
+            onApply={(fuel, priceDate, why) =>
+              run(() => save([], why, { fuel, date: priceDate }))
+            }
+          />
+          <section className="panel">
             <div className="toolbar">
               <button
                 className="secondary"
-                disabled={busy || !!dirty}
+                disabled={busy || !!dirty || fuelDirty}
                 onClick={() =>
                   void run(async () => {
                     const r = await api(
@@ -380,7 +408,7 @@ export function PriceBooks({
               </button>
               <button
                 className="secondary"
-                disabled={busy || !!dirty}
+                disabled={busy || !!dirty || fuelDirty}
                 onClick={() =>
                   void run(async () => {
                     const r = await api(
@@ -410,7 +438,7 @@ export function PriceBooks({
             <StipsPriceSuggestions
               key={book.id + ":" + (rzs?.document?.sha256 || "")}
               table={table}
-              disabled={busy || !!dirty}
+              disabled={busy || !!dirty || fuelDirty}
               onApply={(rows, why) => run(() => save(rows, why))}
             />
           </section>
@@ -419,7 +447,9 @@ export function PriceBooks({
             onSubmit={(e) => {
               e.preventDefault();
               void run(async () => {
-                const rows = groups(table.rows).flatMap((g) => {
+                const rows = groups(
+                  table.rows.filter((r) => r.pricingGroup !== "diesel"),
+                ).flatMap((g) => {
                   const edit = edits[key(g[0]) + ":" + g[0].unit];
                   return edit
                     ? g.map((r) => ({
@@ -434,236 +464,248 @@ export function PriceBooks({
               });
             }}
           >
-            <h2>Zajednička tabela inputa</h2>
-            <p>Unesite nedostajuću cenu jednom, bez izbora kulture.</p>
-            <div className="form-grid">
-              <label className="field">
-                <span>Pretraži inpute</span>
+            <fieldset disabled={busy || fuelDirty} className="book-fieldset">
+              <h2>Zajednička tabela inputa</h2>
+              <p>Unesite nedostajuću cenu jednom, bez izbora kulture.</p>
+              <div className="form-grid">
+                <label className="field">
+                  <span>Pretraži inpute</span>
+                  <input
+                    aria-label="Pretraži inpute"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                </label>
+                <label className="field">
+                  <span>Datum ručno unetih cena / kursa</span>
+                  <input
+                    type="date"
+                    aria-label="Datum zajedničkih cena"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <label className="checkbox">
                 <input
-                  aria-label="Pretraži inpute"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  type="checkbox"
+                  checked={onlyMissing}
+                  onChange={(e) => setOnlyMissing(e.target.checked)}
                 />
+                <span>Samo nedostajuće ili neusaglašene cene</span>
               </label>
-              <label className="field">
-                <span>Datum ručno unetih cena / kursa</span>
-                <input
-                  type="date"
-                  aria-label="Datum zajedničkih cena"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  required
-                />
-              </label>
-            </div>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={onlyMissing}
-                onChange={(e) => setOnlyMissing(e.target.checked)}
-              />
-              <span>Samo nedostajuće ili neusaglašene cene</span>
-            </label>
-            <div
-              className="table-scroll"
-              role="region"
-              tabIndex={0}
-              aria-label="Zajednička tabela inputa"
-            >
-              <table className="book-inputs">
-                <thead>
-                  <tr>
-                    <th>Input / obuhvat</th>
-                    <th>Cena i valuta</th>
-                    <th>Jedinica</th>
-                    <th>Status / izvor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {groups(table.rows)
-                    .filter((g) =>
-                      g.some((r) =>
-                        r.name
-                          .toLocaleLowerCase()
-                          .includes(query.toLocaleLowerCase()),
-                      ),
+              <div
+                className="table-scroll"
+                role="region"
+                tabIndex={0}
+                aria-label="Zajednička tabela inputa"
+              >
+                <table className="book-inputs">
+                  <thead>
+                    <tr>
+                      <th>Input / obuhvat</th>
+                      <th>Cena i valuta</th>
+                      <th>Jedinica</th>
+                      <th>Status / izvor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {groups(
+                      table.rows.filter((r) => r.pricingGroup !== "diesel"),
                     )
-                    .filter(
-                      (g) =>
-                        !onlyMissing ||
-                        edits[key(g[0]) + ":" + g[0].unit] ||
-                        mixed(g) ||
-                        g.some(
-                          (r) =>
-                            r.mixed ||
-                            r.occurrences.some(
-                              (o) =>
-                                o.included &&
-                                o.quantity !== "0" &&
-                                o.priceEur === null,
-                            ),
+                      .filter((g) =>
+                        g.some((r) =>
+                          r.name
+                            .toLocaleLowerCase()
+                            .includes(query.toLocaleLowerCase()),
                         ),
-                    )
-                    .map((g) => {
-                      const k = key(g[0]) + ":" + g[0].unit,
-                        edit = edits[k] || base(g),
-                        occ = g.flatMap((r) => r.occurrences),
-                        input = occ.find((o) => o.lastInput)?.lastInput,
-                        pending = occ.filter((o) => o.lastInput?.pendingRate);
-                      const update = (v: Partial<Edit>) =>
-                        setEdits((prev) => ({
-                          ...prev,
-                          [k]: { ...(prev[k] || base(g)), ...v },
-                        }));
-                      return (
-                        <tr key={k}>
-                          <td>
-                            <strong>{g[0].name}</strong>
-                            <small>
-                              {new Set(occ.map((o) => o.templateId)).size}{" "}
-                              kultura / kategorija
-                            </small>
-                            <details>
-                              <summary>Gde se primenjuje</summary>
-                              {[
-                                ...new Set(
-                                  occ.map(
-                                    (o) =>
-                                      table.versions.find(
-                                        (v) => v.id === o.versionId,
-                                      )?.name,
-                                  ),
-                                ),
-                              ].join(", ")}
-                            </details>
-                          </td>
-                          <td>
-                            <input
-                              aria-label={`Zajednička cena ${g[0].name}`}
-                              type="number"
-                              min="0"
-                              step="any"
-                              value={edit.price}
-                              disabled={busy}
-                              onChange={(e) =>
-                                update({ price: e.target.value })
-                              }
-                            />
-                            <select
-                              aria-label={`Valuta inputa ${g[0].name}`}
-                              value={edit.currency}
-                              disabled={busy}
-                              onChange={(e) =>
-                                update({
-                                  currency: e.target.value as "RSD" | "EUR",
-                                })
-                              }
-                            >
-                              <option>RSD</option>
-                              <option>EUR</option>
-                            </select>
-                            {edit.price !== "" && Number(edit.price) === 0 && (
-                              <input
-                                aria-label={`Razlog nulte cene ${g[0].name}`}
-                                placeholder="Obavezan razlog nulte cene"
-                                required
-                                value={edit.zeroReason}
-                                onChange={(e) =>
-                                  update({ zeroReason: e.target.value })
-                                }
-                              />
-                            )}
-                          </td>
-                          <td>
-                            <select
-                              aria-label={`Jedinica inputa ${g[0].name}`}
-                              value={edit.unit}
-                              disabled={busy}
-                              onChange={(e) => update({ unit: e.target.value })}
-                            >
-                              {!units.includes(edit.unit) && (
-                                <option>{edit.unit}</option>
-                              )}
-                              {units.map((u) => (
-                                <option key={u}>{u}</option>
-                              ))}
-                            </select>
-                          </td>
-                          <td>
-                            {pending.length ? (
-                              <>
-                                <strong>Čeka kurs</strong>
+                      )
+                      .filter(
+                        (g) =>
+                          !onlyMissing ||
+                          edits[key(g[0]) + ":" + g[0].unit] ||
+                          mixed(g) ||
+                          g.some(
+                            (r) =>
+                              r.mixed ||
+                              r.occurrences.some(
+                                (o) =>
+                                  o.included &&
+                                  o.quantity !== "0" &&
+                                  o.priceEur === null,
+                              ),
+                          ),
+                      )
+                      .map((g) => {
+                        const k = key(g[0]) + ":" + g[0].unit,
+                          edit = edits[k] || base(g),
+                          occ = g.flatMap((r) => r.occurrences),
+                          input = occ.find((o) => o.lastInput)?.lastInput,
+                          pending = occ.filter((o) => o.lastInput?.pendingRate);
+                        const update = (v: Partial<Edit>) =>
+                          setEdits((prev) => ({
+                            ...prev,
+                            [k]: { ...(prev[k] || base(g)), ...v },
+                          }));
+                        return (
+                          <tr key={k}>
+                            <td>
+                              <strong>{g[0].name}</strong>
+                              <small>
+                                {new Set(occ.map((o) => o.templateId)).size}{" "}
+                                kultura / kategorija
+                              </small>
+                              <details>
+                                <summary>Gde se primenjuje</summary>
                                 {[
                                   ...new Set(
-                                    pending.map((o) => o.lastInput!.date),
+                                    occ.map(
+                                      (o) =>
+                                        table.versions.find(
+                                          (v) => v.id === o.versionId,
+                                        )?.name,
+                                    ),
                                   ),
-                                ].map((d) => (
-                                  <small key={d}>
-                                    Potreban NBS kurs za {d}
-                                  </small>
-                                ))}
-                              </>
-                            ) : occ.every(
-                                (o) =>
-                                  !o.included ||
-                                  o.quantity === "0" ||
-                                  o.priceEur !== null,
-                              ) ? (
-                              <span className="badge green">Cena postoji</span>
-                            ) : (
-                              <span className="badge amber">
-                                Nedostaje cena
-                              </span>
-                            )}
-                            {input?.reference && (
-                              <a
-                                href={input.reference.sourceUrl}
-                                target="_blank"
-                                rel="noreferrer"
+                                ].join(", ")}
+                              </details>
+                            </td>
+                            <td>
+                              <input
+                                aria-label={`Zajednička cena ${g[0].name}`}
+                                type="number"
+                                min="0"
+                                step="any"
+                                value={edit.price}
+                                disabled={busy || fuelDirty}
+                                onChange={(e) =>
+                                  update({ price: e.target.value })
+                                }
+                              />
+                              <select
+                                aria-label={`Valuta inputa ${g[0].name}`}
+                                value={edit.currency}
+                                disabled={busy || fuelDirty}
+                                onChange={(e) =>
+                                  update({
+                                    currency: e.target.value as "RSD" | "EUR",
+                                  })
+                                }
                               >
-                                {input.reference.kind === "rzs_purchase_price"
-                                  ? "RZS · "
-                                  : "STIPS · "}
-                                {input.reference.product} ·{" "}
-                                {input.reference.periodStart} · izvor ↗
-                              </a>
-                            )}
-                            {mixed(g) && (
-                              <small>
-                                Različite cene u kartama — zajednički unos ih
-                                usaglašava.
-                              </small>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-            </div>
-            <label className="field">
-              <span>Razlog izmene zajedničkih cena</span>
-              <input
-                aria-label="Razlog izmene svih cena"
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
-                required
-                maxLength={300}
-              />
-            </label>
-            <div className="toolbar">
-              <button className="primary" disabled={busy || !dirty}>
-                Sačuvaj i rasporedi cene ({dirty})
-              </button>
-              <button
-                type="button"
-                className="secondary"
-                disabled={busy || !dirty}
-                onClick={() => setEdits({})}
-              >
-                Odbaci izmene
-              </button>
-            </div>
+                                <option>RSD</option>
+                                <option>EUR</option>
+                              </select>
+                              {edit.price !== "" &&
+                                Number(edit.price) === 0 && (
+                                  <input
+                                    aria-label={`Razlog nulte cene ${g[0].name}`}
+                                    placeholder="Obavezan razlog nulte cene"
+                                    required
+                                    value={edit.zeroReason}
+                                    onChange={(e) =>
+                                      update({ zeroReason: e.target.value })
+                                    }
+                                  />
+                                )}
+                            </td>
+                            <td>
+                              <select
+                                aria-label={`Jedinica inputa ${g[0].name}`}
+                                value={edit.unit}
+                                disabled={busy || fuelDirty}
+                                onChange={(e) =>
+                                  update({ unit: e.target.value })
+                                }
+                              >
+                                {!units.includes(edit.unit) && (
+                                  <option>{edit.unit}</option>
+                                )}
+                                {units.map((u) => (
+                                  <option key={u}>{u}</option>
+                                ))}
+                              </select>
+                            </td>
+                            <td>
+                              {pending.length ? (
+                                <>
+                                  <strong>Čeka kurs</strong>
+                                  {[
+                                    ...new Set(
+                                      pending.map((o) => o.lastInput!.date),
+                                    ),
+                                  ].map((d) => (
+                                    <small key={d}>
+                                      Potreban NBS kurs za {d}
+                                    </small>
+                                  ))}
+                                </>
+                              ) : occ.every(
+                                  (o) =>
+                                    !o.included ||
+                                    o.quantity === "0" ||
+                                    o.priceEur !== null,
+                                ) ? (
+                                <span className="badge green">
+                                  Cena postoji
+                                </span>
+                              ) : (
+                                <span className="badge amber">
+                                  Nedostaje cena
+                                </span>
+                              )}
+                              {input?.reference && (
+                                <a
+                                  href={input.reference.sourceUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {input.reference.kind === "rzs_purchase_price"
+                                    ? "RZS · "
+                                    : "STIPS · "}
+                                  {input.reference.product} ·{" "}
+                                  {input.reference.periodStart} · izvor ↗
+                                </a>
+                              )}
+                              {mixed(g) && (
+                                <small>
+                                  Različite cene u kartama — zajednički unos ih
+                                  usaglašava.
+                                </small>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+              <label className="field">
+                <span>Razlog izmene zajedničkih cena</span>
+                <input
+                  aria-label="Razlog izmene svih cena"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  required
+                  maxLength={300}
+                />
+              </label>
+              <div className="toolbar">
+                <button
+                  className="primary"
+                  disabled={busy || !dirty || fuelDirty}
+                >
+                  Sačuvaj i rasporedi cene ({dirty})
+                </button>
+                <button
+                  type="button"
+                  className="secondary"
+                  disabled={busy || !dirty || fuelDirty}
+                  onClick={() => setEdits({})}
+                >
+                  Odbaci izmene
+                </button>
+              </div>
+            </fieldset>
           </form>
           <section className="panel">
             <h2>Grupna provera i aktivacija</h2>
@@ -677,7 +719,7 @@ export function PriceBooks({
                 type="checkbox"
                 aria-label="Potvrđujem jedinice celog cenovnika"
                 checked={confirmUnits}
-                disabled={busy || !!dirty}
+                disabled={busy || !!dirty || fuelDirty}
                 onChange={(e) => {
                   setConfirmUnits(e.target.checked);
                   setCheck(null);
@@ -693,7 +735,7 @@ export function PriceBooks({
             <button
               type="button"
               className="secondary"
-              disabled={busy || !!dirty}
+              disabled={busy || !!dirty || fuelDirty}
               onClick={() =>
                 void run(async () => {
                   setCheck(
@@ -741,7 +783,7 @@ export function PriceBooks({
                           </ul>
                           <button
                             className="secondary"
-                            disabled={busy}
+                            disabled={busy || fuelDirty}
                             onClick={() => onEdit(v.id)}
                           >
                             Reši posebnosti: {v.name}
@@ -783,6 +825,7 @@ export function PriceBooks({
                       disabled={
                         busy ||
                         !!dirty ||
+                        fuelDirty ||
                         !confirmed ||
                         !confirmUnits ||
                         (check.overlaps.length > 0 && !replace)

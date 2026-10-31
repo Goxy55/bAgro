@@ -6,7 +6,7 @@ Sa nove putanje prošli su `npm ci --cache /tmp/agro-npm-cache`, `npm run build`
 
 - `npm ci`: uspešna instalacija zaključanih zavisnosti.
 - `npm run build`: stroga TypeScript provera i produkcioni frontend build prolaze.
-- `npm test`: **94 prolazi, 0 pada, 0 preskočeno**. Test baze i sintetički TEST podaci su u odvojenom privremenom direktorijumu. Uključena je provera zahteva za javni HTTPS, adresu aplikacije, tajnu i eksplicitno poverenje u proxy, zajednički admin cenovnik i grupni STIPS predlozi.
+- `npm test`: **101 prolazi, 0 pada, 0 preskočeno**. Test baze i sintetički TEST podaci su u odvojenom privremenom direktorijumu. Uključena je provera zahteva za javni HTTPS, adresu aplikacije, tajnu i eksplicitno poverenje u proxy, zajednički admin cenovnik i grupni STIPS predlozi.
 - Ekstrakcija: 10 originalnih sheetova, 88 predložaka, 44 spoljne formule, 342 zabeležena nalaza. Svih pet zadatih istorijskih regresija prolazi toleranciju 0,000001 EUR.
 - Originalni XLSX je bajt-po-bajt upoređen sa prilogom; SHA-256 je `422571958ad758ed1eaf206cce6b5751b4dc4546629940a7edad9aff53314a5a`.
 - Browser: registracija, otvaranje gazdinstva, unos proizvodnje, nacrt i ponovna dopuna prodaje, tržišno prazno stanje, reload sesije, 390px telefon bez horizontalnog skrola. Nema browser pageerror-a. Izvršeno na razvojnom i lokalnom produkcionom serveru, sa odvojenom test bazom.
@@ -65,3 +65,11 @@ Svih 21 ranije preuzetih javnih STIPS XLS/XLSX originala uvezeno je u odvojenu b
 Izvorni Excel ima prethodnu SHA-256 sumu. Lokalni `/healthz` ostaje 200. Živi Render je pre ove izmene služio frontend prethodnog commita `ad71b5c`; noviju verziju treba uspešno objaviti na tom servisu. Ova lokalna provera ne potvrđuje vlasnikovu SMTP/backup konfiguraciju ili sadržaj privatnih poslovnih unosa na Renderu.
 
 Ponovljene su i tri prethodne browser regresije na zasebnoj TEST bazi: grupni STIPS predlog sa zapamćenom vezom, ručna matrica sa različitim semenima i pojedinačni STIPS izbor/pakovanje/kurs/Escape. Sve prolaze kroz sklopljeni napredni prikaz; stari radni tok ostaje dostupan. Generisani stariji snimci su vraćeni na prethodne verzije, a dva nova snimka dokumentuju novi imenovani cenovnik.
+
+## Zajednička cena goriva — 31.10.2026.
+
+`npm test`: **101 prolazi, bez padova ili preskakanja**. Produkcioni build prolazi. Sedam novih provera obuhvata: 54 izvorna zbira goriva i 714 postojećih stavki, odsustvo mutacije pri pregledu, jedinstvenu cenu uz očuvane količine, 2,5 ha skaliranje, očuvanje potvrđenih uslužnih jedinica, izdvajanje materijala/ručnog rada, prava pristupa, izričitu potvrdu, atomarno poništavanje neobrazložene nule, zastarelu reviziju, nedostajući i naknadni kurs, ponovni upis bez duplikata i očuvanje arhive. Nova SQL migracija nije potrebna.
+
+Browser provera sa zasebnom TEST bazom prošla je jednu cenu goriva za oranje/tanjiranje u ječmu i pšenici, bez menjanja potrošnje, zaključavanje drugih cena dok unos nije sačuvan i odsustvo ponovljenih polja goriva u osnovnoj tabeli. Zatim prolaze postojeći STIPS/RZS/ručni tok, grupna aktivacija, reload, telefon 390 px, horizontalno pomeranje tabela i provera bez pageerror-a. Novi sintetički snimci su `docs/screens/fuel-price-*.png`. Test baza je odvojena i uklanja se po završetku.
+
+Obuhvat nije izveden iz iste istorijske cene ili oznake reda: [audit](../source/fuel-operations.json) čuva izričite izvorne formule. Audit beleži i četiri postojeće reference heljde bez normalizovane stavke, koje nisu automatski dodate u uređene modele promenom cene. [Postupak i preostale nedoumice](MASINSKE-OPERACIJE.md). Plastenici i druge nepotvrđene grupe ne uključuju se bez konkretnog izbora; original, aktivne verzije, poslovni događaji i snapshot-i ostaju sačuvani.

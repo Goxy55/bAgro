@@ -12,6 +12,10 @@
 
 Na primer, zajednička cena 0,50 EUR/kg i izvorne količine 300 i 200 kg daju zasebne troškove 150 i 100 EUR. Primer je ilustracija, nije aktuelna tržišna cena.
 
+## Jedna cena za gorivo
+
+Na vrhu otvorenog nacrta je **Mašinske operacije — zajednička cena goriva**. Unesite cenu po litru jednom, proverite datum i potvrdite primenu na sve povezane operacije. Svaka zadržava svoju potrošnju. Cena se prikazuje samo na tom mestu; usluge i materijali ostaju zasebni. [Obuhvat i postupak](MASINSKE-OPERACIJE.md).
+
 ## Jedna grupna potvrda
 
 Označite **Potvrđujem jedinice celog cenovnika** tek nakon pregleda, pa **Proveri ceo cenovnik**. Jedna potvrda pokriva izvorni model i sve jasno normalizovane jedinice. Nejasne jedinice, šampinjoni/vreća, nedostajuće hranidbene osnove, nulte cene i alternative ostaju konkretni nalazi. Grupna potvrda ih ne rešava pretpostavkama.
@@ -46,4 +50,4 @@ Aktivni cenovnik menja se novom verzijom. Sačuvani snapshot izveštaja čuva pr
 
 Za poseban rad sa starim, nevezanim nacrtima postoji sklopljeni **Napredni izbor pojedinačnih nacrta**. Glavni tok ne zahteva njegovu upotrebu.
 
-`npm test`: 94 prolazi. Zasebno je devet novih provera ponovljeno sa lokalnim PostgreSQL 18. Samostalna browser provera `npx tsx scripts/price-books-browser-check.ts` pravi privremenu TEST bazu i server, proverava ceo katalog, STIPS/RZS/ručni unos, grupnu potvrdu i mobilni prikaz, pa uklanja TEST bazu. Ne povezivati je sa poslovnom bazom. Detaljna evidencija: [VERIFIKACIJA.md](VERIFIKACIJA.md).
+`npm test`: 101 prolazi. Zasebno je devet novih provera ponovljeno sa lokalnim PostgreSQL 18. Samostalna browser provera `npx tsx scripts/price-books-browser-check.ts` pravi privremenu TEST bazu i server, proverava ceo katalog, STIPS/RZS/ručni unos, grupnu potvrdu i mobilni prikaz, pa uklanja TEST bazu. Ne povezivati je sa poslovnom bazom. Detaljna evidencija: [VERIFIKACIJA.md](VERIFIKACIJA.md).

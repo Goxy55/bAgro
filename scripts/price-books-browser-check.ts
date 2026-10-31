@@ -59,6 +59,28 @@ try {
           unit: "sat",
           unitConfirmed: false,
         },
+        ...(["JEČAM", "PŠENICA"].includes(v.name)
+          ? [
+              {
+                id: v.name === "JEČAM" ? "F8" : "F43",
+                name: "Oranje",
+                quantity: "20.28",
+                price: null,
+                unit: "l goriva/usluga — potvrditi",
+                unitConfirmed: false,
+                quantityCell: v.name === "JEČAM" ? "E8" : "E43",
+              },
+              {
+                id: v.name === "JEČAM" ? "F9" : "F44",
+                name: "Tanjiranje",
+                quantity: "3.78",
+                price: null,
+                unit: "l goriva/usluga — potvrditi",
+                unitConfirmed: false,
+                quantityCell: v.name === "JEČAM" ? "E9" : "E44",
+              },
+            ]
+          : []),
         ...(v.name === "PŠENICA"
           ? [
               {
@@ -198,6 +220,35 @@ try {
     await page.getByLabel("Izvor JEČAM", { exact: true }).isVisible(),
     false,
   );
+  await page.getByLabel("Cena goriva po litru", { exact: true }).fill("200");
+  await page
+    .getByLabel("Potvrđujem zajedničku cenu goriva", { exact: true })
+    .check();
+  assert.equal(
+    await page.getByLabel("STIPS cene do datuma", { exact: true }).isDisabled(),
+    true,
+    "Nesačuvan unos goriva ne sme se izgubiti primenom drugih cena.",
+  );
+  await page
+    .getByRole("button", {
+      name: "Primeni cenu goriva na sve operacije",
+      exact: true,
+    })
+    .click();
+  await page
+    .getByRole("status")
+    .filter({ hasText: /Sačuvano u 2 kultura/ })
+    .waitFor();
+  assert.equal(
+    await page
+      .locator(".book-inputs")
+      .innerText()
+      .then((text) =>
+        /Oranje|Tanjiranje|Mašinske operacije — gorivo/.test(text),
+      ),
+    false,
+    "Gorivo ima jedno zasebno polje, bez ponovljenih cena u tabeli inputa.",
+  );
   const npk = page
     .locator(".suggestions-table tbody tr")
     .filter({ hasText: "NPK đubrivo 15:15:15" });
@@ -269,8 +320,11 @@ try {
     .getByText("Samo nedostajuće ili neusaglašene cene", { exact: true })
     .click();
   await mkdir("docs/screens", { recursive: true });
+  const screenPrefix = process.env.BOOKS_E2E_SCREEN_PREFIX || "price-book";
+  if (!/^[a-z-]+$/.test(screenPrefix))
+    throw Error("Neispravan naziv TEST snimka.");
   await page.screenshot({
-    path: "docs/screens/price-book-desktop.png",
+    path: `docs/screens/${screenPrefix}-desktop.png`,
     fullPage: true,
     animations: "disabled",
   });
@@ -301,7 +355,7 @@ try {
     el.scrollLeft = 0;
   });
   await page.screenshot({
-    path: "docs/screens/price-book-mobile.png",
+    path: `docs/screens/${screenPrefix}-mobile.png`,
     fullPage: true,
     animations: "disabled",
   });
@@ -333,6 +387,15 @@ try {
         v.model.items.find((i: any) => i.id === "TEST-npk").price === "1",
     ),
   );
+  const fuels = versions.flatMap((v: any) =>
+    v.model.items.filter((i: any) => i.pricingGroup === "diesel"),
+  );
+  assert.equal(fuels.length, 4);
+  assert.ok(fuels.every((i: any) => i.price === "2" && i.unit === "l"));
+  assert.deepEqual([...new Set(fuels.map((i: any) => i.quantity))].sort(), [
+    "20.28",
+    "3.78",
+  ]);
   assert.ok(
     versions.every(
       (v: any) =>
@@ -365,7 +428,7 @@ try {
     .waitFor();
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: imenovani cenovnik za svih 88 predložaka, zajednički STIPS/RZS i ručni unos, eksplicitna RZS jedinica, jedna grupna aktivacija, trajnost posle reload-a, telefon 390px i bez browser grešaka. Samo zasebna TEST baza.",
+    "PASS: imenovani cenovnik za svih 88 predložaka, jedno polje goriva za dve kulture uz očuvane potrošnje, zajednički STIPS/RZS i ručni unos, eksplicitna RZS jedinica, jedna grupna aktivacija, trajnost posle reload-a, telefon 390px i bez browser grešaka. Samo zasebna TEST baza.",
   );
 } catch (e) {
   console.error(logs.slice(-2500));

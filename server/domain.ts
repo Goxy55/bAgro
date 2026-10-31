@@ -89,6 +89,10 @@ export function validateModel(model: any): string[] {
   if (model.basis === "bag" && !model.unitConfirmed)
     errors.push("Potvrdite jedinicu vreća za šampinjone.");
   for (const i of model.items) {
+    if (i.pricingGroup === "diesel" && i.unit !== "l")
+      errors.push(
+        `${i.id}: zajednička cena goriva zahteva potrošnju u litrima.`,
+      );
     if (i.included === false) {
       if (!i.exclusionReason) errors.push(`${i.id}: razlog isključenja.`);
       continue;

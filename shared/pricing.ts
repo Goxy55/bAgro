@@ -33,6 +33,7 @@ export interface PricingOccurrence {
 export interface PricingRow {
   key: string;
   groupKey?: string;
+  pricingGroup?: "diesel";
   name: string;
   unit: string;
   cultureSpecific: boolean;

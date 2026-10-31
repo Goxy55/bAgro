@@ -17,6 +17,7 @@ export function materialName(value: string): string {
     .replace(/\s+/g, " ");
 }
 export function costKey(row: PricingRow) {
+  if (row.pricingGroup === "diesel") return hash(["shared-diesel-price", "l"]);
   return hash([
     materialName(row.occurrences[0]?.name || row.name),
     row.occurrences.some((o) => o.sheet.startsWith("Stočarstvo"))
