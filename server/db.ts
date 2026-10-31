@@ -65,6 +65,8 @@ export async function migrate() {
     "004_statistic_provenance",
     "005_input_price_links",
     "006_price_books",
+    "007_rsd_pricing",
+    "008_public_search_cache",
   ]) {
     if (
       (

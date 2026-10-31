@@ -4,8 +4,8 @@ export interface PricingOccurrence {
   itemId: string;
   name: string;
   quantity: string | null;
-  priceEur: string | null;
-  costEur: string | null;
+  price: string | null;
+  cost: string | null;
   included: boolean;
   unitConfirmed: boolean;
   zeroReason: string | null;
@@ -31,17 +31,19 @@ export interface PricingOccurrence {
   } | null;
 }
 export interface PricingRow {
+  seedUnitSize?: string;
   key: string;
   groupKey?: string;
   pricingGroup?: "diesel";
   name: string;
   unit: string;
   cultureSpecific: boolean;
-  priceEur: string | null;
+  price: string | null;
   mixed: boolean;
   occurrences: PricingOccurrence[];
 }
 export interface PricingTable {
+  currency: "RSD" | "EUR";
   revision: string;
   validFrom: string;
   validTo: string;
@@ -52,7 +54,7 @@ export interface PricingTable {
     culture: string;
     basis: string;
     reference: string;
-    knownCostEur: string;
+    knownCost: string;
     errors: string[];
   }[];
   rows: PricingRow[];

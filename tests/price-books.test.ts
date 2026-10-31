@@ -176,6 +176,7 @@ test("Zajednički cenovnik, naknadni kurs, grupno odobrenje i RZS dopuna", async
       await db.query("INSERT INTO app_admins VALUES($1)", [admin.id]);
       const body = {
         requestId: randomUUID(),
+        currency: "EUR",
         name: "TEST zajednički 2026",
         validFrom: "2026-01-01",
         validTo: "2026-12-31",
@@ -205,7 +206,7 @@ test("Zajednički cenovnik, naknadni kurs, grupno odobrenje i RZS dopuna", async
       await load();
       assert.equal(table.versions.length, 88);
       assert.equal(
-        table.rows.some((r: any) => r.priceEur !== null),
+        table.rows.some((r: any) => r.price !== null),
         false,
       );
       assert.equal(
@@ -230,7 +231,7 @@ test("Zajednički cenovnik, naknadni kurs, grupno odobrenje i RZS dopuna", async
         table.rows
           .find((r: any) => r.name === row.name && r.unit === "kg")
           .occurrences.every(
-            (o: any) => o.lastInput.pendingRate && o.priceEur === null,
+            (o: any) => o.lastInput.pendingRate && o.price === null,
           ),
       );
       const wrong = await ok(admin, "/admin/rates", {
@@ -254,7 +255,7 @@ test("Zajednički cenovnik, naknadni kurs, grupno odobrenje i RZS dopuna", async
         table.rows
           .find((r: any) => r.name === row.name && r.unit === "kg")
           .occurrences.every(
-            (o: any) => o.priceEur === "1" && !o.lastInput.pendingRate,
+            (o: any) => o.price === "1" && !o.lastInput.pendingRate,
           ),
       );
       const result = await normFor({
@@ -355,7 +356,7 @@ test("Zajednički cenovnik, naknadni kurs, grupno odobrenje i RZS dopuna", async
       const occurrence = table.rows.find(
         (r: any) => r.name === row.name && r.unit === "kg",
       ).occurrences[0];
-      assert.equal(occurrence.priceEur, "0.5");
+      assert.equal(occurrence.price, "0.5");
       assert.equal(occurrence.lastInput.reference.kind, "rzs_purchase_price");
       assert.equal(
         occurrence.lastInput.reference.priceType,
@@ -524,6 +525,7 @@ test("Zajednički cenovnik, naknadni kurs, grupno odobrenje i RZS dopuna", async
       const old = book;
       book = await ok(admin, "/admin/price-books", {
         requestId: randomUUID(),
+        currency: "EUR",
         name: "TEST nova verzija",
         validFrom: "2026-01-01",
         validTo: "2026-12-31",

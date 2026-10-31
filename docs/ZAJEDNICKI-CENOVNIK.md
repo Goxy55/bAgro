@@ -1,53 +1,46 @@
-# Jedan cenovnik za sva gazdinstva
+# Priprema jednog cenovnika
 
-**Administracija → Zajednički cenovnik** je zajednička administrativna evidencija cena i odobrenih normativa. Korisnici gazdinstava koriste taj katalog za svoj proizvod i period. Ne prepisuju cenovnike, ne menjaju referentne cene i nemaju pristup drugim gazdinstvima.
+**Administracija → Zajednički cenovnik** otvara se kao početni admin ekran. Cenovnik važi za sva gazdinstva, uz njihove zasebne količine i periode. Administrator cenama upravlja jednom; vlasnici gazdinstava evidentiraju svoje ostvareno poslovanje.
 
-## Priprema i cene
+## Osnovni postupak
 
-1. Kliknite **Novi cenovnik**, unesite naziv, period i razlog, pa **Pripremi kompletan cenovnik**. Svih 88 izvornih predložaka obuhvaćeno je automatski, uključujući oba stočarska intenziteta. Nije potreban izbor kultura. Novi nacrt može preneti prethodno odobrene savremene cene; arhivske cene iz 2017. ostaju prazne. Ponovljen isti zahtev ne pravi duplikate.
-2. Ako već imate popunjene nacrte, otvorite **Preuzmi već unete nacrte u zajednički cenovnik → Objedini nacrte**. Grupisanje je po nazivu i periodu, uz najnoviji nacrt po kulturi. Zadržavaju se unete cene i ispravke. Preostale kulture dopunjavaju se u istom cenovniku; ne dobijaju arhivske cene. Stariji duplikati nacrta ostaju sačuvani.
-3. Pregledajte **Referentne cene: STIPS i RZS dopuna**. STIPS ima prednost. Potvrdite nejasne proizvode/pakovanja; potvrđene veze pamte se za sledeći izbor. Izabrane cene čuvaju se jednom u svim odgovarajućim kartama.
-4. **Zajednička tabela inputa** podrazumevano prikazuje nedostajuće ili neusaglašene cene. Unesite RSD/EUR cenu i jedinicu, datum ručnih cena/kursa i razlog, pa **Sačuvaj i rasporedi cene**. Jedan red obuhvata sve odgovarajuće kulture, bez njihovog biranja. Isključite filter da pregledate sve cene i njihove izvore. Detalj „Gde se primenjuje“ prikazuje obuhvat.
-5. Seme/rasad različitih kultura, veterinarske usluge različitih kategorija, kg/t i različite formulacije ostaju zasebni. Opis ponavljanja iste operacije ne stvara novu odluku o ceni materijala. Količine, uključivanje alternativa i obračunske osnove ne menjaju se unosom cene.
+1. **Novi cenovnik** → naziv i period → **Kreiraj dinarski cenovnik**. Obuhvaćeno je svih 88 predložaka. Nije potrebno birati kulture. Izvorne cene 2017. ostaju arhiva.
+2. Unesite **jednu cenu goriva u RSD/l**. Povezane izvorne operacije zadržavaju sopstvenu potrošnju; potvrđene usluge/sati/ha ne postaju litri. Prazno polje zadržava ranije unetu cenu. [Obuhvat goriva](MASINSKE-OPERACIJE.md).
+3. Kliknite **Pripremi cene iz izvora**. Jedan posao proverava poslednja STIPS izdanja, RZS godišnji izvod i javne prodajne cenovnike. Napredak ostaje sačuvan na serveru; možete zatvoriti ekran i ponovo otvoriti isti cenovnik. Priprema unosi predloge u nacrt, bez aktiviranja ili plaćanja.
+4. Pregledajte broj spremnih proizvodnji. **Nedostajuće cene — zajednički unos** prikazuje input jednom, sa njegovom jedinicom. Ručna izmena raspoređuje se na sve nacrte sa istim materijalom i jedinicom, bez izbora kultura. Sačuvajte zajedničke izmene. Prazna cena nije nula; nula zahteva razlog.
+5. Pšenica, kukuruz, soja i šećerna repa prikazane su prve. Ostale proizvodnje su sklopljene. Proširite proizvodnju samo radi pregleda cena, izvora ili posebnosti. **Otvori detalj normativa i alternative** omogućava pregled deklarativnog modela, bez izvršavanja Excel formula.
+6. Označite jednu zajedničku potvrdu pregleda izvora, jedinica, alternativa i osnove, pa **Potvrdi spremne proizvodnje (N)**. Aktiviraju se samo potpuni modeli. Ostali ostaju u nacrtu u istom cenovniku. Nerešeni šampinjoni ne blokiraju pšenicu.
 
-Na primer, zajednička cena 0,50 EUR/kg i izvorne količine 300 i 200 kg daju zasebne troškove 150 i 100 EUR. Primer je ilustracija, nije aktuelna tržišna cena.
+Spremnost proverava server, u istoj transakciji sa aktiviranjem. Nema aktiviranja nepotpunog modela. Zamena postojećih aktivnih verzija za isti proizvod/period traži vidljivu potvrdu arhiviranja. Snimljeni izveštaji ostaju nepromenjeni.
 
-## Jedna cena za gorivo
+## Kako se biraju izvori
 
-Na vrhu otvorenog nacrta je **Mašinske operacije — zajednička cena goriva**. Unesite cenu po litru jednom, proverite datum i potvrdite primenu na sve povezane operacije. Svaka zadržava svoju potrošnju. Cena se prikazuje samo na tom mestu; usluge i materijali ostaju zasebni. [Obuhvat i postupak](MASINSKE-OPERACIJE.md).
+- **STIPS:** izvorni mesec, stvarno lokalno mesto, proizvod, proizvođač i pakovanje. Ne predstavlja nacionalni prosek Srbije. Automatski se predlažu tačno prepoznati ili ranije potvrđeni proizvodi i osnove; nejasne formulacije se ne proglašavaju jednakim.
+- **RZS:** proverena tabela godišnjih otkupnih cena, kao zasebna referenca za odgovarajuće seme/hranivo. Ovaj izvod ne potvrđuje jedinicu (`0`/`nema`). Automatska priprema koristi samo ranije admin odobreno mapiranje jedinice/proizvoda. Prvo mapiranje proverava se u sklopljenom naprednom prikazu na istoj stranici. Indeksi cena se nikada ne koriste kao RSD/kg. [RZS granice](RZS-CENE.md).
+- **Javni prodavci:** provereni adapteri za Ratar, Poljokomerc i Hemoslaviju, sa originalnim HTML-om, kontrolnom sumom, pakovanjem i datumom provere. Cena za registrovane kupce, paket više preparata ili cena susednog proizvoda se ne koristi. PDV i dostupnost ostaju označeni kao nepotvrđeni gde nisu jasno navedeni. Dostava nije uključena. [Javni izvori](JAVNE-CENE.md).
 
-## Jedna grupna potvrda
+Bira se dokumentovana reprezentativna ponuda, bez tvrdnje da je najjeftinija ili zvanična prosečna cena. Tačna novija javna prodajna cena može zameniti stariju zvaničnu referencu u nacrtu. Ručno unete cene bez referentne veze čuvaju se pri ponovnoj pripremi.
 
-Označite **Potvrđujem jedinice celog cenovnika** tek nakon pregleda, pa **Proveri ceo cenovnik**. Jedna potvrda pokriva izvorni model i sve jasno normalizovane jedinice. Nejasne jedinice, šampinjoni/vreća, nedostajuće hranidbene osnove, nulte cene i alternative ostaju konkretni nalazi. Grupna potvrda ih ne rešava pretpostavkama.
+Zamenska **cenovna** referenca dozvoljena je samo ako postoje izvorni podaci za oba proizvoda sa jednakim aktivnim materijama, koncentracijama, jedinicama koncentracije i formulacijom. Nepotpuno prepoznat sastav se odbija. Originalni preparat i normirana količina ostaju sačuvani. Ovo nije preporuka promene zaštite bilja. Nema izjednačavanja kg i l bez dokazive konverzije.
 
-Svi nalazi prikazuju se zajedno, grupisani po proizvodnji. **Reši posebnosti** otvara odgovarajući deklarativni model. Zatim se vratite u zajednički cenovnik i ponovite proveru. Cene koje nedostaju dopunite u zajedničkoj tabeli. Različite cene istog materijala i iste jedinice moraju se usaglasiti pre aktiviranja.
+Kada izvor navodi pozitivne izvorne alternative, predlaže se prva sa proverljivom cenom. Ostale pozitivne alternative se isključuju uz sačuvan razlog i vezu ka odabranoj stavci; količine se ne brišu. Administrator ih pregleda jednom pre grupne potvrde. Nulte, neprimenljive stavke ne zahtevaju cenu. Pozitivna nejasna jedinica i dalje blokira taj model.
 
-Kada je sve kompletno, označite **Odobravam ceo cenovnik** i kliknite **Potvrdi i aktiviraj ceo cenovnik**. Sve verzije aktiviraju se u jednoj transakciji. Ako bilo šta nije rešeno, nijedna kultura se ne aktivira delimično. Za isti period može postojati prethodna aktivna verzija: njena zamena i arhiviranje zahtevaju vidljivu grupnu potvrdu.
+## Seme u setvenim jedinicama
 
-Imenovani cenovnik aktivira/arhivira se u celini. Običan korisnik nema write pristup tim endpoint-ima. Administratorska uloga ne daje pristup tuđim poslovnim podacima.
+Naziv „Seme (sj)“ potvrđuje osnovu SJ, ali ne broj semena u njoj. U **Osnova pakovanja semena (SJ)** unesite provereni broj semena za kukuruz i šećernu repu ako povezujete cenu pakovanja izraženu brojem semena. Bez tog podatka nema automatskog deljenja: možete uneti proverenu cenu neposredno u RSD/SJ. Brojevi korišćeni u testovima su sintetički i ne predstavljaju poslovni podrazumevani unos.
 
-## Kurs: tačan datum i naknadni unos
+## RSD i opcioni EUR
 
-RSD cena čuva originalni iznos, datum, izvor i status. Konverzija u EUR koristi samo proverenu NBS listu koja obuhvata taj datum. STIPS referenca koristi datum unutar izvornog meseca; RZS godišnja referenca 31. decembar izvorne godine. Ručni unos koristi datum iznad zajedničke tabele.
+Novi cenovnici i glavni izveštaji su u **RSD**. Dinarska proizvodnja, prodaja, trošak, uplata, isplata, vrednovanje zaliha i interni prenos rade bez kursa. Nepoznata EUR vrednost ostaje prazna, nikada nula.
 
-Kada kurs naknadno unesete u **NBS kursevi**, samo nerešene RSD stavke u **nacrtima** automatski dobijaju EUR vrednost. Ne morate ponovo unositi cene. Isto usklađivanje izvršava se pri pokretanju aplikacije nakon nadogradnje. **Uskladi cene sa unetim kursevima** omogućava izričito ponavljanje za postojeće nacrte. Audit beleži svaku dopunu. Aktivni/arhivski normativi, poslovni događaji, plaćanja i sačuvani izveštaji ne prepisuju se.
+Postojeći EUR cenovnici zadržavaju svoju valutu i istoriju. Za rad bez kursa napravite novi RSD cenovnik. Izvorna dinarska cena iz prethodnog unosa može se preneti bez današnjeg preračuna; čisto EUR cena bez potvrđenog kursa ostaje nedostajući dinarski podatak.
 
-**Trag obračuna** prikazuje raspoloživ kurs nezavisno od toga da li je normativ kompletan. Prikazuje i tačan datum koji obračun traži: datum završetka proizvodnje ili 31. decembar obračunske godine. Kurs za drugi datum ne važi automatski za celu godinu. Za vikend/praznik koristite provereni interval važenja liste; nema proizvoljnog prenosa kursa na nepokrivene datume ili buduće liste.
+U **Izvoz i istorija obračuna** odaberite EUR samo kada je potreban. Pregled i PDF/XLSX koriste istu serverom obračunatu valutu. Ako nedostaje istorijska konverzija, zahtev za EUR daje konkretno objašnjenje; RSD prikaz nastavlja da radi. Unos novog kursa ne prepisuje stare poslovne događaje, plaćanja ili snapshot-e. Naknadno se usklađuju samo nerešene cene nacrta.
 
-Ako kurs postoji, a rezultat je nepotpun, prikaz jasno upućuje na normative/proizvodne podatke. Ako kurs nedostaje, datum je naveden uz konkretnu stavku. Praznina nije nula; nulta cena pri pozitivnoj količini zahteva razlog.
+## Dopuna i revizije
 
-## RZS dopuna
+Posle delimične aktivacije ostaju dostupni nacrti za dopunu. Cena materijala koja je već potvrđena u aktivnom delu istog cenovnika ne može postati drugačija u njegovom preostalom delu. Nova cena zahteva novi imenovani cenovnik. Aktivni modeli su nepromenljivi; otvoreni, nesačuvani izveštaji koriste važeće verzije, a snapshot čuva prethodni obračun.
 
-**Preuzmi RZS dopunu cena** koristi proverenu zvaničnu tabelu prosečnih godišnjih otkupnih cena Srbije. **STIPS odgovarajući predlog ima prednost**. RZS se nudi za prepoznato seme određenih kultura ili odgovarajuća robna hraniva kada nema STIPS predloga. [Obuhvat, metodologija i uvoz](RZS-CENE.md).
+Izvori imaju keš 24 h. Jedna javna priprema ima limit 120 zahteva ili približno 8 minuta za prodavce; prioritet imaju četiri testne kulture. Ponovna priprema koristi keš i obrađuje preostale inpute. Greške ostavljaju poslednje proverene podatke uz napomenu. Potpuna pokrivenost svih istorijskih preparata nije zagarantovana.
 
-RZS otkupna cena je posebna vrsta reference. Ne predstavlja ponudu dobavljača ili stvarno nastali rashod. Izvorni izvod ne navodi pouzdanu jedinicu, zato pre primene morate potvrditi jedinicu prema metodologiji/izvoru i posebno odobriti primenu kao reference inputa. Potvrđena veza se pamti. Indeksi cena ne popunjavaju polja RSD/kg ili RSD/l.
-
-## Istorija i provera
-
-Migracija `006_price_books.sql` dodaje imenovane cenovnike, članstvo verzija i RZS reference sa originalnim dokumentom. Postojeći poslovni podaci i izvorni Excel ostaju sačuvani. Grupni upisi čuvaju autora, razlog, izvor i reviziju; zastareli prozor ne prepisuje novije izmene.
-
-Aktivni cenovnik menja se novom verzijom. Sačuvani snapshot izveštaja čuva prethodne normative i kurseve. Otvoreni, nesačuvani obračun koristi trenutno odobrenu verziju za ceo proizvodni period. Pre promene cenovnika sačuvajte izveštaje koje želite trajno zatvoriti. Čuvanje cene ne stvara stvarni trošak ili plaćanje.
-
-Za poseban rad sa starim, nevezanim nacrtima postoji sklopljeni **Napredni izbor pojedinačnih nacrta**. Glavni tok ne zahteva njegovu upotrebu.
-
-`npm test`: 101 prolazi. Zasebno je devet novih provera ponovljeno sa lokalnim PostgreSQL 18. Samostalna browser provera `npx tsx scripts/price-books-browser-check.ts` pravi privremenu TEST bazu i server, proverava ceo katalog, STIPS/RZS/ručni unos, grupnu potvrdu i mobilni prikaz, pa uklanja TEST bazu. Ne povezivati je sa poslovnom bazom. Detaljna evidencija: [VERIFIKACIJA.md](VERIFIKACIJA.md).
+Migracije `007_rsd_pricing.sql` i `008_public_search_cache.sql` čuvaju postojeće podatke i dodaju RSD osnovu, javne dokumente i evidenciju poslova. Normalna nadogradnja aplikacije ih izvršava automatski. Za lokalni PGlite koristite jedan proces; pre nadogradnje napravite backup prema README-u. Privatni podaci i uloge gazdinstava ostaju odvojeni od globalnog cenovnika.

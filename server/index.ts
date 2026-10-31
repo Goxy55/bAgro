@@ -7,6 +7,8 @@ import { reconcileDraftRates } from "./pricing/rates.js";
 import { createServer } from "vite";
 import { startStipsScheduler } from "./stips/crawler.js";
 await importSource();
+const {interruptPreparations}=await import("./pricing/preparation.js");
+await interruptPreparations();
 await transaction((tx) => reconcileDraftRates(tx, "operator:startup"));
 const stopStipsScheduler = startStipsScheduler();
 const port = Number(process.env.PORT || 3000);

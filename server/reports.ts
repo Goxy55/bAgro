@@ -49,33 +49,43 @@ export async function normFor(p: any, conn: Conn = db) {
       exchangeRate,
     };
   const calc = calculateNorm(version.model, p.details);
+  const nativeCurrency = version.model.currency === "RSD" ? "RSD" : "EUR";
   return {
     ...calc,
     version,
     exchangeRate,
     money:
-      calc.total && rate
-        ? currencySnapshot(calc.total, "EUR", date, rate)
+      calc.total !== null && (rate || nativeCurrency === "RSD")
+        ? currencySnapshot(calc.total, nativeCurrency, date, rate)
         : null,
     errors: [
       ...calc.errors,
-      ...(!rate ? [`Nedostaje zvanični kurs za datum obračuna ${date}.`] : []),
+      ...(!rate && nativeCurrency === "EUR"
+        ? [`Nedostaje zvanični kurs za datum obračuna ${date}.`]
+        : []),
     ],
   };
 }
-export async function report(farmId: string, productionId?: string) {
+export async function report(
+  farmId: string,
+  productionId?: string,
+  displayCurrency: "RSD" | "EUR" = "RSD",
+) {
   return transaction(async (tx) => {
     await tx.query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ");
-    return reportData(farmId, productionId, tx);
+    return reportData(farmId, productionId, tx, displayCurrency);
   });
 }
 async function reportData(
   farmId: string,
   productionId: string | undefined,
   conn: Conn,
+  displayCurrency: "RSD" | "EUR",
 ) {
-  const farm = (await conn.query("SELECT * FROM farms WHERE id=$1", [farmId]))
-    .rows[0];
+  const storedFarm = (
+    await conn.query("SELECT * FROM farms WHERE id=$1", [farmId])
+  ).rows[0];
+  const farm: any = { ...storedFarm, currency: displayCurrency };
   const key = farm.currency === "EUR" ? "eur" : "rsd";
   const valueKey = key === "eur" ? "value_eur" : "value_rsd";
   const prods = (
@@ -92,6 +102,20 @@ async function reportData(
       [farmId, farm.year],
     )
   ).rows;
+  if (
+    key === "eur" &&
+    allEvents.some(
+      (e) =>
+        e.money &&
+        e.status !== "draft" &&
+        e.status !== "requested" &&
+        (!productionId || e.production_id === productionId) &&
+        e.money.eur == null,
+    )
+  )
+    throw Error(
+      "Dinarski obračun je dostupan. Za traženi EUR izveštaj nedostaje kurs jednog od događaja.",
+    );
   const transfers = (
     await conn.query("SELECT * FROM internal_transfers WHERE farm_id=$1", [
       farmId,
@@ -108,6 +132,24 @@ async function reportData(
       farmId,
     ])
   ).rows;
+  if (
+    key === "eur" &&
+    (feed.some(
+      (f) =>
+        f.value_eur == null &&
+        (!productionId || f.production_id === productionId),
+    ) ||
+      transfers.some(
+        (t) =>
+          t.value_eur == null &&
+          (!productionId ||
+            t.from_production === productionId ||
+            t.to_production === productionId),
+      ))
+  )
+    throw Error(
+      "Dinarski obračun je dostupan. Za EUR vrednost hrane ili internog prenosa nedostaje sačuvana konverzija.",
+    );
   const results: any[] = [];
   for (const p of prods) {
     const events = allEvents.filter(
@@ -207,7 +249,11 @@ async function reportData(
       missing.push("Nedostaje ostvarena količina.");
       allocationError = true;
     }
-    let normative = norm.money ? D(norm.money[key]) : null;
+    let normative = norm.money?.[key] != null ? D(norm.money[key]!) : null;
+    if (key === "eur" && norm.money && norm.money.eur == null)
+      throw Error(
+        `Dinarski obračun je dostupan. Nedostaje kurs za EUR prikaz normativa na ${norm.exchangeRate.date}.`,
+      );
     // Actual entries never silently add to normative costs. Replacements are explicit and traceable.
     let combined = normative;
     const replacements = [];
@@ -217,7 +263,13 @@ async function reportData(
         missing.push(`Zamena ${c.title}: nedostaje normativna veza.`);
         continue;
       }
-      const previous = D(line.cost).mul(key === "rsd" ? norm.money.rate : 1);
+      const native = norm.version.model.currency || "EUR";
+      const previous =
+        native === farm.currency
+          ? D(line.cost)
+          : key === "rsd"
+            ? D(line.cost).mul(norm.money.rate!)
+            : D(line.cost).div(norm.money.rate!);
       combined = combined?.sub(previous).add(c.money[key]) || null;
       replacements.push({
         eventId: c.id,
@@ -261,9 +313,14 @@ async function reportData(
         const available = D(line.quantity).sub(used);
         const applied = DecimalMin(q, available.gt(0) ? available : D(0));
         covered.set(line.id, used.add(applied));
-        const old = applied
-          .mul(line.price)
-          .mul(key === "rsd" ? norm.money.rate : 1);
+        const base = applied.mul(line.price),
+          native = norm.version.model.currency || "EUR";
+        const old =
+          native === farm.currency
+            ? base
+            : key === "rsd"
+              ? base.mul(norm.money.rate!)
+              : base.div(norm.money.rate!);
         const traced = D(f[valueKey]).div(q).mul(applied);
         const delta = traced.sub(old);
         normative = normative?.add(delta) || null;
@@ -446,6 +503,14 @@ async function reportData(
       [farmId, farm.year],
     )
   ).rows[0]?.money;
+  if (
+    key === "eur" &&
+    (payments.some((p) => p.money.eur == null) ||
+      (opening && opening.eur == null))
+  )
+    throw Error(
+      "Dinarski novčani tok je dostupan. Za EUR prikaz nedostaje kurs uplate, isplate ili početnog stanja.",
+    );
   let balance = opening ? D(opening[key]) : null;
   const cashflow = Array.from({ length: 12 }, (_, i) => {
     const month = `${farm.year}-${String(i + 1).padStart(2, "0")}`;

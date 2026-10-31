@@ -139,12 +139,12 @@ try {
   const npk = data.table.rows.find(
     (r: any) => r.name === "NPK đubrivo 15:15:15",
   );
-  assert.equal(npk.priceEur, "1");
+  assert.equal(npk.price, "1");
   assert.equal(npk.occurrences.length, 2);
   assert.ok(
     npk.occurrences.every(
       (o: any) =>
-        o.priceEur === "1" &&
+        o.price === "1" &&
         o.unitConfirmed &&
         o.lastInput.reference.place === "Beograd",
     ),
@@ -256,7 +256,7 @@ try {
   assert.ok(
     groupedData.table.rows
       .filter((r: any) => r.name.startsWith("NPK đubrivo 15:15:15"))
-      .every((r: any) => r.priceEur === "0.5"),
+      .every((r: any) => r.price === "0.5"),
   );
   assert.deepEqual(errors, []);
   console.log(

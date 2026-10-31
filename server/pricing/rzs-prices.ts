@@ -300,7 +300,7 @@ export async function addRzsSuggestions(
         sheet: "RZS 0302010302",
         cell: `${o.product} / ${o.year}`,
         historical: date < table.validFrom,
-        pendingRate: !rate,
+        pendingRate: table.currency === "EUR" && !rate,
         match: link ? "approved" : "review",
       });
       if (link) r.selectedId = o.id;

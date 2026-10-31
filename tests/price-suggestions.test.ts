@@ -433,7 +433,7 @@ test("STIPS predlozi, grupna primena i trajno pamćenje potvrđenih veza", async
       assert.ok(
         row.occurrences.every(
           (o: any) =>
-            o.priceEur === null &&
+            o.price === null &&
             o.unitConfirmed &&
             o.lastInput.amount === "100" &&
             o.lastInput.pendingRate,
@@ -489,8 +489,8 @@ test("STIPS predlozi, grupna primena i trajno pamćenje potvrđenih veza", async
       const row = result.table.rows.find(
         (r: any) => r.name === "NPK đubrivo 15:15:15",
       );
-      assert.equal(row.priceEur, "1");
-      assert.deepEqual(row.occurrences.map((o: any) => o.costEur).sort(), [
+      assert.equal(row.price, "1");
+      assert.deepEqual(row.occurrences.map((o: any) => o.cost).sort(), [
         "200",
         "300",
       ]);

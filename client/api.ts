@@ -21,10 +21,12 @@ export async function download(
   format: string,
   productionId?: string,
   snapshotId?: string,
+  currency: "RSD" | "EUR" = "RSD",
 ) {
   const q = new URLSearchParams();
   if (productionId) q.set("productionId", productionId);
   if (snapshotId) q.set("snapshotId", snapshotId);
+  q.set("currency", currency);
   const res = await fetch(`/api/export/${format}?${q}`, {
     headers: selectedFarm ? { "X-Farm-Id": selectedFarm } : {},
   });

@@ -6,7 +6,7 @@ To su nacionalne godišnje **otkupne cene**, koje se razlikuju od lokalnih STIPS
 
 ## Preuzimanje i provera
 
-U **Administracija → Zajednički cenovnik** otvorite nacrt i kliknite **Preuzmi RZS dopunu cena**. Adapter proverava robots.txt, koristi zvaničnu HTTPS adresu i vremenska/veličinska ograničenja, parsira isključivo literalni JSON niz prikazane tabele, bez izvršavanja JavaScript-a. Čuva originalni HTML, SHA-256, izvorni URL, datum prijema/preuzimanja i originalne dimenzije/status svake vrednosti. Jednaki original ponovo se ne uvozi. Revizije ostaju kao novi originali; bira se poslednji izvod po proizvodu i godini.
+U **Administracija → Zajednički cenovnik** otvorite nacrt i kliknite **Pripremi cene iz izvora**. RZS se proverava u istom poslu. Zasebno preuzimanje i prvo mapiranje jedinice dostupni su u sklopljenom naprednom prikazu. Adapter proverava robots.txt, koristi zvaničnu HTTPS adresu i vremenska/veličinska ograničenja, parsira isključivo literalni JSON niz prikazane tabele, bez izvršavanja JavaScript-a. Čuva originalni HTML, SHA-256, izvorni URL, datum prijema/preuzimanja i originalne dimenzije/status svake vrednosti. Jednaki original ponovo se ne uvozi. Revizije ostaju kao novi originali; bira se poslednji izvod po proizvodu i godini.
 
 Ako izvor promeni strukturu, vrati grešku ili nije dostupan, prethodni originali ostaju sačuvani. Nema izmišljene API adrese ili cene. Datum objave nije utvrđen i ne izjednačava se sa datumom preuzimanja. Poverljive, nedostajuće i nepozitivne/neprepoznate vrednosti nisu predlozi cena.
 
@@ -28,6 +28,6 @@ Ovaj konkretan RZS izvod ima `IDJedinicaMere=0`, a naziv indikatora `[nema]`. Ne
 
 STIPS kandidati imaju prednost. RZS rezerva obuhvata tačno prepoznate robe: pšenica/soja/suncokret seme, semenski krompir i odgovarajući kukuruz, pšenica, ovas, raž, soja ili lucerka kao hranivo. Nije automatski pokriven svaki input, hibrid, kategorija životinja ili sastav smeše. Potvrđene veze proizvoda i jedinica pamte se globalno uz autora i audit. Promena normativa i aktivacija su zasebne, eksplicitne admin radnje.
 
-Izvorni period ostaje kalendarska godina. Referentni kurs je za 31. decembar te godine; nedostatak NBS liste ostavlja sačuvan RSD unos i praznu EUR cenu u nacrtu. Po naknadnom unosu tog kursa nacrti se usklađuju. Starija godišnja referenca zahteva prihvatanje i ne označava se kao tekuća tržišna ponuda.
+Izvorni period ostaje kalendarska godina. Referentni kurs je za 31. decembar te godine; RSD cenovnik radi bez NBS liste. U starijem EUR cenovniku nedostatak liste ostavlja sačuvan RSD unos i praznu EUR cenu u nacrtu. Po naknadnom unosu tog kursa nacrti se usklađuju. Starija godišnja referenca zahteva prihvatanje i ne označava se kao tekuća tržišna ponuda.
 
 RZS OData skup **03020201IND02** sadrži indekse cena repromaterijala, sredstava rada i usluga, a ne iznose RSD/kg. Ne koristi se kao jedinična cena i ne vrši se skriveno indeksiranje cena iz 2017. Dokumentovan adapter ove druge godišnje tabele ne znači da je proširen prethodni RZS statistički modul na sve cene i sve periode.

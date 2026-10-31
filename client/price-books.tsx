@@ -32,7 +32,7 @@ const mixed = (rows: PricingRow[]) =>
     rows
       .flatMap((r) => r.occurrences)
       .filter((o) => o.included && o.quantity !== "0")
-      .map((o) => o.priceEur),
+      .map((o) => o.price),
   ).size > 1;
 function groups(rows: PricingRow[]) {
   const result = new Map<string, PricingRow[]>();
@@ -48,7 +48,7 @@ type Edit = {
   unit: string;
   zeroReason: string;
 };
-const base = (rows: PricingRow[]): Edit => {
+const base = (rows: PricingRow[], nativeCurrency: "RSD" | "EUR"): Edit => {
   const inputs = rows.flatMap((r) => r.occurrences).map((o) => o.lastInput);
   const input = inputs[0];
   if (
@@ -64,10 +64,11 @@ const base = (rows: PricingRow[]): Edit => {
       zeroReason:
         rows[0].occurrences.find((o) => o.zeroReason)?.zeroReason || "",
     };
-  const prices = [...new Set(rows.map((r) => r.priceEur))];
+  const prices = [...new Set(rows.map((r) => r.price))];
   return {
     price: prices.length === 1 ? (prices[0] ?? "") : "",
-    currency: prices.length === 1 && prices[0] !== null ? "EUR" : "RSD",
+    currency:
+      prices.length === 1 && prices[0] !== null ? nativeCurrency : "RSD",
     unit: rows[0].unit,
     zeroReason: rows[0].occurrences.find((o) => o.zeroReason)?.zeroReason || "",
   };
@@ -533,20 +534,23 @@ export function PriceBooks({
                                 (o) =>
                                   o.included &&
                                   o.quantity !== "0" &&
-                                  o.priceEur === null,
+                                  o.price === null,
                               ),
                           ),
                       )
                       .map((g) => {
                         const k = key(g[0]) + ":" + g[0].unit,
-                          edit = edits[k] || base(g),
+                          edit = edits[k] || base(g, table.currency),
                           occ = g.flatMap((r) => r.occurrences),
                           input = occ.find((o) => o.lastInput)?.lastInput,
                           pending = occ.filter((o) => o.lastInput?.pendingRate);
                         const update = (v: Partial<Edit>) =>
                           setEdits((prev) => ({
                             ...prev,
-                            [k]: { ...(prev[k] || base(g)), ...v },
+                            [k]: {
+                              ...(prev[k] || base(g, table.currency)),
+                              ...v,
+                            },
                           }));
                         return (
                           <tr key={k}>
@@ -643,7 +647,7 @@ export function PriceBooks({
                                   (o) =>
                                     !o.included ||
                                     o.quantity === "0" ||
-                                    o.priceEur !== null,
+                                    o.price !== null,
                                 ) ? (
                                 <span className="badge green">
                                   Cena postoji
@@ -754,7 +758,7 @@ export function PriceBooks({
               <>
                 <p role="status">
                   {check.ready
-                    ? "Cenovnik je kompletan i spreman za grupnu aktivaciju."
+                    ? `Spremno ${check.readyCount} proizvodnji; ${check.pendingCount} ostaje za dopunu.`
                     : `Pre aktivacije rešite ${check.issues.length} nalaza.`}
                 </p>
                 {check.issues.length > 0 && (
@@ -816,8 +820,8 @@ export function PriceBooks({
                         onChange={(e) => setConfirmed(e.target.checked)}
                       />
                       <span>
-                        Odobravam cenovnik „{book.name}“ za sve prikazane
-                        kulture i sva gazdinstva.
+                        Odobravam cenovnik „{book.name}“ za spremne kulture i
+                        sva gazdinstva.
                       </span>
                     </label>
                     <button

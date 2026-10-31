@@ -227,6 +227,7 @@ test("Zajednička cena goriva kroz autorizovan API i istoriju nacrta", async (t)
       ).rows;
       const book = await ok(admin, "/admin/price-books", {
         requestId: randomUUID(),
+        currency: "EUR",
         name: "TEST gorivo 2026",
         validFrom: "2026-01-01",
         validTo: "2026-12-31",
@@ -327,7 +328,7 @@ test("Zajednička cena goriva kroz autorizovan API i istoriju nacrta", async (t)
         rows[0].occurrences.every(
           (o: any) =>
             o.unitConfirmed &&
-            o.priceEur === null &&
+            o.price === null &&
             o.lastInput.amount === "200" &&
             o.lastInput.pendingRate,
         ),
@@ -349,7 +350,7 @@ test("Zajednička cena goriva kroz autorizovan API i istoriju nacrta", async (t)
       assert.ok(
         table.rows
           .filter((r: any) => !r.pricingGroup)
-          .every((r: any) => r.priceEur === null),
+          .every((r: any) => r.price === null),
       );
       assert.deepEqual(
         (
@@ -376,7 +377,7 @@ test("Zajednička cena goriva kroz autorizovan API i istoriju nacrta", async (t)
         table.rows
           .find((r: any) => r.pricingGroup === "diesel")
           .occurrences.every(
-            (o: any) => o.priceEur === "2" && !o.lastInput.pendingRate,
+            (o: any) => o.price === "2" && !o.lastInput.pendingRate,
           ),
       );
       const count = table.rows.flatMap((r: any) => r.occurrences).length;
@@ -386,7 +387,7 @@ test("Zajednička cena goriva kroz autorizovan API i istoriju nacrta", async (t)
       assert.ok(
         table.rows
           .find((r: any) => r.pricingGroup === "diesel")
-          .occurrences.every((o: any) => D(o.priceEur).eq("2.1")),
+          .occurrences.every((o: any) => D(o.price).eq("2.1")),
       );
       const models = (
         await db.query(

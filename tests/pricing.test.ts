@@ -321,11 +321,11 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
       );
       assert.deepEqual(
         rowFor(last)
-          .occurrences.map((o) => o.costEur)
+          .occurrences.map((o) => o.cost)
           .sort(),
         ["400", "600"],
       );
-      assert.equal(rowFor(last, "t").priceEur, "1000");
+      assert.equal(rowFor(last, "t").price, "1000");
       assert.equal(
         (await load()).revision,
         last.revision,
@@ -333,7 +333,7 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
       );
       const again = await save(last, [change(rowFor(last), "3")]);
       last = again.table;
-      assert.ok(rowFor(last).occurrences.every((o) => o.priceEur === "3"));
+      assert.ok(rowFor(last).occurrences.every((o) => o.price === "3"));
     },
   );
   await t.test(
@@ -371,7 +371,7 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
         ).status,
         409,
       );
-      assert.equal(rowFor(await load()).priceEur, "4");
+      assert.equal(rowFor(await load()).price, "4");
     },
   );
   await t.test(
@@ -389,7 +389,7 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
       last = (
         await save(table, [change(rowFor(table), "240", { currency: "RSD" })])
       ).table;
-      assert.equal(rowFor(last).priceEur, "2");
+      assert.equal(rowFor(last).price, "2");
       const v = (await current()).find((v: any) => v.id === selected[0]);
       assert.ok(D(v.model.items[0].priceInput.rate.value).eq("120"));
       assert.equal(v.model.items[0].priceInput.amount, "240");
@@ -406,7 +406,7 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
           { date: "2027-01-02" },
         );
       assert.ok(result.warnings.length);
-      assert.equal(rowFor(result.table).priceEur, null);
+      assert.equal(rowFor(result.table).price, null);
       assert.ok(
         rowFor(result.table).occurrences.every((o) => o.lastInput?.pendingRate),
       );
@@ -458,11 +458,11 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
       ]);
       assert.ok(
         rowFor(result.table).occurrences.every(
-          (o: any) => o.costEur === "0" && !!o.zeroReason,
+          (o: any) => o.cost === "0" && !!o.zeroReason,
         ),
       );
       result = await save(result.table, [change(rowFor(result.table), null)]);
-      assert.equal(rowFor(result.table).priceEur, null);
+      assert.equal(rowFor(result.table).price, null);
     },
   );
   await t.test(
@@ -634,7 +634,7 @@ test("Admin zajednički cenovnik: transakcije, obračuni i zaštićene verzije",
           end: "2026-12-31",
         },
       });
-      const report = await ok(admin, "/report?productionId=" + production.id);
+      const report = await ok(admin, "/report?currency=EUR&productionId=" + production.id);
       assert.equal(report.results[0].normativeTotal, "1750");
       const snapshotId = randomUUID();
       await db.query(

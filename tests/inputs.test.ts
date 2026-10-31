@@ -454,7 +454,7 @@ test("INPUTI — arhiva, autorizacija i eksplicitna primena", async (t) => {
         assert.equal(v.model.items[0].priceInput.reference.packaging, "25 kg");
       }
       const costs = result.table.rows[0].occurrences
-        .map((o: any) => o.costEur)
+        .map((o: any) => o.cost)
         .sort();
       assert.deepEqual(costs, ["200", "300"]);
       assert.equal(
@@ -520,7 +520,7 @@ test("INPUTI — arhiva, autorizacija i eksplicitna primena", async (t) => {
         "PUT",
       );
       assert.equal(r.warnings.length, 1);
-      assert.equal(r.table.rows[0].priceEur, null);
+      assert.equal(r.table.rows[0].price, null);
       const model = (
         await db.query("SELECT model FROM norm_versions WHERE id=$1", [
           versionIds[0],

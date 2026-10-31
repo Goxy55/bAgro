@@ -29,7 +29,8 @@ import { api, download, selectFarm } from "./api";
 import "./styles.css";
 import { StipsAdmin, StipsMarket } from "./stips";
 import { StipsInputAdmin } from "./input-prices";
-import { PriceBooks } from "./price-books";
+import { PriceBooks } from "./price-workbench";
+import { PriceBooks as AdvancedPriceBooks } from "./price-books";
 import { todayInSerbia } from "../shared/dates";
 import { SharedPriceTable } from "./pricing";
 type Any = any;
@@ -1575,9 +1576,9 @@ function ProductionForm({ boot, onDone, existing }: Any) {
       />
       <p className="hint">
         Normativni rezultat ostaje nepotpun dok administrator ne odobri
-        kompletan cenovnik i kurs. Kurs normativa proverava se za „Kraj
-        perioda“; ako je taj datum u budućnosti, završni preračun ostaje
-        nepotpun.
+        kompletan odobren cenovnik. Kurs je potreban za EUR normative i traženi
+        EUR prikaz; proverava se za „Kraj perioda“; ako je taj datum u
+        budućnosti, završni preračun ostaje nepotpun.
       </p>
     </Form>
   );
@@ -1773,7 +1774,9 @@ function ProductionDetail({
                 Kursna lista:{" "}
                 {r.norm.exchangeRate?.validFrom ||
                   r.norm.money?.rateDate ||
-                  "Nedostaje lista za datum obračuna"}
+                  (r.norm.version?.model.currency === "RSD"
+                    ? "RSD obračun — kurs nije potreban"
+                    : "Nedostaje lista za datum obračuna")}
               </p>
               <p>Datum obračuna kursa: {r.norm.exchangeRate?.date || "—"}</p>
               <p>
@@ -1860,8 +1863,8 @@ function ProductionDetail({
                   "Stavka",
                   "Količina",
                   "Jedinica",
-                  "Cena EUR",
-                  "Ukupno EUR",
+                  `Cena ${r.norm.version?.model.currency || "EUR"}`,
+                  `Ukupno ${r.norm.version?.model.currency || "EUR"}`,
                 ]}
                 rows={r.norm.lines.map((i: Any) => [
                   i.name,
@@ -2693,7 +2696,9 @@ function Inventory({ data, onAction }: Any) {
   );
 }
 function ExportPanel({ data, detail, action, saved }: Any) {
-  const [scope, setScope] = useState(detail || "");
+  const [scope, setScope] = useState(detail || ""),
+    [reportCurrency, setReportCurrency] = useState<"RSD" | "EUR">("RSD"),
+    [preview, setPreview] = useState<any>(null);
   return (
     <>
       <Field
@@ -2705,6 +2710,45 @@ function ExportPanel({ data, detail, action, saved }: Any) {
           ...data.productions.map((p: Any) => ({ value: p.id, label: p.name })),
         ]}
       />
+      <Field
+        label="Valuta izveštaja"
+        value={reportCurrency}
+        options={["RSD", "EUR"]}
+        onChange={(e: Any) => {
+          setReportCurrency(e.target.value);
+          setPreview(null);
+        }}
+      />
+      <button
+        className="secondary"
+        onClick={() =>
+          action(async () =>
+            setPreview(
+              await api(
+                `/report?currency=${reportCurrency}${scope ? `&productionId=${scope}` : ""}`,
+              ),
+            ),
+          )
+        }
+      >
+        Prikaži iznose u izabranoj valuti
+      </button>
+      {preview && (
+        <Table
+          heads={[
+            "Proizvodnja",
+            "Prihod",
+            "Normativni trošak",
+            "Obračunska marža",
+          ]}
+          rows={preview.results.map((r: Any) => [
+            r.name,
+            `${number(r.revenue)} ${preview.currency}`,
+            `${number(r.normativeCost)} ${preview.currency}`,
+            `${number(r.withoutSubsidies?.amount)} ${preview.currency}`,
+          ])}
+        />
+      )}
       <p>
         Ekran, PDF i XLSX koriste isti serverski obračun, period, valutu, metod
         i izvore.
@@ -2712,14 +2756,22 @@ function ExportPanel({ data, detail, action, saved }: Any) {
       <div className="toolbar">
         <button
           className="primary"
-          onClick={() => action(() => download("pdf", scope || undefined))}
+          onClick={() =>
+            action(() =>
+              download("pdf", scope || undefined, undefined, reportCurrency),
+            )
+          }
         >
           <Download size={16} />
           PDF
         </button>
         <button
           className="secondary"
-          onClick={() => action(() => download("xlsx", scope || undefined))}
+          onClick={() =>
+            action(() =>
+              download("xlsx", scope || undefined, undefined, reportCurrency),
+            )
+          }
         >
           <Download size={16} />
           Excel
@@ -2732,6 +2784,7 @@ function ExportPanel({ data, detail, action, saved }: Any) {
         onSubmit={async (v: Any) => {
           await api("/snapshots", {
             productionId: scope || undefined,
+            currency: reportCurrency,
             reason: v.reason,
           });
           await saved();
@@ -3106,7 +3159,12 @@ function Handbook({ data }: Any) {
                 {v.model.range}
               </p>
               <Table
-                heads={["Stavka", "Količina", "Jedinica", "Cena EUR"]}
+                heads={[
+                  "Stavka",
+                  "Količina",
+                  "Jedinica",
+                  `Cena ${v.model.currency || "EUR"}`,
+                ]}
                 rows={v.model.items
                   .filter((i: Any) => i.included !== false)
                   .map((i: Any) => [
@@ -3130,7 +3188,7 @@ function Handbook({ data }: Any) {
 }
 function Admin({ onDone }: Any) {
   const [data, setData] = useState<Any>(),
-    [tab, setTab] = useState("catalog"),
+    [tab, setTab] = useState("pricing"),
     [version, setVersion] = useState<Any>(),
     [source, setSource] = useState(""),
     [query, setQuery] = useState(""),
@@ -3190,7 +3248,14 @@ function Admin({ onDone }: Any) {
             }}
           />
           <details className="legacy-pricing">
-            <summary>Napredni izbor pojedinačnih nacrta</summary>
+            <summary>Napredni cenovnici i pojedinačni nacrti</summary>
+            <AdvancedPriceBooks
+              onDone={done}
+              onEdit={(id: string) => {
+                setVersion(data.versions.find((v: Any) => v.id === id));
+                setTab("catalog");
+              }}
+            />
             <SharedPriceTable
               data={data}
               onDone={done}
@@ -3708,7 +3773,7 @@ function NormEditor({ version, onDone, onBack }: Any) {
                     }
                   />
                   <Field
-                    label="Cena EUR / jedinici"
+                    label={`Cena ${model.currency || "EUR"} / jedinici`}
                     type="number"
                     value={i.price ?? ""}
                     onChange={(e: Any) =>

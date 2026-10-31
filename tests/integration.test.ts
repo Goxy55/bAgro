@@ -739,7 +739,7 @@ test("Funkcionalna prva faza: PostgreSQL, autentikacija, izolacija i poslovna pr
         },
         "PUT",
       );
-      const r = await ok(a, "/report?productionId=" + p.id);
+      const r = await ok(a, "/report?currency=EUR&productionId=" + p.id);
       assert.equal(r.currency, "EUR");
       assert.equal(r.results[0].normativeCost, "500");
       assert.ok(

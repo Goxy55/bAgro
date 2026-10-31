@@ -159,7 +159,7 @@ export async function suggestPrices(
       };
     if (
       !options.includeExisting &&
-      row.occurrences.some((o) => o.priceEur !== null || o.lastInput)
+      row.occurrences.some((o) => o.price !== null || o.lastInput)
     )
       return {
         ...result,
@@ -221,7 +221,7 @@ export async function suggestPrices(
         sheet: o.sheet,
         cell: o.cell,
         historical: o.period_end < table.validFrom || age > 12,
-        pendingRate: !rates.get(date),
+        pendingRate: table.currency === "EUR" && !rates.get(date),
         match,
       });
     }

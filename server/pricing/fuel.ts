@@ -101,7 +101,7 @@ export function previewFuel(versions: PricingVersion[]): FuelPreview {
           eligible[0]?.item.price !== ""
         ? {
             amount: String(eligible[0].item.price),
-            currency: "EUR",
+            currency: table.currency,
             date: table.validFrom,
             pendingRate: false,
           }

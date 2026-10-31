@@ -9,6 +9,7 @@ import { rateFor } from "../reports.js";
 import { inputReferenceSchema, referencePrice } from "../inputs/service.js";
 import { costKey, suggestPrices } from "./suggestions.js";
 import { previewFuel, bindFuel } from "./fuel.js";
+import { publicReferenceSchema, resolvePublicPrice } from "./public-prices.js";
 import {
   rzsReferenceSchema,
   rzsReferencePrice,
@@ -75,7 +76,7 @@ async function versions(conn: Conn, selected: string[], lock = false) {
       );
     const count = (
       await conn.query(
-        "SELECT count(*)::int AS count FROM norm_versions WHERE price_book_id=$1",
+        "SELECT count(*)::int AS count FROM norm_versions WHERE price_book_id=$1 AND status='draft'",
         [bookIds[0]],
       )
     ).rows[0].count;
@@ -229,7 +230,11 @@ adminPricing.post("/drafts", async (req: any, res) => {
   });
   res.json(result);
 });
-adminPricing.put("/table", async (req: any, res) => {
+export async function applyPrices(
+  input: unknown,
+  actor: string,
+  proposed = false,
+) {
   const b = z
     .object({
       versionIds: ids,
@@ -255,6 +260,7 @@ adminPricing.put("/table", async (req: any, res) => {
             zeroReason: z.string().trim().max(300).default(""),
             reference: inputReferenceSchema.optional(),
             rzsReference: rzsReferenceSchema.optional(),
+            publicReference: publicReferenceSchema.optional(),
           }),
         )
         .min(0)
@@ -264,7 +270,7 @@ adminPricing.put("/table", async (req: any, res) => {
       (b) => b.rows.length > 0 || !!b.fuel,
       "Unesite cene ili zajedničku cenu goriva.",
     )
-    .parse(req.body);
+    .parse(input);
   if (b.fuel && b.rows.length)
     throw Error(
       "Zajedničku cenu goriva sačuvajte odvojeno od ostalih izmena cena.",
@@ -273,6 +279,17 @@ adminPricing.put("/table", async (req: any, res) => {
     throw Error("Ista vrsta troška je uneta više puta.");
   const result = await transaction(async (tx) => {
     const selected = await versions(tx, b.versionIds, true);
+    if (
+      !proposed &&
+      selected[0].price_book_id &&
+      (
+        await tx.query(
+          "SELECT id FROM price_preparations WHERE book_id=$1 AND status='running'",
+          [selected[0].price_book_id],
+        )
+      ).rows.length
+    )
+      throw Error("Priprema cena je u toku; sačekajte završetak.");
     let table = buildPricingTable(selected);
     if (table.revision !== b.revision)
       throw conflict(
@@ -282,7 +299,7 @@ adminPricing.put("/table", async (req: any, res) => {
       warnings: string[] = [];
     let rows = b.rows;
     if (b.fuel) {
-      const classifications = bindFuel(selected, req.user.id, b.reason);
+      const classifications = bindFuel(selected, actor, b.reason);
       table = buildPricingTable(selected);
       const fuelRow = table.rows.find((r) => r.pricingGroup === "diesel")!;
       rows = [
@@ -296,12 +313,23 @@ adminPricing.put("/table", async (req: any, res) => {
         },
       ];
       for (const change of classifications)
-        await audit(tx, req.user.id, "fuel_classification", change.versionId, {
+        await audit(tx, actor, "fuel_classification", change.versionId, {
           batchId,
           reason: b.reason,
           items: change.items,
         });
     }
+    const approved = selected[0].price_book_id
+      ? (
+          await tx.query<PricingVersion>(
+            "SELECT v.*,t.name AS template_name FROM norm_versions v JOIN templates t ON t.id=v.template_id WHERE v.price_book_id=$1 AND v.status='active'",
+            [selected[0].price_book_id],
+          )
+        ).rows
+      : [];
+    const approvedTable = approved.length
+      ? buildPricingTable(approved.map((v) => ({ ...v, status: "draft" })))
+      : null;
     const updates = new Map<string, any>();
     const rates = new Map<string, Awaited<ReturnType<typeof rateFor>>>();
     for (const r of rows) {
@@ -324,13 +352,20 @@ adminPricing.put("/table", async (req: any, res) => {
         row.occurrences.some((o) => o.quantity === null || D(o.quantity).gt(0))
       )
         throw Error(`${row.name}: nulta cena zahteva izričit razlog.`);
-      if (r.reference && r.rzsReference)
+      if (
+        [r.reference, r.rzsReference, r.publicReference].filter(Boolean)
+          .length > 1
+      )
         throw Error("Izaberite jedan izvor cene.");
-      const source = r.rzsReference
-        ? await rzsReferencePrice(tx, r.rzsReference, unit, table.validFrom)
-        : r.reference
-          ? await referencePrice(tx, r.reference, unit, table.validFrom)
-          : null;
+      const source = r.publicReference
+        ? await resolvePublicPrice(tx, r.publicReference, row)
+        : r.rzsReference
+          ? await rzsReferencePrice(tx, r.rzsReference, unit, table.validFrom)
+          : r.reference
+            ? await referencePrice(tx, r.reference, unit, table.validFrom)
+            : null;
+      if (r.publicReference && source && (source.snapshot as any).unit !== unit)
+        throw Error("Javna cena i jedinica normativa nisu usklađene.");
       if (
         source &&
         (r.currency !== "RSD" ||
@@ -343,21 +378,51 @@ adminPricing.put("/table", async (req: any, res) => {
       const priceDate = source?.date || b.date;
       const amount =
         source?.amount ?? (r.price === null ? null : D(r.price).toString());
-      if (amount !== null && r.currency === "RSD" && !rates.has(priceDate))
+      if (amount !== null && !rates.has(priceDate))
         rates.set(priceDate, await rateFor(priceDate, tx));
       const rate = rates.get(priceDate) || null;
-      const pending = amount !== null && r.currency === "RSD" && !rate;
+      const nativeCurrency = table.currency;
       const eur =
-        amount === null || pending
+        amount === null
           ? null
           : r.currency === "EUR"
             ? amount
-            : D(amount).div(rate!.rate).toString();
+            : rate
+              ? D(amount).div(rate.rate).toString()
+              : null;
+      const rsd =
+        amount === null
+          ? null
+          : r.currency === "RSD"
+            ? amount
+            : rate
+              ? D(amount).mul(rate.rate).toString()
+              : null;
+      const value = nativeCurrency === "RSD" ? rsd : eur;
+      if (
+        value !== null &&
+        approvedTable?.rows.some(
+          (a) =>
+            costKey(a) === costKey(row) &&
+            normalizedPriceUnit(a.unit) === unit &&
+            a.occurrences.some(
+              (o) =>
+                o.included &&
+                o.quantity !== "0" &&
+                o.price !== null &&
+                !D(o.price).eq(value),
+            ),
+        )
+      )
+        throw conflict(
+          `${row.name}: ovaj input već ima potvrđenu cenu u aktivnom delu cenovnika. Za novu cenu kreirajte novi cenovnik; aktivna istorija se ne prepisuje.`,
+        );
+      const pending = amount !== null && value === null;
       if (pending)
         warnings.push(
-          `${row.name}: unos RSD je sačuvan, ali nedostaje zvanični kurs za ${priceDate}; EUR cena ostaje prazna.`,
+          `${row.name}: izvorni iznos je sačuvan; nedostaje kurs za ${priceDate} za preračun u ${nativeCurrency}.`,
         );
-      if (source && r.rzsReference) {
+      if (source && r.rzsReference && !proposed) {
         const key = costKey(row);
         const before = (
           await tx.query(
@@ -373,10 +438,10 @@ adminPricing.put("/table", async (req: any, res) => {
             r.rzsReference.sourceUnit,
             source.snapshot.product,
             r.rzsReference.observationId,
-            req.user.id,
+            actor,
           ],
         );
-        await audit(tx, req.user.id, "rzs_price_link", key, {
+        await audit(tx, actor, "rzs_price_link", key, {
           batchId,
           reason: b.reason,
           before: before || null,
@@ -388,7 +453,7 @@ adminPricing.put("/table", async (req: any, res) => {
           },
         });
       }
-      if (source && r.reference) {
+      if (source && r.reference && !proposed) {
         const key = costKey(row),
           previous = (
             await tx.query(
@@ -408,10 +473,10 @@ adminPricing.put("/table", async (req: any, res) => {
             (source.snapshot as any).packaging,
             r.reference!.unitsPerPrice,
             source.snapshot.observationId,
-            req.user.id,
+            actor,
           ],
         );
-        await audit(tx, req.user.id, "stips_price_link", key, {
+        await audit(tx, actor, "stips_price_link", key, {
           batchId,
           reason: b.reason,
           before: previous || null,
@@ -440,14 +505,14 @@ adminPricing.put("/table", async (req: any, res) => {
             unitConfirmed: !!item.unitConfirmed,
             zeroReason: item.zeroReason,
           };
-          item.price = eur;
+          item.price = value;
           item.zeroReason =
             r.price !== null && D(r.price).isZero()
               ? r.zeroReason || null
               : null;
           if (r.confirmUnit) {
             item.unit = unit;
-            item.unitConfirmed = true;
+            item.unitConfirmed = !proposed;
           }
           item.priceInput =
             amount === null
@@ -458,19 +523,21 @@ adminPricing.put("/table", async (req: any, res) => {
                   date: priceDate,
                   reference: source?.snapshot || null,
                   eur,
+                  rsd,
+                  storedCurrency: nativeCurrency,
+                  proposed,
                   unit: item.unit,
                   pendingRate: !!pending,
                   batchId,
-                  author: req.user.id,
-                  rate:
-                    r.currency === "RSD" && rate
-                      ? {
-                          value: String(rate.rate),
-                          validFrom: rate.valid_from,
-                          validTo: rate.valid_to,
-                          source: rate.source_url,
-                        }
-                      : null,
+                  author: actor,
+                  rate: rate
+                    ? {
+                        value: String(rate.rate),
+                        validFrom: rate.valid_from,
+                        validTo: rate.valid_to,
+                        source: rate.source_url,
+                      }
+                    : null,
                 };
           changes.push({
             itemId: item.id,
@@ -496,7 +563,7 @@ adminPricing.put("/table", async (req: any, res) => {
         [JSON.stringify(v.model), b.reason, v.id],
       );
       v.reason = b.reason;
-      await audit(tx, req.user.id, "shared_price_update", v.id, {
+      await audit(tx, actor, "shared_price_update", v.id, {
         batchId,
         reason: b.reason,
         date: b.date,
@@ -510,5 +577,8 @@ adminPricing.put("/table", async (req: any, res) => {
       warnings,
     };
   });
-  res.json(result);
-});
+  return result;
+}
+adminPricing.put("/table", async (req: any, res) =>
+  res.json(await applyPrices(req.body, req.user.id)),
+);

@@ -357,7 +357,7 @@ export function StipsPriceSuggestions({
                       new Set(
                         currents.map((t) =>
                           JSON.stringify([
-                            t.priceEur,
+                            t.price,
                             t.occurrences[0]?.lastInput?.amount,
                             t.occurrences[0]?.lastInput?.currency,
                           ]),
@@ -580,10 +580,10 @@ export function StipsPriceSuggestions({
                                 {current?.unit}
                               </strong>
                             )}
-                            {current?.priceEur !== null &&
-                              current?.priceEur !== undefined && (
+                            {current?.price !== null &&
+                              current?.price !== undefined && (
                                 <small>
-                                  {number(current.priceEur)} EUR/
+                                  {number(current.price)} EUR/
                                   {current.unit}
                                 </small>
                               )}

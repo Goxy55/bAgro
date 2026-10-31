@@ -116,6 +116,10 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
       "Svi nacrti zajedničkog cenovnika moraju imati isti period važenja.",
     );
   const rows = new Map<string, PricingRow>();
+  const currencies = new Set(versions.map((v) => v.model.currency || "EUR"));
+  if (currencies.size !== 1)
+    throw Error("Verzije moraju koristiti istu osnovnu valutu cenovnika.");
+  const currency = [...currencies][0] as "RSD" | "EUR";
   const columns: PricingTable["versions"] = [];
   for (const v of versions) {
     let known = D(0);
@@ -128,11 +132,14 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
           name: identity.name,
           unit: item.unit,
           cultureSpecific: identity.specific,
+          ...(identity.specific && v.model.seedUnitSize
+            ? { seedUnitSize: String(v.model.seedUnitSize) }
+            : {}),
           ...(item.pricingGroup === "diesel" &&
           normalizedPriceUnit(item.unit) === "l"
             ? { pricingGroup: "diesel" as const }
             : {}),
-          priceEur: null,
+          price: null,
           mixed: false,
           occurrences: [],
         };
@@ -152,7 +159,9 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
       // A later manual item edit can invalidate the original shared-price metadata.
       const matchingInput =
         input &&
-        input.eur === price &&
+        (currency === "RSD"
+          ? (input.rsd ?? (input.currency === "RSD" ? input.amount : null))
+          : input.eur) === price &&
         normalizedPriceUnit(input.unit) === normalizedPriceUnit(item.unit);
       row.occurrences.push({
         versionId: v.id,
@@ -160,8 +169,8 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
         itemId: item.id,
         name: item.name,
         quantity,
-        priceEur: price,
-        costEur: cost,
+        price: price,
+        cost: cost,
         included: item.included !== false,
         unitConfirmed: !!item.unitConfirmed,
         zeroReason: item.zeroReason || null,
@@ -189,17 +198,18 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
       culture: v.template_name,
       basis: v.model.basis,
       reference: String(v.model.reference),
-      knownCostEur: known.toString(),
+      knownCost: known.toString(),
       errors: validateModel(v.model),
     });
   }
   for (const row of rows.values()) {
     row.groupKey = costKey(row);
-    const prices = [...new Set(row.occurrences.map((o) => o.priceEur))];
+    const prices = [...new Set(row.occurrences.map((o) => o.price))];
     row.mixed = prices.length > 1;
-    row.priceEur = prices.length === 1 ? prices[0] : null;
+    row.price = prices.length === 1 ? prices[0] : null;
   }
   return {
+    currency,
     revision: hash(
       [...versions]
         .sort((a, b) => a.id.localeCompare(b.id))

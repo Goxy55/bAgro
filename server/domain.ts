@@ -81,7 +81,11 @@ export function validateModel(model: any): string[] {
         : previous && /\bili\b/i.test(previous.name)
           ? previous.id
           : null);
-    if (group && i.included !== false)
+    if (
+      group &&
+      i.included !== false &&
+      (i.quantity == null || i.quantity === "" || D(i.quantity).gt(0))
+    )
       alternatives.set(group, (alternatives.get(group) || 0) + 1);
   }
   for (const [g, n] of alternatives)
@@ -128,8 +132,13 @@ export function validateModel(model: any): string[] {
       errors.push(
         `${i.id}: nulta cena zahteva razlog; negativna nije dozvoljena.`,
       );
-    if (!i.unitConfirmed) errors.push(`${i.id}: jedinica nije potvrđena.`);
-    if (i.flags?.includes("alternative") && !i.alternativeConfirmed)
+    if (effective.gt(0) && !i.unitConfirmed)
+      errors.push(`${i.id}: jedinica nije potvrđena.`);
+    if (
+      effective.gt(0) &&
+      i.flags?.includes("alternative") &&
+      !i.alternativeConfirmed
+    )
       errors.push(`${i.id}: alternativa nije odabrana.`);
   }
   for (const group of model.groups || []) {
@@ -236,7 +245,7 @@ export function currencySnapshot(
   date: string,
   rate: any,
 ) {
-  if (!rate)
+  if (!rate && currency === "EUR")
     throw Error("Nedostaje zvanični kurs za datum događaja. Sačuvajte nacrt.");
   const n = D(amount);
   if (n.lt(0)) throw Error("Iznos ne može biti negativan.");
@@ -245,11 +254,16 @@ export function currencySnapshot(
     currency,
     date,
     rsd: (currency === "RSD" ? n : n.mul(rate.rate)).toString(),
-    eur: (currency === "EUR" ? n : n.div(rate.rate)).toString(),
-    rate: String(rate.rate),
-    rateDate: String(rate.valid_from).slice(0, 10),
-    validTo: String(rate.valid_to).slice(0, 10),
-    source: rate.source_url,
+    eur:
+      currency === "EUR"
+        ? n.toString()
+        : rate
+          ? n.div(rate.rate).toString()
+          : null,
+    rate: rate ? String(rate.rate) : null,
+    rateDate: rate ? String(rate.valid_from).slice(0, 10) : null,
+    validTo: rate ? String(rate.valid_to).slice(0, 10) : null,
+    source: rate?.source_url || null,
   };
 }
 export function fiveYears(observations: any[], currentYear: number) {

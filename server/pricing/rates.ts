@@ -16,13 +16,7 @@ export async function reconcileDraftRates(conn: Conn, actor: string) {
     const changes: any[] = [];
     for (const item of v.model.items) {
       const p = item.priceInput;
-      if (
-        !p?.pendingRate ||
-        p.currency !== "RSD" ||
-        item.price != null ||
-        p.eur != null ||
-        p.unit !== item.unit
-      )
+      if (!p?.pendingRate || item.price != null || p.unit !== item.unit)
         continue;
       const r = (
         await conn.query(
@@ -31,8 +25,11 @@ export async function reconcileDraftRates(conn: Conn, actor: string) {
         )
       ).rows[0];
       if (!r) continue;
-      item.price = D(p.amount).div(r.rate).toString();
-      p.eur = item.price;
+      p.eur =
+        p.currency === "EUR" ? p.amount : D(p.amount).div(r.rate).toString();
+      p.rsd =
+        p.currency === "RSD" ? p.amount : D(p.amount).mul(r.rate).toString();
+      item.price = v.model.currency === "RSD" ? p.rsd : p.eur;
       p.pendingRate = false;
       p.rate = {
         value: r.rate,
@@ -44,7 +41,10 @@ export async function reconcileDraftRates(conn: Conn, actor: string) {
         itemId: item.id,
         date: p.date,
         amount: p.amount,
-        eur: item.price,
+        price: item.price,
+        storedCurrency: v.model.currency || "EUR",
+        eur: p.eur,
+        rsd: p.rsd,
         rate: p.rate,
       });
     }

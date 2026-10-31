@@ -3,8 +3,8 @@
 Vlasnik testiranja šalje vam jedan HTTPS link aktivne aplikacije. Ne morate instalirati ništa niti imati GitHub/Render nalog. Radite sa označenim test podacima, na primer `TEST Gazdinstvo Ana`, kako bi se test unosi jasno razlikovali od poslovne evidencije.
 
 1. Otvorite link, izaberite registraciju i napravite svoj nalog. Lozinka ima najmanje 12 znakova. Otvorite sopstveno gazdinstvo i izaberite obračunsku godinu i valutu.
-2. Dodajte proizvodnju iz kataloga, na primer ječam, površinu **2,5 ha** i ostvarenu količinu. Sačuvajte prvo nepotpun nacrt, ponovo ga otvorite, dopunite i sačuvajte ostvarenu proizvodnju. Proverite da li razumete poruke o nedostajućim podacima i ulaz količine na zalihu.
-3. U „Prodaja i troškovi“ unesite test prodaju dela raspoložive količine. Zatim evidentirajte samo deo naplate, sa datumom u drugom mesecu. Ako administrator još nije uneo kurs za taj datum, sačuvajte nacrt i zabeležite poruku; konačnu naplatu proverite kada kurs bude pripremljen.
+2. Dodajte proizvodnju iz kataloga, najpre pšenicu, kukuruz, soju ili šećernu repu, površinu **2,5 ha** i ostvarenu količinu. Sačuvajte prvo nepotpun nacrt, ponovo ga otvorite, dopunite i sačuvajte ostvarenu proizvodnju. Proverite da li razumete poruke o nedostajućim podacima i ulaz količine na zalihu.
+3. U „Prodaja i troškovi“ unesite test prodaju dela raspoložive količine. Zatim evidentirajte samo deo naplate, sa datumom u drugom mesecu. Koristite RSD: dinarska prodaja i naplata ne zahtevaju kurs. Za EUR unos potreban je proveren kurs na datum događaja odnosno plaćanja.
 4. Proverite nenaplaćeni ostatak i „Novčani tok“: prodaja pripada datumu prodaje, a stvarni priliv mesecu naplate. Bez početnog stanja očekuje se neto tok, bez izmišljenog završnog salda.
 5. Unesite dodatni stvarni trošak. Proverite da li se jasno razlikuju „Obračun po normativu“ i „Evidentirani stvarni rezultat“. Trošak ne treba automatski da napravi isplatu. Bez odobrenog normativa obračun ostaje nepotpun; cene iz 2017. su arhiva.
 6. Pogledajte zalihe, sopstvenu potrošnju i prenos između proizvodnji ako ih koristite. Interni prenos ne treba da stvori novčani priliv/odliv. Neprodati proizvod nije naplaćen prihod.
@@ -25,4 +25,6 @@ Datum i vreme:
 Slika ekrana bez lozinki ili drugih tajni, ako pomaže:
 ```
 
-Vlasnik odvojeno beleži greške, nejasne korake i predloge. Nepotpun obračun zbog odsutnog odobrenog normativa/kursa je očekivano stanje; nerazumljiva poruka o tome je koristan nalaz testiranja.
+Vlasnik odvojeno beleži greške, nejasne korake i predloge. Nepotpun obračun zbog odsutnog odobrenog normativa, ili kursa kod traženog EUR preračuna, jeste očekivano stanje; nerazumljiva poruka o tome je koristan nalaz testiranja.
+
+Pre zajedničkog testiranja administrator priprema novi RSD cenovnik i grupno potvrđuje spremne kulture prema [admin uputstvu](ZAJEDNICKI-CENOVNIK.md). Testeri koriste iste odobrene normative i svoje zasebne naloge/gazdinstva. Potpuna evidencija stvarnih troškova nije uslov za obračun po normativu.

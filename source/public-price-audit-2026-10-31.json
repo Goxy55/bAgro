@@ -1,0 +1,70 @@
+{
+  "purpose": "Provera strukture javnih cenovnika; nije nacionalni prosek, preporuka zaštite bilja ili aktivan cenovnik.",
+  "method": "Javni GET posle robots.txt; bez naloga, kupovine i kontaktiranja prodavaca. Cena registrovanih kupaca se ne koristi.",
+  "results": [
+    {
+      "source": "ratar",
+      "url": "https://www.ratar.rs/sekator-150-ml",
+      "checkedAt": "2026-10-31T22:57:08.258Z",
+      "http": 200,
+      "sha256": "19d027b1e6b539179581558fffb69d77733a0a1f25d69878d2a1f4021328fbdc",
+      "product": "Sekator 150 ml",
+      "priceRsd": "1950",
+      "packageQuantity": "0.15",
+      "unit": "l",
+      "unitPriceRsd": "13000",
+      "availability": "nije navedena",
+      "priceBasis": "objavljena javna cena; PDV nije potvrđen; bez dostave",
+      "composition": null
+    },
+    {
+      "source": "poljokomerc",
+      "url": "https://poljokomerc.rs/proizvod/sekator-od-150ml-poljokomerc/",
+      "checkedAt": "2026-10-31T22:57:09.626Z",
+      "http": 200,
+      "sha256": "a6814bc8d566c6f1f6094065eb56d908a96c944cd3772cb807aab8d373757f29",
+      "product": "Sekator OD 150ml",
+      "priceRsd": "1890",
+      "packageQuantity": "0.15",
+      "unit": "l",
+      "unitPriceRsd": "12600",
+      "availability": "http://schema.org/InStock",
+      "priceBasis": "objavljena javna cena; PDV nije potvrđen; bez dostave",
+      "composition": null
+    },
+    {
+      "source": "hemoslavija",
+      "url": "https://www.hemoslavijaprodavnica.com/detail.php?artsif=7273",
+      "checkedAt": "2026-10-31T22:57:11.022Z",
+      "http": 200,
+      "sha256": "c5b871cd500bae2d733839d744b45f174366a7e96d590376393039fab0cf776c",
+      "product": "SEKATOR OD 150ML",
+      "priceRsd": "1784.48",
+      "packageQuantity": "0.15",
+      "unit": "l",
+      "unitPriceRsd": "11896.5333333333333333333333333333333",
+      "availability": "1 Ima",
+      "priceBasis": "objavljena javna cena; PDV nije potvrđen; bez dostave",
+      "composition": {
+        "ingredients": [
+          {
+            "name": "amidosulfuron",
+            "amount": "100",
+            "unit": "g/l"
+          },
+          {
+            "name": "jodosulfuron metil natrijum",
+            "amount": "25",
+            "unit": "g/l"
+          },
+          {
+            "name": "mefenpir dietil",
+            "amount": "250",
+            "unit": "g/l"
+          }
+        ],
+        "formulation": "OD"
+      }
+    }
+  ]
+}

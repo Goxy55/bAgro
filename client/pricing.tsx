@@ -37,9 +37,12 @@ const number = (n: string | null) =>
     : new Intl.NumberFormat("sr-Latn-RS", { maximumFractionDigits: 6 }).format(
         Number(n),
       );
-const baseEdit = (row: PricingRow): Edit => ({
-  price: row.priceEur ?? "",
-  currency: "EUR",
+const baseEdit = (
+  row: PricingRow,
+  nativeCurrency: "RSD" | "EUR" = "EUR",
+): Edit => ({
+  price: row.price ?? "",
+  currency: nativeCurrency,
   unit: row.unit,
   confirmUnit: row.occurrences.every((o) => o.unitConfirmed),
   zeroReason: row.occurrences.find((o) => o.zeroReason)?.zeroReason || "",
@@ -126,7 +129,7 @@ export function SharedPriceTable({
     setEdits((e) => ({
       ...e,
       [row.key]: {
-        ...(e[row.key] || baseEdit(row)),
+        ...(e[row.key] || baseEdit(row, table?.currency)),
         ...(("price" in value || "currency" in value || "unit" in value) &&
         !("reference" in value)
           ? { reference: undefined, referenceLabel: undefined }
@@ -187,7 +190,9 @@ export function SharedPriceTable({
       {sourceRow && table && (
         <InputPricePicker
           name={sourceRow.name}
-          unit={(edits[sourceRow.key] || baseEdit(sourceRow)).unit}
+          unit={
+            (edits[sourceRow.key] || baseEdit(sourceRow, table?.currency)).unit
+          }
           validFrom={table.validFrom}
           onClose={() => setSourceRow(null)}
           onPick={(selected) => {
@@ -538,7 +543,8 @@ export function SharedPriceTable({
                         .includes(query.toLocaleLowerCase()),
                     )
                     .map((row) => {
-                      const edit = edits[row.key] || baseEdit(row);
+                      const edit =
+                        edits[row.key] || baseEdit(row, table?.currency);
                       return (
                         <tr
                           key={row.key}
@@ -635,7 +641,7 @@ export function SharedPriceTable({
                             <small>
                               {row.mixed
                                 ? "Postojeće cene se razlikuju; novi unos ih usklađuje."
-                                : `Sačuvano: ${number(row.priceEur)} EUR / jm`}
+                                : `Sačuvano: ${number(row.price)} ${table.currency} / jm`}
                             </small>
                             <button
                               type="button"
@@ -730,7 +736,7 @@ export function SharedPriceTable({
                                     </strong>
                                     <small>
                                       {o.included
-                                        ? `${number(o.costEur)} EUR`
+                                        ? `${number(o.cost)} ${table.currency}`
                                         : "Isključena stavka"}
                                     </small>
                                     {!o.unitConfirmed && (
@@ -750,13 +756,15 @@ export function SharedPriceTable({
                 <tfoot>
                   <tr>
                     <th scope="row" colSpan={3}>
-                      Zbir poznatih uključenih stavki · EUR
+                      Zbir poznatih uključenih stavki · {table.currency}
                       <br />
                       <small>Potpunost se proverava pre aktiviranja.</small>
                     </th>
                     {table.versions.map((v) => (
                       <td key={v.id}>
-                        <strong>{number(v.knownCostEur)} EUR</strong>
+                        <strong>
+                          {number(v.knownCost)} {table.currency}
+                        </strong>
                         <small>
                           {v.errors.length
                             ? `${v.errors.length} nalaza za pregled`

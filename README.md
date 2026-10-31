@@ -31,22 +31,22 @@ Ako ste nalog već registrovali u aplikaciji, operater može dodeliti ulogu bez 
 
 Administrator zatim u aplikaciji:
 
-1. Klonira istorijsku kartu u novu verziju sa periodom važenja i razlogom.
-2. Unosi nove proverene cene; prazne cene se ne preuzimaju iz 2017.
+1. Otvara zajednički dinarski cenovnik sa nazivom i periodom za ceo katalog.
+2. Priprema predloge iz STIPS/RZS i javnih cenovnika jednim dugmetom, uz jednu cenu goriva. Dopunjava nedostajuće inpute zajednički; cene 2017. ostaju arhiva.
 3. Potvrđuje jedinice, vremensku osnovu, nezavisne hranidbene blokove i alternative. Neprimenljive stavke isključuje sa razlogom; nulte cene potvrđuje razlogom.
 4. Posebno potvrđuje jedinicu vreća za šampinjone. Za rasad zadržava odgovarajuću referentnu seriju.
-5. Aktivira kompletan model. Aktivna verzija se ne uređuje direktno; za izmenu pravi novu verziju i arhivira prethodnu.
-6. Unosi proverene zvanične NBS liste sa intervalom važenja. Bez kursa se poslovni događaj može sačuvati kao nacrt i kasnije dopuniti.
+5. Grupno aktivira spremne modele; nepotpuni ostaju za dopunu. Aktivna verzija se ne uređuje direktno; za izmenu pravi novu verziju i arhivira prethodnu.
+6. Po potrebi unosi proverene NBS liste za EUR konverziju. RSD poslovanje i RSD normativi rade bez kursa; EUR ostaje opcioni zahtev, uz istorijske liste.
 
 Nalog sa globalnom admin ulogom **ne dobija automatski pristup privatnim farmama**. Autorizacija se proverava preko stvarnog članstva u svakoj API putanji i izvozu. Klijentov `farm_id` ne određuje pristup.
 
 ### Zajednički unos cena po kulturama
 
-U **Administracija → Zajednički cenovnik** napravite jedan imenovani cenovnik za ceo katalog. Svih 88 predložaka uključeno je bez biranja kultura. Unesite nedostajuće cene jednom u zajedničkoj tabeli; raspoređuju se na sve odgovarajuće karte. Jedna grupna provera i potvrda aktivira kompletan cenovnik. Nerešene jedinice, alternative i hranidbene osnove ostaju konkretni nalazi pre aktiviranja. [Postupak za administratora](docs/ZAJEDNICKI-CENOVNIK.md).
+U **Administracija → Zajednički cenovnik** napravite jedan imenovani cenovnik za ceo katalog. Svih 88 predložaka uključeno je bez biranja kultura. Unesite nedostajuće cene jednom u zajedničkoj tabeli; raspoređuju se na sve odgovarajuće karte. Jedna grupna potvrda aktivira spremne proizvodnje, dok ostale ostaju u nacrtu. Nerešene jedinice, alternative i hranidbene osnove ostaju konkretni nalazi pre aktiviranja. [Postupak za administratora](docs/ZAJEDNICKI-CENOVNIK.md).
 
 **Mašinske operacije** imaju jedno zasebno polje za cenu goriva po litru u celom cenovniku. Operacije zadržavaju različite normirane potrošnje; nejasne usluge i potvrđene druge jedinice ostaju odvojene. [Postupak i izvorni obuhvat](docs/MASINSKE-OPERACIJE.md).
 
-**STIPS i RZS dopuna** nude referentne cene uz zapamćene veze materijala. STIPS ima prednost; odgovarajuće RZS godišnje otkupne cene mogu se izričito odobriti za seme/hranu gde nema STIPS kandidata. Potrebna je potvrda izvorne jedinice i vrste reference. RZS indeksi nisu jedinične cene. [STIPS postupak](docs/STIPS-INPUTI.md), [RZS obuhvat i ograničenja](docs/RZS-CENE.md).
+**Pripremi cene iz izvora** proverava STIPS/RZS i javne cenovnike Ratar, Poljokomerc i Hemoslavija, sa poreklom, pakovanjem i datumom provere. [Javni izvori i ograničenja](docs/JAVNE-CENE.md). STIPS i RZS nude referentne cene uz zapamćene veze materijala. STIPS ima prednost; odgovarajuće RZS godišnje otkupne cene mogu se izričito odobriti za seme/hranu gde nema STIPS kandidata. Potrebna je potvrda izvorne jedinice i vrste reference. RZS indeksi nisu jedinične cene. [STIPS postupak](docs/STIPS-INPUTI.md), [RZS obuhvat i ograničenja](docs/RZS-CENE.md).
 
 Naknadni unos NBS kursa automatski dopunjava nerešene RSD cene u nacrtima, bez ponovnog unosa. Trag obračuna prikazuje kurs i traženi datum nezavisno od kompletnosti normativa. Aktivne verzije i istorijski snapshot-i ostaju sačuvani.
 
@@ -65,7 +65,7 @@ Integrisan je modul **Administracija → STIPS bilteni**: ručni PDF/HTML uvoz, 
 
 Migracija `002_stips.sql` dodaje tabele bez resetovanja postojeće baze. Originalni bilteni se čuvaju u bazi i ulaze u postojeći backup. Samo administrator može uvoziti, menjati i objavljivati referentne cene; to ne menja normative ili privatno poslovanje gazdinstava.
 
-**Administracija → STIPS · cene inputa** preuzima originalne XLS/XLSX cenovnike pesticida, mineralnih đubriva i semena. Izvorne cene se mogu izričito izabrati u zajedničkom cenovniku uz proveru proizvoda/pakovanja i NBS kurs za izvorni period. Živo preuzimanje je provereno za svih 21 pronađenih cenovnika 2024–2026; 13.342 brojčane cene, bez automatskog aktiviranja normativa. Migracija `003_stips_inputs.sql` čuva original i svaki izvorni zapis. [Uputstvo za prikupljanje i primenu](docs/STIPS-INPUTI.md).
+**Administracija → STIPS · cene inputa** preuzima originalne XLS/XLSX cenovnike pesticida, mineralnih đubriva i semena. Izvorne cene se mogu izričito izabrati u zajedničkom cenovniku uz proveru proizvoda/pakovanja; RSD cenovnik ne zahteva NBS kurs, a EUR konverzija koristi listu za izvorni period. Živo preuzimanje je provereno za svih 21 pronađenih cenovnika 2024–2026; 13.342 brojčane cene, bez automatskog aktiviranja normativa. Migracija `003_stips_inputs.sql` čuva original i svaki izvorni zapis. [Uputstvo za prikupljanje i primenu](docs/STIPS-INPUTI.md).
 
 ## RZS nacionalna statistika
 
@@ -121,7 +121,7 @@ npm run build
 npm start
 ```
 
-Produkcija zahteva eksplicitan `APP_URL` i `BETTER_AUTH_SECRET` sa najmanje 32 znaka; javni `APP_URL` mora koristiti HTTPS. `GET /healthz` anonimno proverava vezu sa bazom bez izlaganja poslovnih podataka. Javni hosting, domen, email isporuka, stalni disk, PostgreSQL i backup mogu imati operativne troškove. Besplatni izvori podataka ne znače besplatan hosting. Nisu napravljeni plaćeni resursi i aplikacija nije javno objavljena.
+Produkcija zahteva eksplicitan `APP_URL` i `BETTER_AUTH_SECRET` sa najmanje 32 znaka; javni `APP_URL` mora koristiti HTTPS. `GET /healthz` anonimno proverava vezu sa bazom bez izlaganja poslovnih podataka. Javni hosting, domen, email isporuka, stalni disk, PostgreSQL i backup mogu imati operativne troškove. Besplatni izvori podataka ne znače besplatan hosting. U ovom okruženju nisu napravljeni plaćeni resursi; vlasnik zasebno upravlja postojećom Render testnom objavom.
 
 Za zajedničko testiranje na sopstvenom VPS-u pripremljeni su `Dockerfile`, trajni volumen i Caddy HTTPS proxy: [uputstvo za testnu objavu](docs/TESTNA-OBJAVA.md). Koristiti novu praznu bazu. Docker image ne uključuje privatni `data/` ili `.env`; arhivski izvor i katalog su uključeni. Jedna instanca podržava više odvojenih korisničkih naloga.
 

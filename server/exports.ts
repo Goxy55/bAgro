@@ -134,8 +134,8 @@ export async function exportReport(
         e.money ? Number(e.money.original) : null,
         e.money?.currency,
         e.money ? Number(e.money.rsd) : null,
-        e.money ? Number(e.money.eur) : null,
-        e.money ? Number(e.money.rate) : null,
+        e.money?.eur != null ? Number(e.money.eur) : null,
+        e.money?.rate != null ? Number(e.money.rate) : null,
         e.money?.rateDate,
         e.money?.source,
       ]),
@@ -151,8 +151,9 @@ export async function exportReport(
       "Stavka",
       "Količina",
       "Jedinica",
-      "Cena EUR",
-      "Iznos EUR",
+      "Cena u valuti normativa",
+      "Iznos u valuti normativa",
+      "Valuta normativa",
     ]);
     r.results.forEach((p: any) =>
       p.norm.lines.forEach((l: any) =>
@@ -165,10 +166,11 @@ export async function exportReport(
           safe(l.unit),
           l.price == null ? null : Number(l.price),
           l.cost == null ? null : Number(l.cost),
+          p.norm.version?.model.currency || "EUR",
         ]),
       ),
     );
-    norms.columns = Array.from({ length: 8 }, (_, i) => ({
+    norms.columns = Array.from({ length: 9 }, (_, i) => ({
       width: i === 0 || i === 3 ? 40 : 24,
     }));
     book.eachSheet((s) =>
@@ -216,16 +218,22 @@ export async function exportReport(
       doc
         .moveDown()
         .fontSize(11)
-        .text("Detalj odobrenih normativnih stavki · EUR");
+        .text(
+          `Detalj odobrenih normativnih stavki · ${p.norm.version?.model.currency || "EUR"}`,
+        );
       for (const line of p.norm.lines) {
         if (doc.y > 710) {
           doc.addPage();
-          doc.fontSize(11).text("Normativne stavke — nastavak · EUR");
+          doc
+            .fontSize(11)
+            .text(
+              `Normativne stavke — nastavak · ${p.norm.version?.model.currency || "EUR"}`,
+            );
         }
         doc
           .fontSize(8)
           .text(
-            `${line.id} · ${line.name}\n${line.quantity} ${line.unit} × ${line.price ?? "Nedostaje cena"} EUR = ${line.cost == null ? "Nepotpun podatak" : moneyText(line.cost)} EUR`,
+            `${line.id} · ${line.name}\n${line.quantity} ${line.unit} × ${line.price ?? "Nedostaje cena"} ${p.norm.version?.model.currency || "EUR"} = ${line.cost == null ? "Nepotpun podatak" : moneyText(line.cost)} ${p.norm.version?.model.currency || "EUR"}`,
           );
         doc.moveDown(0.4);
       }

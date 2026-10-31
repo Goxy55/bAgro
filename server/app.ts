@@ -29,6 +29,7 @@ import { importStatistics } from "./statistics.js";
 import { versionRevision, type PricingVersion } from "./pricing/model.js";
 import { reconcileDraftRates } from "./pricing/rates.js";
 import { adminPriceBooks } from "./pricing/books.js";
+import { adminPreparation } from "./pricing/preparation.js";
 export const app = express();
 app.disable("x-powered-by");
 app.set("trust proxy", runtime.trustProxyHops);
@@ -145,12 +146,14 @@ async function stock(
   let quantity = D(0),
     value = D(0),
     eur = D(0);
+  let missingEUR = false;
   for (const r of rows) {
     quantity = quantity.add(convertQuantity(r.quantity, r.unit, u));
     value = value.add(r.value_rsd || 0);
     eur = eur.add(r.value_eur || 0);
+    if (r.value_rsd != null && r.value_eur == null) missingEUR = true;
   }
-  return { quantity, value, eur };
+  return { quantity, value, eur: missingEUR ? null : eur };
 }
 async function move(conn: Conn, o: any) {
   await conn.query(
@@ -435,7 +438,7 @@ const saveEvent = async (req: any, res: any) => {
     const m =
       b.amount && b.date
         ? b.status === "draft"
-          ? (await rateFor(b.date, tx))
+          ? b.currency === "RSD" || (await rateFor(b.date, tx))
             ? await snapshotMoney(b.amount, b.currency, b.date, tx)
             : null
           : await snapshotMoney(b.amount, b.currency, b.date, tx)
@@ -552,14 +555,19 @@ app.post("/api/payments", async (req: any, res) => {
           [f, b.eventId],
         )
       ).rows;
-      const inEvent = (m: any) =>
-        D(m.original).mul(
+      const inEvent = (m: any) => {
+        if (m.currency !== e.money.currency && !m.rate)
+          throw Error(
+            "Za plaćanje u različitoj valuti potreban je kurs na datum plaćanja.",
+          );
+        return D(m.original).mul(
           m.currency === e.money.currency
             ? 1
             : m.currency === "EUR"
               ? m.rate
               : D(1).div(m.rate),
         );
+      };
       const total = old
         .reduce<ReturnType<typeof D>>((s, p) => s.add(inEvent(p.money)), D(0))
         .add(inEvent(m));
@@ -710,7 +718,10 @@ async function tracedUnit(
     return {
       unit: quantityUnit,
       value: D(norm.money.rsd).mul(share).div(quantity),
-      eur: D(norm.money.eur).mul(share).div(quantity),
+      eur:
+        norm.money.eur == null
+          ? null
+          : D(norm.money.eur).mul(share).div(quantity),
       snapshot: { version: norm.version.id, money: norm.money },
     };
   }
@@ -737,13 +748,20 @@ async function tracedUnit(
       )
       .mul(share)
       .div(quantity),
-    eur: rows
-      .reduce<ReturnType<typeof D>>((s, e) => s.add(e.money.eur), D(0))
-      .add(
-        feed.reduce<ReturnType<typeof D>>((s, e) => s.add(e.value_eur), D(0)),
-      )
-      .mul(share)
-      .div(quantity),
+    eur:
+      rows.some((e) => e.money.eur == null) ||
+      feed.some((e) => e.value_eur == null)
+        ? null
+        : rows
+            .reduce<ReturnType<typeof D>>((s, e) => s.add(e.money.eur), D(0))
+            .add(
+              feed.reduce<ReturnType<typeof D>>(
+                (s, e) => s.add(e.value_eur),
+                D(0),
+              ),
+            )
+            .mul(share)
+            .div(quantity),
     snapshot: { actualComplete: true },
   };
 }
@@ -795,13 +813,14 @@ app.post("/api/inventory", async (req: any, res) => {
       if (!p) throw Error("Izaberite izvornu proizvodnju.");
       const trace = await tracedUnit(p, b.method, tx, b.product);
       v = trace.value.mul(convertQuantity(b.quantity, b.unit, trace.unit));
-      vEUR = trace.eur.mul(convertQuantity(b.quantity, b.unit, trace.unit));
+      vEUR =
+        trace.eur?.mul(convertQuantity(b.quantity, b.unit, trace.unit)) ?? null;
       note += ` · ${JSON.stringify(trace.snapshot)}`;
     } else if (b.amount) {
       if (!b.currency) throw Error("Nedostaje valuta.");
       const m = await snapshotMoney(b.amount, b.currency, b.date, tx);
       v = D(m.rsd);
-      vEUR = D(m.eur);
+      vEUR = m.eur == null ? null : D(m.eur);
     }
     await move(tx, {
       farm: f,
@@ -857,9 +876,10 @@ app.post("/api/transfers", async (req: any, res) => {
     const value = trace.value
       .mul(convertQuantity(b.quantity, b.unit, trace.unit))
       .toString();
-    const valueEUR = trace.eur
-      .mul(convertQuantity(b.quantity, b.unit, trace.unit))
-      .toString();
+    const valueEUR =
+      trace.eur
+        ?.mul(convertQuantity(b.quantity, b.unit, trace.unit))
+        .toString() ?? null;
     await tx.query(
       "INSERT INTO internal_transfers(id,farm_id,from_production,to_production,quantity,product,unit,value_rsd,method,date,value_eur) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
       [
@@ -890,9 +910,12 @@ app.post("/api/transfers", async (req: any, res) => {
         value: D(value)
           .mul(incoming ? 1 : -1)
           .toString(),
-        valueEUR: D(valueEUR)
-          .mul(incoming ? 1 : -1)
-          .toString(),
+        valueEUR:
+          valueEUR == null
+            ? null
+            : D(valueEUR)
+                .mul(incoming ? 1 : -1)
+                .toString(),
         method: b.method,
         link: tid,
         note: JSON.stringify(trace.snapshot),
@@ -933,7 +956,7 @@ app.post("/api/feed", async (req: any, res) => {
     if (s.value.lte(0))
       throw Error("Nedostaje sledljiva nabavna/proizvodna vrednost hrane.");
     const value = s.value.div(s.quantity).mul(b.quantity).toString();
-    const valueEUR = s.eur.div(s.quantity).mul(b.quantity).toString();
+    const valueEUR = s.eur?.div(s.quantity).mul(b.quantity).toString() ?? null;
     const fid = randomUUID();
     await tx.query(
       "INSERT INTO feed_consumption(id,farm_id,production_id,date,product,quantity,unit,value_rsd,origin,norm_item_id,value_eur) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
@@ -960,7 +983,7 @@ app.post("/api/feed", async (req: any, res) => {
       quantity: D(b.quantity).neg().toString(),
       kind: "feed_use",
       value: D(value).neg().toString(),
-      valueEUR: D(valueEUR).neg().toString(),
+      valueEUR: valueEUR == null ? null : D(valueEUR).neg().toString(),
       method: "Sledljivi trošak iz zalihe",
       link: fid,
       stockType: b.stockType,
@@ -1021,7 +1044,11 @@ function publicReport(r: any) {
 app.get("/api/report", async (req: any, res) => {
   const f = farm(req),
     p = req.query.productionId ? id.parse(req.query.productionId) : undefined;
-  const r = await report(f, p);
+  const requested = z
+    .enum(["RSD", "EUR"])
+    .default("RSD")
+    .parse(req.query.currency);
+  const r = await report(f, p, requested);
   await audit(db, req.user.id, f, "read", "report");
   res.json(publicReport(r));
 });
@@ -1038,8 +1065,14 @@ app.get("/api/snapshots", async (req: any, res) => {
 });
 app.post("/api/snapshots", async (req: any, res) => {
   const f = farm(req),
-    b = z.object({ productionId: id.optional(), reason: text }).parse(req.body);
-  const r = await report(f, b.productionId);
+    b = z
+      .object({
+        productionId: id.optional(),
+        reason: text,
+        currency: currency.default("RSD"),
+      })
+      .parse(req.body);
+  const r = await report(f, b.productionId, b.currency);
   const sid = randomUUID();
   await transaction(async (tx) => {
     await lock(tx, f);
@@ -1079,6 +1112,7 @@ app.get("/api/export/:format", async (req: any, res) => {
     r = await report(
       f,
       req.query.productionId ? id.parse(req.query.productionId) : undefined,
+      currency.default("RSD").parse(req.query.currency),
     );
   await audit(db, req.user.id, f, "export", format);
   await exportReport(r, format, res);
@@ -1121,6 +1155,7 @@ app.use("/api/admin", (req: any, res, next) =>
 );
 app.use("/api/admin/stips", adminStips);
 app.use("/api/admin/pricing", adminPricing);
+app.use("/api/admin/price-books", adminPreparation);
 app.use("/api/admin/price-books", adminPriceBooks);
 app.use("/api/admin/input-prices", adminInputPrices);
 app.get("/api/admin", async (req: any, res) => {
@@ -1220,6 +1255,23 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
     if (!v || v.status !== "draft")
       throw Error(
         "Menjati se može samo nacrt; za aktivnu verziju napravite novu verziju.",
+      );
+    if (
+      v.price_book_id &&
+      (
+        await tx.query(
+          "SELECT id FROM price_preparations WHERE book_id=$1 AND status='running'",
+          [v.price_book_id],
+        )
+      ).rows.length
+    )
+      throw Error("Priprema cena je u toku; sačekajte završetak.");
+    if (
+      v.price_book_id &&
+      (b.model.currency || "EUR") !== (v.model.currency || "EUR")
+    )
+      throw Error(
+        "Valuta imenovanog cenovnika menja se kroz novu verziju cenovnika.",
       );
     if (b.revision && b.revision !== versionRevision(v))
       throw Object.assign(
