@@ -33,6 +33,7 @@ import { PriceBooks } from "./price-workbench";
 import { PriceBooks as AdvancedPriceBooks } from "./price-books";
 import { todayInSerbia } from "../shared/dates";
 import { SharedPriceTable } from "./pricing";
+import { MonthlyWip, CalendarPolicyEditor } from "./monthly-wip";
 type Any = any;
 const number = (v: Any, digits = 2) =>
   v == null
@@ -598,42 +599,57 @@ function App() {
           {page === "market" && <Market data={data.market} />}
           {page === "handbook" && <Handbook data={data.handbook} />}
           {page === "wip" && (
-            <section className="panel">
-              <div className="panel-head">
-                <h2>Ulaganja po mesecima</h2>
-                <button className="secondary" onClick={() => setModal("wip")}>
-                  <Plus size={16} />
-                  Dodaj mesečno stanje
-                </button>
-              </div>
-              <Alert>
-                Svaki unos je kumulativno stanje ulaganja. Mesečni iznosi se ne
-                sabiraju kao novi rashodi i ne ulaze u novčani tok. Izvor:
-                „Zalihe na parceli“.
-              </Alert>
-              {data.inventory?.wip.length ? (
-                <Table
-                  heads={[
-                    "Proizvodnja",
-                    "Mesec",
-                    "Kumulativno ulaganje",
-                    "Napomena",
-                  ]}
-                  rows={data.inventory.wip.map((x: Any) => [
-                    data.productions.find((p: Any) => p.id === x.production_id)
-                      ?.name,
-                    x.month,
-                    `${number(x.money[boot.farm.currency.toLowerCase()])} ${boot.farm.currency}`,
-                    x.note,
-                  ])}
-                />
-              ) : (
-                <Empty
-                  title="Još nema unetih ulaganja"
-                  text="Ovo je zaseban pregled proizvodnje u toku, odvojen od gotovih proizvoda i plaćanja."
-                />
-              )}
-            </section>
+            <>
+              <MonthlyWip
+                key={boot.farm.id + ":" + boot.farm.year}
+                farmYear={boot.farm.year}
+                productions={data.productions}
+                admin={boot.admin}
+              />
+              <details>
+                <summary>Ručna mesečna stanja iz ranije evidencije</summary>
+                <section className="panel">
+                  <div className="panel-head">
+                    <h2>Ulaganja po mesecima</h2>
+                    <button
+                      className="secondary"
+                      onClick={() => setModal("wip")}
+                    >
+                      <Plus size={16} />
+                      Dodaj mesečno stanje
+                    </button>
+                  </div>
+                  <Alert>
+                    Svaki unos je kumulativno stanje ulaganja. Mesečni iznosi se
+                    ne sabiraju kao novi rashodi i ne ulaze u novčani tok.
+                    Izvor: „Zalihe na parceli“.
+                  </Alert>
+                  {data.inventory?.wip.length ? (
+                    <Table
+                      heads={[
+                        "Proizvodnja",
+                        "Mesec",
+                        "Kumulativno ulaganje",
+                        "Napomena",
+                      ]}
+                      rows={data.inventory.wip.map((x: Any) => [
+                        data.productions.find(
+                          (p: Any) => p.id === x.production_id,
+                        )?.name,
+                        x.month,
+                        `${number(x.money.rsd)} RSD`,
+                        x.note,
+                      ])}
+                    />
+                  ) : (
+                    <Empty
+                      title="Još nema unetih ulaganja"
+                      text="Ovo je zaseban pregled proizvodnje u toku, odvojen od gotovih proizvoda i plaćanja."
+                    />
+                  )}
+                </section>
+              </details>
+            </>
           )}
           {page === "settings" && (
             <section className="panel narrow">
@@ -1472,13 +1488,21 @@ function ProductionForm({ boot, onDone, existing }: Any) {
           />
         )}
         <Field
-          label="Početak perioda"
+          label={
+            ["ha", "m2"].includes(basis)
+              ? "Početak sezone / pripreme"
+              : "Početak perioda"
+          }
           name="start"
           type="date"
           defaultValue={existing?.details.start || `${boot.farm.year}-01-01`}
         />
         <Field
-          label="Kraj perioda"
+          label={
+            ["ha", "m2"].includes(basis)
+              ? "Završetak perioda u godini sezone"
+              : "Kraj perioda"
+          }
           name="end"
           type="date"
           defaultValue={existing?.details.end || `${boot.farm.year}-12-31`}
@@ -1624,6 +1648,9 @@ function ProductionDetail({
           ["inputs", "Ostvareni podaci"],
           ["events", "Prodaja i troškovi"],
           ["source", "Izvor normativa"],
+          ...(["ha", "m2"].includes(p.basis)
+            ? [["monthly", "Ulaganja po mesecima"]]
+            : []),
         ].map(([k, l]) => (
           <button
             key={k}
@@ -1797,6 +1824,15 @@ function ProductionDetail({
             </section>
           </div>
         </>
+      )}
+      {tab === "monthly" && (
+        <MonthlyWip
+          key={boot.farm.id + ":" + id}
+          farmYear={boot.farm.year}
+          productions={data.productions}
+          admin={boot.admin}
+          productionId={id}
+        />
       )}
       {tab === "inputs" && (
         <section className="panel narrow">
@@ -3240,6 +3276,9 @@ function Admin({ onDone }: Any) {
       </div>
       {tab === "pricing" && (
         <>
+          <section className="panel">
+            <CalendarPolicyEditor />
+          </section>
           <PriceBooks
             onDone={done}
             onEdit={(id: string) => {
@@ -3763,7 +3802,93 @@ function NormEditor({ version, onDone, onBack }: Any) {
                     {i.quantityCell} × {i.priceCell || "cena hraniva"}
                   </Badge>
                 </div>
+                {["ha", "m2"].includes(model.basis) && (
+                  <details className="calendar-allocation">
+                    <summary>Posebna raspodela ovog reda po mesecima</summary>
+                    <p>
+                      Opcioni procenti menjaju samo vreme pripisivanja ukupne
+                      norme. Zbir mora biti 100%. Prazna raspodela koristi
+                      odobrena zajednička pravila.
+                    </p>
+                    <div className="form-grid four">
+                      {[
+                        "I",
+                        "II",
+                        "III",
+                        "IV",
+                        "V",
+                        "VI",
+                        "VII",
+                        "VIII",
+                        "IX",
+                        "X",
+                        "XI",
+                        "XII",
+                      ].map((m: string, index: number) => (
+                        <Field
+                          key={m}
+                          label={`${m} — udeo %`}
+                          type="number"
+                          min="0"
+                          max="100"
+                          value={
+                            i.monthDistribution?.find(
+                              (p: Any) => p.month === index + 1,
+                            )?.share ?? ""
+                          }
+                          onChange={(e: Any) => {
+                            const list = (i.monthDistribution || []).filter(
+                              (p: Any) => p.month !== index + 1,
+                            );
+                            if (e.target.value && Number(e.target.value) > 0)
+                              list.push({
+                                month: index + 1,
+                                share: e.target.value,
+                              });
+                            update(
+                              n,
+                              "monthDistribution",
+                              list.length ? list : null,
+                            );
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </details>
+                )}
                 <div className="form-grid four">
+                  {["ha", "m2"].includes(model.basis) && (
+                    <>
+                      {" "}
+                      <Field
+                        label="Mesec nastanka — kolona C"
+                        value={i.month ?? ""}
+                        placeholder="X, IV–VIII ili III,V,VII"
+                        onChange={(e: Any) =>
+                          update(n, "month", e.target.value || null)
+                        }
+                      />
+                      <Field
+                        label="Godina troška u sezoni"
+                        value={i.calendarYearOffset ?? "auto"}
+                        options={[
+                          { value: "auto", label: "Automatski iz rasporeda" },
+                          { value: "-1", label: "Prethodna godina" },
+                          { value: "0", label: "Godina sezone" },
+                          { value: "1", label: "Naredna godina" },
+                        ]}
+                        onChange={(e: Any) =>
+                          update(
+                            n,
+                            "calendarYearOffset",
+                            e.target.value === "auto"
+                              ? null
+                              : Number(e.target.value),
+                          )
+                        }
+                      />
+                    </>
+                  )}
                   <Field
                     label="Normirana količina"
                     type="number"

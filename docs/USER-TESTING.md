@@ -28,3 +28,5 @@ Slika ekrana bez lozinki ili drugih tajni, ako pomaže:
 Vlasnik odvojeno beleži greške, nejasne korake i predloge. Nepotpun obračun zbog odsutnog odobrenog normativa, ili kursa kod traženog EUR preračuna, jeste očekivano stanje; nerazumljiva poruka o tome je koristan nalaz testiranja.
 
 Pre zajedničkog testiranja administrator priprema novi RSD cenovnik i grupno potvrđuje spremne kulture prema [admin uputstvu](ZAJEDNICKI-CENOVNIK.md). Testeri koriste iste odobrene normative i svoje zasebne naloge/gazdinstva. Potpuna evidencija stvarnih troškova nije uslov za obračun po normativu.
+
+Za mesečni troškovnik otvorite **Zalihe na parceli**, odaberite mesec i proširite proizvodnju. Unesena površina je dovoljna za kalkulaciju po odobrenom normativu. Proverite prenos jeseni prethodne godine u januar, zbir mesečnih povećanja i kumulativni iznos. Potvrdite stvarno stanje useva; posle završetka zaliha u zemlji treba da bude 0, uz sačuvanu istoriju troška. Sačuvajte mesečni obračun i izvezite ga pre promene cenovnika. [Detaljno uputstvo](MESECNA-ULAGANJA.md).

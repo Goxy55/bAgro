@@ -18,5 +18,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements-import.txt
       - run: python scripts/extract.py
+      - run: python scripts/audit-months.py
+      - run: git diff --exit-code -- source/monthly-calendar-audit.json
       - run: npm run build
       - run: npm test

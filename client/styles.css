@@ -2183,3 +2183,126 @@ hr {
     width: 100%;
   }
 }
+
+.monthly-totals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+.monthly-totals article {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #dce3dc;
+  border-radius: 10px;
+  background: #f6f8f4;
+}
+.monthly-totals strong {
+  font-size: 1.2rem;
+}
+.monthly-wip details,
+.calendar-policy,
+.calendar-allocation {
+  border: 1px solid #dce3dc;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.monthly-production summary {
+  cursor: pointer;
+}
+.monthly-production summary span {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+.monthly-table {
+  max-height: 600px;
+  overflow: auto;
+}
+.monthly-table table {
+  width: 100%;
+  min-width: 650px;
+}
+.monthly-table th {
+  position: sticky;
+  top: 0;
+  background: #eef5ed;
+  z-index: 1;
+}
+.monthly-table small {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 440px;
+}
+.monthly-table td {
+  vertical-align: top;
+  min-width: 100px;
+}
+.monthly-table td:first-child {
+  min-width: 220px;
+}
+.monthly-state {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: end;
+}
+.monthly-state label {
+  flex: 1;
+  min-width: 180px;
+}
+.calendar-policy label.checkbox {
+  margin: 1rem 0;
+}
+.monthly-wip .alert ul {
+  margin: 0;
+  padding-left: 1.3rem;
+}
+.monthly-wip .toolbar button {
+  white-space: normal;
+}
+@media (max-width: 650px) {
+  .monthly-totals {
+    grid-template-columns: 1fr;
+  }
+  .monthly-wip .toolbar,
+  .monthly-state {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .monthly-state label {
+    min-width: 0;
+  }
+  .calendar-policy .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .monthly-wip {
+    overflow-wrap: anywhere;
+  }
+}
+
+.monthly-table[aria-label^="Mesečni pregled"] table {
+  min-width: 0;
+  table-layout: fixed;
+  max-width: 760px;
+}
+.monthly-table[aria-label^="Mesečni pregled"] td,
+.monthly-table[aria-label^="Mesečni pregled"] th {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.monthly-table[aria-label^="Mesečni pregled"] td:first-child,
+.monthly-table[aria-label^="Mesečni pregled"] th:first-child {
+  width: 26%;
+  min-width: 0;
+}
+@media (max-width: 650px) {
+  .monthly-table[aria-label^="Mesečni pregled"] td,
+  .monthly-table[aria-label^="Mesečni pregled"] th {
+    font-size: 11px;
+    padding: 10px 5px;
+  }
+}

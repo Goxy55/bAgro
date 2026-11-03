@@ -30,6 +30,9 @@ import { versionRevision, type PricingVersion } from "./pricing/model.js";
 import { reconcileDraftRates } from "./pricing/rates.js";
 import { adminPriceBooks } from "./pricing/books.js";
 import { adminPreparation } from "./pricing/preparation.js";
+import { privateWip, adminCostCalendar } from "./wip.js";
+import { parseMonths, validateCalendarOverrides } from "./monthly-costs.js";
+import { validateProductionPeriod } from "./production-period.js";
 export const app = express();
 app.disable("x-powered-by");
 app.set("trust proxy", runtime.trustProxyHops);
@@ -260,12 +263,7 @@ app.post("/api/productions", async (req: any, res) => {
     throw Error(
       "Za završenu evidenciju unesite osnovu, period, proizvodnju i jedinicu.",
     );
-  if (
-    b.details.start &&
-    (!b.details.start.startsWith(String(b.year)) ||
-      !b.details.end?.startsWith(String(b.year)))
-  )
-    throw Error("Period mora pripadati obračunskoj godini.");
+  validateProductionPeriod(template.basis, b.year, b.details);
   await transaction(async (tx) => {
     await lock(tx, f);
     await tx.query(
@@ -303,7 +301,7 @@ app.patch("/api/productions/:id", async (req: any, res) => {
       throw Error(
         "Završenu količinsku evidenciju menjajte sledljivom korekcijom zaliha.",
       );
-    const details = b.details || p.details;
+    const details = b.details ? { ...p.details, ...b.details } : p.details;
     const status = b.status || p.status;
     const template = (
       await tx.query("SELECT * FROM templates WHERE id=$1", [p.template_id])
@@ -313,13 +311,7 @@ app.patch("/api/productions/:id", async (req: any, res) => {
       !["malina", "kupina"].includes(details.product || "")
     )
       throw Error("Izaberite stvarni proizvod: malina ili kupina.");
-    if (
-      details.start &&
-      (!details.start.startsWith(String(p.year)) ||
-        !details.end?.startsWith(String(p.year)) ||
-        details.start > details.end)
-    )
-      throw Error("Period mora biti ispravan i unutar obračunske godine.");
+    validateProductionPeriod(template.basis, p.year, details);
     if (status === "final" && p.status === "draft") {
       if (
         !details.scale ||
@@ -1014,6 +1006,7 @@ app.post("/api/wip", async (req: any, res) => {
   });
   res.json({ ok: true });
 });
+app.use("/api/wip", privateWip);
 function approvedModelView(model: any) {
   const copy = structuredClone(model);
   delete copy.notes;
@@ -1153,6 +1146,7 @@ app.use("/api/admin", (req: any, res, next) =>
     ? next()
     : res.status(403).json({ error: "Potreban je administratorski nalog." }),
 );
+app.use("/api/admin/cost-calendar", adminCostCalendar);
 app.use("/api/admin/stips", adminStips);
 app.use("/api/admin/pricing", adminPricing);
 app.use("/api/admin/price-books", adminPreparation);
@@ -1242,6 +1236,8 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
     .parse(req.body);
   if (!b.model || !Array.isArray(b.model.items) || b.model.items.length > 500)
     throw Error("Neispravan deklarativni model.");
+  const calendarErrors = validateCalendarOverrides(b.model.items);
+  if (calendarErrors.length) throw Error(calendarErrors.join("\n"));
   const errors = validateModel(b.model);
   if (b.activate && errors.length)
     return res.status(422).json({ error: errors.join("\n") });
@@ -1286,6 +1282,18 @@ app.put("/api/admin/versions/:id", async (req: any, res) => {
       );
     for (const item of b.model.items) {
       const old = v.model.items.find((i: any) => i.id === item.id);
+      if (
+        old?.month !== item.month &&
+        item.month != null &&
+        String(item.month).trim() &&
+        !item.monthDistribution
+      )
+        try {
+          parseMonths(item.month);
+        } catch (e) {
+          throw Error(`${item.id}: ${(e as Error).message}`);
+        }
+
       if (
         !old ||
         String(old.price ?? "") !== String(item.price ?? "") ||

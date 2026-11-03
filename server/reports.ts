@@ -33,10 +33,21 @@ export async function normFor(p: any, conn: Conn = db) {
     validTo: rate?.valid_to || null,
     source: rate?.source_url || null,
   };
+  let priceStart = start;
+  if (start < `${p.year}-01-01`) {
+    const basis =
+      p.basis ||
+      (
+        await conn.query("SELECT basis FROM templates WHERE id=$1", [
+          p.template_id,
+        ])
+      ).rows[0]?.basis;
+    if (["ha", "m2"].includes(basis)) priceStart = `${p.year}-01-01`;
+  }
   const version = (
     await conn.query(
       "SELECT *,valid_from::text AS valid_from,valid_to::text AS valid_to FROM norm_versions WHERE template_id=$1 AND status='active' AND valid_from<=$2 AND valid_to>=$3 ORDER BY created_at DESC LIMIT 1",
-      [p.template_id, start, date],
+      [p.template_id, priceStart, date],
     )
   ).rows[0];
   if (!version)

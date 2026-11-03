@@ -40,6 +40,10 @@ Administrator zatim u aplikaciji:
 
 Nalog sa globalnom admin ulogom **ne dobija automatski pristup privatnim farmama**. Autorizacija se proverava preko stvarnog članstva u svakoj API putanji i izvozu. Klijentov `farm_id` ne određuje pristup.
 
+### Kumulativna ulaganja po mesecima
+
+**Zalihe na parceli** automatski obračunavaju odobrenu cenu × normiranu potrošnju × evidentiranu površinu do izabranog meseca. Potvrđena pravila uključuju pripremu prethodne godine, nasleđivanje meseca iz bloka i prednost usaglašene izvorne raspodele; ravnomerna podela je rezervno pravilo. Isti iznos se ne ponavlja pri prenosu mesečnog stanja. Prinos nije uslov; normativno ulaganje, zaliha u zemlji i stvarni novčani tok ostaju zasebni. Dostupni su PDF/XLSX i nepromenljivi mesečni snimci. [Postupak, formule i izvorna neslaganja](docs/MESECNA-ULAGANJA.md).
+
 ### Zajednički unos cena po kulturama
 
 U **Administracija → Zajednički cenovnik** napravite jedan imenovani cenovnik za ceo katalog. Svih 88 predložaka uključeno je bez biranja kultura. Unesite nedostajuće cene jednom u zajedničkoj tabeli; raspoređuju se na sve odgovarajuće karte. Jedna grupna potvrda aktivira spremne proizvodnje, dok ostale ostaju u nacrtu. Nerešene jedinice, alternative i hranidbene osnove ostaju konkretni nalazi pre aktiviranja. [Postupak za administratora](docs/ZAJEDNICKI-CENOVNIK.md).

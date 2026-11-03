@@ -44,3 +44,7 @@ Posle delimične aktivacije ostaju dostupni nacrti za dopunu. Cena materijala ko
 Izvori imaju keš 24 h. Jedna javna priprema ima limit 120 zahteva ili približno 8 minuta za prodavce; prioritet imaju četiri testne kulture. Ponovna priprema koristi keš i obrađuje preostale inpute. Greške ostavljaju poslednje proverene podatke uz napomenu. Potpuna pokrivenost svih istorijskih preparata nije zagarantovana.
 
 Migracije `007_rsd_pricing.sql` i `008_public_search_cache.sql` čuvaju postojeće podatke i dodaju RSD osnovu, javne dokumente i evidenciju poslova. Normalna nadogradnja aplikacije ih izvršava automatski. Za lokalni PGlite koristite jedan proces; pre nadogradnje napravite backup prema README-u. Privatni podaci i uloge gazdinstava ostaju odvojeni od globalnog cenovnika.
+
+## Mesečni raspored troškovnika
+
+Potvrđena kalendarska pravila od 03.11.2026. uključena su pri nadogradnji, uz očuvanje prethodno administratorski podešenih pravila. Pregled ulaganja automatski koristi aktivan cenovnik; ne unose se cene ponovo. [Mesečna ulaganja, B–F, sezona i zalihe u zemlji](MESECNA-ULAGANJA.md).
