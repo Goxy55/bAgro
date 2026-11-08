@@ -34,6 +34,7 @@ import { PriceBooks as AdvancedPriceBooks } from "./price-books";
 import { todayInSerbia } from "../shared/dates";
 import { SharedPriceTable } from "./pricing";
 import { MonthlyWip, CalendarPolicyEditor } from "./monthly-wip";
+import { MembersPanel, AccountPanel } from "./access";
 type Any = any;
 const number = (v: Any, digits = 2) =>
   v == null
@@ -253,7 +254,20 @@ function App() {
   async function load() {
     setError("");
     try {
-      const b = await api("/bootstrap");
+      let b = await api("/bootstrap");
+      const invite = new URLSearchParams(location.search).get("invite");
+      if (invite) {
+        // Link iz pozivnice: prihvata se posle prijave, pa se adresa čisti.
+        try {
+          const r = await api("/invites/accept", { token: invite });
+          selectFarm(r.farmId);
+          b = await api("/bootstrap");
+          setNotice("Pozivnica je prihvaćena.");
+        } catch (e) {
+          setError((e as Error).message);
+        }
+        history.replaceState({}, "", "/");
+      }
       setBoot(b);
       if (b.farm) {
         selectFarm(b.farm.id);
@@ -428,7 +442,9 @@ function App() {
               <small>
                 {boot.farm.role === "owner"
                   ? "Vlasnik gazdinstva"
-                  : "Član gazdinstva"}
+                  : boot.farm.role === "viewer"
+                    ? "Pregled gazdinstva"
+                    : "Član gazdinstva"}
               </small>
             </div>
             <button
@@ -652,6 +668,7 @@ function App() {
             </>
           )}
           {page === "settings" && (
+            <>
             <section className="panel narrow">
               <h2>Profil gazdinstva</h2>
               <FarmForm farm={boot.farm} onDone={saved} />
@@ -659,6 +676,9 @@ function App() {
                 Otvori dodatno gazdinstvo
               </button>
             </section>
+            <MembersPanel />
+            <AccountPanel />
+            </>
           )}
           {page === "admin" && <Admin onDone={load} />}
           <footer>

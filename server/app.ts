@@ -26,6 +26,7 @@ import { publicStips, adminStips } from "./stips/routes.js";
 import { runtime } from "./runtime.js";
 import { classifyError } from "./errors.js";
 import { rateLimit } from "./rate-limit.js";
+import { members, account } from "./access.js";
 import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
 import { importStatistics } from "./statistics.js";
@@ -118,6 +119,16 @@ app.use("/api", async (req: any, res, next) => {
       await audit(db, req.user.id, null, "denied", "farm_access");
       return res.status(403).json({ error: "Nemate pristup gazdinstvu." });
     }
+    // Pregledač (viewer) sme samo da čita; izuzeci su radnje nad sopstvenim
+    // nalogom i članstvom, a svaka ruta dalje proverava sopstvena pravila.
+    if (
+      req.farm?.role === "viewer" &&
+      !["GET", "HEAD"].includes(req.method) &&
+      !/^\/(farms|invites\/accept|members|account|admin)(\/|$)/.test(req.path)
+    )
+      return res
+        .status(403)
+        .json({ error: "Nalog ima samo pravo pregleda ovog gazdinstva." });
     // Čitanja se ne beleže (audit_log bi rastao sa svakim GET-om); beleže se
     // izmene, odbijen pristup, izvozi i administratorske radnje.
     if (!["GET", "HEAD"].includes(req.method))
@@ -209,6 +220,8 @@ async function move(conn: Conn, o: any) {
     ],
   );
 }
+app.use("/api", members);
+app.use("/api/account", account);
 app.get("/api/bootstrap", async (req: any, res) => {
   res.json({
     user: req.user,
