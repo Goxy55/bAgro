@@ -23,6 +23,7 @@ import {
 import { exportReport } from "./exports.js";
 import { publicStips, adminStips } from "./stips/routes.js";
 import { runtime } from "./runtime.js";
+import { classifyError } from "./errors.js";
 import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
 import { importStatistics } from "./statistics.js";
@@ -36,11 +37,17 @@ import { validateProductionPeriod } from "./production-period.js";
 export const app = express();
 app.disable("x-powered-by");
 app.set("trust proxy", runtime.trustProxyHops);
-app.use((_req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("Referrer-Policy", "same-origin");
-  res.setHeader("Cache-Control", "no-store");
+  // Heširani fajlovi iz /assets/ dobijaju dugo keširanje u index.ts; sve
+  // ostalo (API, HTML) ostaje bez keša.
+  if (!req.path.startsWith("/assets/"))
+    res.setHeader("Cache-Control", "no-store");
+  const requestId = randomUUID();
+  (req as any).requestId = requestId;
+  res.setHeader("X-Request-Id", requestId);
   next();
 });
 app.get("/healthz", async (_req, res) => {
@@ -91,13 +98,16 @@ app.use("/api", async (req: any, res, next) => {
       await audit(db, req.user.id, null, "denied", "farm_access");
       return res.status(403).json({ error: "Nemate pristup gazdinstvu." });
     }
-    await audit(
-      db,
-      req.user.id,
-      req.farm?.id || null,
-      "access",
-      req.method + " " + req.path,
-    );
+    // Čitanja se ne beleže (audit_log bi rastao sa svakim GET-om); beleže se
+    // izmene, odbijen pristup, izvozi i administratorske radnje.
+    if (!["GET", "HEAD"].includes(req.method))
+      await audit(
+        db,
+        req.user.id,
+        req.farm?.id || null,
+        "access",
+        req.method + " " + req.path,
+      );
     next();
   } catch (e) {
     next(e);
@@ -234,7 +244,6 @@ app.get("/api/productions", async (req: any, res) => {
       [f, req.farm.year],
     )
   ).rows;
-  await audit(db, req.user.id, f, "read", "productions");
   res.json(rows);
 });
 app.post("/api/productions", async (req: any, res) => {
@@ -366,7 +375,6 @@ app.patch("/api/productions/:id", async (req: any, res) => {
 });
 app.get("/api/events", async (req: any, res) => {
   const f = farm(req);
-  await audit(db, req.user.id, f, "read", "events");
   res.json(
     (
       await db.query(
@@ -616,7 +624,6 @@ app.post("/api/opening", async (req: any, res) => {
 });
 app.get("/api/inventory", async (req: any, res) => {
   const f = farm(req);
-  await audit(db, req.user.id, f, "read", "inventory");
   const movements = (
     await db.query(
       "SELECT *,date::text AS date FROM inventory_movements WHERE farm_id=$1 ORDER BY inventory_movements.date DESC",
@@ -1042,7 +1049,6 @@ app.get("/api/report", async (req: any, res) => {
     .default("RSD")
     .parse(req.query.currency);
   const r = await report(f, p, requested);
-  await audit(db, req.user.id, f, "read", "report");
   res.json(publicReport(r));
 });
 app.get("/api/snapshots", async (req: any, res) => {
@@ -1509,20 +1515,12 @@ app.post("/api/admin/market/:kind", async (req: any, res) => {
 app.use("/api", (_req, res) =>
   res.status(404).json({ error: "Endpoint ne postoji." }),
 );
-app.use((err: any, _req: any, res: any, _next: any) => {
-  if (err.status === 409) return res.status(409).json({ error: err.message });
-  if (err instanceof z.ZodError)
-    return res.status(422).json({
-      error: err.issues
-        .map((i: any) => `${i.path.join(".")}: ${i.message}`)
-        .join("\n"),
-    });
-  if (err.code) {
-    console.error("Database error code:", err.code);
-    return res
-      .status(422)
-      .json({ error: "Podaci nisu usklađeni sa pravilima baze." });
-  }
-  console.error(err.message);
-  res.status(422).json({ error: err.message || "Greška pri obradi." });
+app.use((err: any, req: any, res: any, _next: any) => {
+  const c = classifyError(err);
+  if (c.internal)
+    console.error(`[${req.requestId}] ${req.method} ${req.path}`, err);
+  res.status(c.status).json({
+    error: c.message,
+    ...(c.internal ? { requestId: req.requestId } : {}),
+  });
 });

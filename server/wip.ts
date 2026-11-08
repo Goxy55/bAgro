@@ -348,7 +348,6 @@ privateWip.get("/", async (req: any, res) => {
   const f = farm(req),
     b = querySchema.parse(req.query),
     r = await monthlyWip(f, b.asOf, b.productionId);
-  await audit(db, req.user.id, f, "read", "monthly_wip", b);
   res.json(publicWip(r));
 });
 privateWip.patch("/productions/:id/state", async (req: any, res) => {

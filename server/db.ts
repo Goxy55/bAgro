@@ -24,6 +24,14 @@ const releaseLock = process.env.DATABASE_URL
           "Lokalna PostgreSQL baza je već otvorena. Za CLI uvoz/admin/backup prvo zaustavite server. Ako je proces prekinut, sačekajte 10 sekundi i ponovite.",
         );
       });
+function positiveInt(name: string, fallback: number) {
+  const raw = process.env[name];
+  if (raw === undefined || raw === "") return fallback;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1)
+    throw Error(`${name} mora biti ceo broj veći od nule.`);
+  return n;
+}
 export const client = process.env.DATABASE_URL
   ? new Pool({
       connectionString: process.env.DATABASE_URL,
@@ -31,8 +39,18 @@ export const client = process.env.DATABASE_URL
         process.env.DATABASE_SSL === "true"
           ? { rejectUnauthorized: true }
           : undefined,
+      max: positiveInt("DB_POOL_MAX", 10),
+      idleTimeoutMillis: positiveInt("DB_IDLE_TIMEOUT_MS", 30000),
+      connectionTimeoutMillis: positiveInt("DB_CONNECT_TIMEOUT_MS", 10000),
+      statement_timeout: positiveInt("DB_STATEMENT_TIMEOUT_MS", 120000),
     })
   : new PGlite(directory);
+// Bez ovog handlera greška na neaktivnoj vezi (restart baze, prekid mreže)
+// postaje neuhvaćen 'error' događaj i ruši ceo proces.
+if (client instanceof Pool)
+  client.on("error", (e) =>
+    console.error("PostgreSQL pool: greška neaktivne veze:", e.message),
+  );
 export const orm =
   client instanceof Pool
     ? pgDrizzle(client, { schema })
@@ -69,6 +87,7 @@ export async function migrate() {
     "008_public_search_cache",
     "009_monthly_costs",
     "010_confirmed_calendar",
+    "011_audit_indexes",
   ]) {
     if (
       (
