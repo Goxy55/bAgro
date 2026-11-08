@@ -1,5 +1,6 @@
 import { todayInSerbia } from "../shared/dates.js";
 import express from "express";
+import compression from "compression";
 import { toNodeHandler, fromNodeHeaders } from "better-auth/node";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
@@ -24,6 +25,7 @@ import { exportReport } from "./exports.js";
 import { publicStips, adminStips } from "./stips/routes.js";
 import { runtime } from "./runtime.js";
 import { classifyError } from "./errors.js";
+import { rateLimit } from "./rate-limit.js";
 import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
 import { importStatistics } from "./statistics.js";
@@ -43,6 +45,17 @@ app.use((req, res, next) => {
   res.setHeader("Referrer-Policy", "same-origin");
   // Heširani fajlovi iz /assets/ dobijaju dugo keširanje u index.ts; sve
   // ostalo (API, HTML) ostaje bez keša.
+  if (process.env.NODE_ENV === "production") {
+    if (runtime.baseURL.startsWith("https://"))
+      res.setHeader(
+        "Strict-Transport-Security",
+        "max-age=31536000; includeSubDomains",
+      );
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+    );
+  }
   if (!req.path.startsWith("/assets/"))
     res.setHeader("Cache-Control", "no-store");
   const requestId = randomUUID();
@@ -50,6 +63,7 @@ app.use((req, res, next) => {
   res.setHeader("X-Request-Id", requestId);
   next();
 });
+app.use(compression());
 app.get("/healthz", async (_req, res) => {
   try {
     await db.query("SELECT 1");
@@ -78,17 +92,23 @@ app.use("/api", async (req: any, res, next) => {
     if (!session)
       return res.status(401).json({ error: "Potrebna je prijava." });
     req.user = session.user;
-    req.admin = !!(
-      await db.query("SELECT user_id FROM app_admins WHERE user_id=$1", [
-        session.user.id,
-      ])
-    ).rows.length;
-    const memberships = (
+    const access = (
       await db.query(
-        "SELECT f.*,m.role FROM farms f JOIN memberships m ON m.farm_id=f.id WHERE m.user_id=$1 ORDER BY f.name",
+        `SELECT f.*,m.role,
+           EXISTS(SELECT 1 FROM app_admins a WHERE a.user_id=$1) AS is_admin
+         FROM memberships m JOIN farms f ON f.id=m.farm_id
+         WHERE m.user_id=$1 ORDER BY f.name`,
         [session.user.id],
       )
     ).rows;
+    req.admin = access.length
+      ? access[0].is_admin
+      : !!(
+          await db.query("SELECT 1 FROM app_admins WHERE user_id=$1", [
+            session.user.id,
+          ])
+        ).rows.length;
+    const memberships = access.map(({ is_admin, ...farm }) => farm);
     req.farms = memberships;
     const chosen = req.headers["x-farm-id"];
     req.farm = chosen
@@ -1041,7 +1061,8 @@ function publicReport(r: any) {
   }
   return copy;
 }
-app.get("/api/report", async (req: any, res) => {
+const heavy = rateLimit({ windowMs: 60_000, max: 20 });
+app.get("/api/report", heavy, async (req: any, res) => {
   const f = farm(req),
     p = req.query.productionId ? id.parse(req.query.productionId) : undefined;
   const requested = z
@@ -1062,7 +1083,7 @@ app.get("/api/snapshots", async (req: any, res) => {
     ).rows,
   );
 });
-app.post("/api/snapshots", async (req: any, res) => {
+app.post("/api/snapshots", heavy, async (req: any, res) => {
   const f = farm(req),
     b = z
       .object({
@@ -1095,7 +1116,7 @@ app.post("/api/snapshots", async (req: any, res) => {
   });
   res.json({ id: sid });
 });
-app.get("/api/export/:format", async (req: any, res) => {
+app.get("/api/export/:format", heavy, async (req: any, res) => {
   const f = farm(req);
   const format = z.enum(["pdf", "xlsx"]).parse(req.params.format);
   let r: any;

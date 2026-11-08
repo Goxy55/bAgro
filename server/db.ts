@@ -3,7 +3,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { Pool } from "pg";
 import { drizzle as embeddedDrizzle } from "drizzle-orm/pglite";
 import { drizzle as pgDrizzle } from "drizzle-orm/node-postgres";
-import { readFile, mkdir } from "node:fs/promises";
+import { readFile, readdir, mkdir } from "node:fs/promises";
 import lockfile from "proper-lockfile";
 import * as schema from "./auth-schema.js";
 export type Row = Record<string, any>;
@@ -73,22 +73,29 @@ export async function transaction<T>(fn: (tx: Conn) => Promise<T>): Promise<T> {
   }
 }
 export async function migrate() {
+  // Više instanci pri istom deploy-u: migracije izvršava jedna, ostale čekaju.
+  if (client instanceof Pool) {
+    const lock = await client.connect();
+    try {
+      await lock.query("SELECT pg_advisory_lock(7270001)");
+      await applyMigrations();
+    } finally {
+      await lock
+        .query("SELECT pg_advisory_unlock(7270001)")
+        .catch(() => undefined);
+      lock.release();
+    }
+  } else await applyMigrations();
+}
+async function applyMigrations() {
   await db.query(
     "CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, applied_at timestamptz DEFAULT now())",
   );
-  for (const name of [
-    "001_initial",
-    "002_stips",
-    "003_stips_inputs",
-    "004_statistic_provenance",
-    "005_input_price_links",
-    "006_price_books",
-    "007_rsd_pricing",
-    "008_public_search_cache",
-    "009_monthly_costs",
-    "010_confirmed_calendar",
-    "011_audit_indexes",
-  ]) {
+  const names = (await readdir(new URL("../migrations/", import.meta.url)))
+    .filter((f) => /^\d{3}_.+\.sql$/.test(f))
+    .map((f) => f.slice(0, -4))
+    .sort();
+  for (const name of names) {
     if (
       (
         await db.query("SELECT name FROM schema_migrations WHERE name=$1", [

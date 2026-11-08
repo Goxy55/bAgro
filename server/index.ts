@@ -4,7 +4,6 @@ import { app } from "./app.js";
 import { importSource } from "./importer.js";
 import { closeDatabase, transaction } from "./db.js";
 import { reconcileDraftRates } from "./pricing/rates.js";
-import { createServer } from "vite";
 import { startStipsScheduler } from "./stips/crawler.js";
 import { startAuditRetention } from "./audit-retention.js";
 await importSource();
@@ -38,6 +37,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile("index.html", { root: "dist" }),
   );
 } else {
+  // Vite je razvojna zavisnost; u produkciji se ne učitava.
+  const { createServer } = await import("vite");
   const vite = await createServer({
     server: { middlewareMode: true },
     appType: "spa",
