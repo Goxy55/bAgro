@@ -6,10 +6,11 @@ import {
   convertQuantity,
   currencySnapshot,
 } from "./domain.js";
+import { buildImpact, type ImpactProduction } from "./impact.js";
 export async function rateFor(date: string, conn: Conn = db) {
   return (
     await conn.query(
-      "SELECT *,valid_from::text AS valid_from,valid_to::text AS valid_to FROM exchange_rates WHERE valid_from<=$1 AND valid_to>=$1 ORDER BY exchange_rates.valid_from DESC LIMIT 1",
+      "SELECT *,valid_from::text AS valid_from,valid_to::text AS valid_to FROM exchange_rates WHERE valid_from<=$1 AND valid_to>=$1 ORDER BY (kind='official') DESC, exchange_rates.valid_from DESC LIMIT 1",
       [date],
     )
   ).rows[0];
@@ -32,6 +33,7 @@ export async function normFor(p: any, conn: Conn = db) {
     validFrom: rate?.valid_from || null,
     validTo: rate?.valid_to || null,
     source: rate?.source_url || null,
+    fixed: rate?.kind === "fixed",
   };
   let priceStart = start;
   if (start < `${p.year}-01-01`) {
@@ -162,6 +164,7 @@ async function reportData(
       "Dinarski obračun je dostupan. Za EUR vrednost hrane ili internog prenosa nedostaje sačuvana konverzija.",
     );
   const results: any[] = [];
+  const impactProductions: ImpactProduction[] = [];
   for (const p of prods) {
     const events = allEvents.filter(
       (e) =>
@@ -467,6 +470,21 @@ async function reportData(
       internalOut: transferredOut,
       internalIn: transferredIn,
     });
+    const last = results[results.length - 1];
+    impactProductions.push({
+      id: p.id,
+      name: p.name,
+      missingRate:
+        norm.total != null &&
+        !norm.money &&
+        !norm.exchangeRate.value &&
+        norm.version?.model.currency !== "RSD"
+          ? { eurTotal: String(norm.total), date: norm.exchangeRate.date }
+          : null,
+      stock: last.stock,
+      stockValue: last.stockValue,
+      actualComplete: !!p.actual_complete,
+    });
   }
   const farmEvents = productionId
     ? []
@@ -575,6 +593,33 @@ async function reportData(
         remaining: D(e.money.original).sub(paid).toString(),
       };
     });
+  const nearestRate = impactProductions.some((p) => p.missingRate)
+    ? ((
+        await conn.query(
+          `SELECT rate::text,valid_from::text AS "validFrom",kind FROM exchange_rates
+           ORDER BY (kind='official') DESC, abs(valid_from - $1::date) LIMIT 1`,
+          [`${farm.year}-12-31`],
+        )
+      ).rows[0] as any) || null
+    : null;
+  const impact = buildImpact({
+    key,
+    currency: farm.currency,
+    productions: impactProductions,
+    drafts: allEvents
+      .filter(
+        (e) =>
+          e.status === "draft" &&
+          (!productionId || e.production_id === productionId),
+      )
+      .map((e) => ({
+        id: e.id,
+        title: e.title,
+        kind: e.kind,
+        amount: e.money?.[key] ?? null,
+      })),
+    nearestRate,
+  });
   return {
     farm,
     productionId: productionId || null,
@@ -589,6 +634,7 @@ async function reportData(
         ? "Nepotpun / privremen obračun"
         : "Obračun perioda",
     results,
+    impact,
     totals: {
       revenue: revenue.add(sum("other")).toString(),
       subsidies: subsidies.toString(),

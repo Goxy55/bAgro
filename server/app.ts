@@ -1393,63 +1393,107 @@ app.post("/api/admin/versions/:id/archive", async (req: any, res) => {
   });
   res.json({ ok: true });
 });
+const FIXED_PREFIX = "Fiksni kurs gazdinstva (nije zvanični NBS kurs): ";
 app.post("/api/admin/rates", async (req: any, res) => {
   const b = z
     .object({
       validFrom: date,
       validTo: date,
       rate: dec,
-      source: url,
-      publishedAt: date,
+      fixed: z.boolean().default(false),
+      source: url.optional(),
+      note: z.string().trim().min(3).max(200).optional(),
+      publishedAt: date.optional(),
     })
     .parse(req.body);
-  if (
-    !["nbs.rs", "webappcenter.nbs.rs", "www.nbs.rs"].includes(
-      new URL(b.source).hostname,
-    ) ||
-    D(b.rate).lte(0) ||
-    b.validFrom > b.validTo
-  )
-    throw Error("Kurs mora imati provereni NBS izvor i ispravan period.");
+  if (D(b.rate).lte(0) || b.validFrom > b.validTo)
+    throw Error("Kurs mora biti veći od nule i imati ispravan period.");
+  const kind = b.fixed ? "fixed" : "official";
+  let sourceUrl: string, publishedAt: string;
+  if (b.fixed) {
+    if (!b.note)
+      throw Error(
+        "Fiksni kurs zahteva obrazloženje (npr. „Kurs za 2026. po odluci vlasnika“).",
+      );
+    sourceUrl = FIXED_PREFIX + b.note;
+    publishedAt = todayInSerbia();
+  } else {
+    if (
+      !b.source ||
+      !b.publishedAt ||
+      !["nbs.rs", "webappcenter.nbs.rs", "www.nbs.rs"].includes(
+        new URL(b.source).hostname,
+      )
+    )
+      throw Error("Kurs mora imati provereni NBS izvor i ispravan period.");
+    sourceUrl = b.source;
+    publishedAt = b.publishedAt;
+  }
   const reconciled = await transaction(async (tx) => {
     await tx.query("LOCK TABLE exchange_rates IN SHARE ROW EXCLUSIVE MODE");
     const before =
       (
         await tx.query(
-          "SELECT *,valid_from::text,valid_to::text,published_at::text FROM exchange_rates WHERE valid_from=$1",
-          [b.validFrom],
+          "SELECT *,valid_from::text,valid_to::text,published_at::text FROM exchange_rates WHERE valid_from=$1 AND kind=$2",
+          [b.validFrom, kind],
         )
       ).rows[0] || null;
+    // Zvanični i fiksni kursevi se preklapaju slobodno (zvanični ima prednost);
+    // unutar iste vrste preklapanje nije dozvoljeno.
     const overlaps = (
       await tx.query(
-        "SELECT id FROM exchange_rates WHERE valid_from<=$1 AND valid_to>=$2 AND valid_from<>$2",
-        [b.validTo, b.validFrom],
+        "SELECT id FROM exchange_rates WHERE kind=$3 AND valid_from<=$1 AND valid_to>=$2 AND valid_from<>$2",
+        [b.validTo, b.validFrom, kind],
       )
     ).rows;
     if (overlaps.length)
       throw Error(
-        "Važenje se preklapa. Koristite tačan interval važenja liste.",
+        b.fixed
+          ? "Već postoji fiksni kurs koji se preklapa sa ovim periodom."
+          : "Važenje se preklapa. Koristite tačan interval važenja liste.",
       );
     await tx.query(
-      "INSERT INTO exchange_rates(id,valid_from,valid_to,rate,source_url,published_at,author) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(valid_from) DO UPDATE SET valid_to=EXCLUDED.valid_to,rate=EXCLUDED.rate,source_url=EXCLUDED.source_url,published_at=EXCLUDED.published_at,author=EXCLUDED.author,checked_at=now()",
+      "INSERT INTO exchange_rates(id,valid_from,valid_to,rate,source_url,published_at,author,kind,note) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(valid_from,kind) DO UPDATE SET valid_to=EXCLUDED.valid_to,rate=EXCLUDED.rate,source_url=EXCLUDED.source_url,published_at=EXCLUDED.published_at,author=EXCLUDED.author,note=EXCLUDED.note,checked_at=now()",
       [
         randomUUID(),
         b.validFrom,
         b.validTo,
         b.rate,
-        b.source,
-        b.publishedAt,
+        sourceUrl,
+        publishedAt,
         req.user.id,
+        kind,
+        b.fixed ? b.note : null,
       ],
     );
     await audit(tx, req.user.id, null, "upsert", "exchange_rate", {
       date: b.validFrom,
+      kind,
       before,
       after: b,
     });
     return reconcileDraftRates(tx, req.user.id);
   });
   res.json({ ok: true, reconciled });
+});
+app.delete("/api/admin/rates/:id", async (req: any, res) => {
+  const r = await db.query(
+    "DELETE FROM exchange_rates WHERE id=$1 AND kind='fixed' RETURNING valid_from::text,valid_to::text,rate::text",
+    [id.parse(req.params.id)],
+  );
+  if (!r.rows.length)
+    throw Error(
+      "Moguće je ukloniti samo fiksni kurs. Zvanične liste se čuvaju.",
+    );
+  await audit(
+    db,
+    req.user.id,
+    null,
+    "delete",
+    "fixed_exchange_rate",
+    r.rows[0],
+  );
+  res.json({ ok: true });
 });
 app.post("/api/admin/statistics", async (req: any, res) => {
   const result = await importStatistics(req.body, req.user.id);
