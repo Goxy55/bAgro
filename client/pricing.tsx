@@ -5,6 +5,7 @@ import type { PricingRow, PricingTable } from "../shared/pricing";
 import type { InputReferenceSelection } from "../shared/inputs";
 import { InputPricePicker } from "./input-prices";
 import { StipsPriceSuggestions } from "./price-suggestions";
+import { PriceEstimatesPanel } from "./price-estimates";
 
 type Any = any;
 type Edit = {
@@ -474,6 +475,11 @@ export function SharedPriceTable({
             </span>
           </div>
           <StipsPriceSuggestions
+            table={table}
+            disabled={busy || !!dirty}
+            onApply={(rows, why) => run(() => saveRows(rows, why))}
+          />
+          <PriceEstimatesPanel
             table={table}
             disabled={busy || !!dirty}
             onApply={(rows, why) => run(() => saveRows(rows, why))}

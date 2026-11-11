@@ -1,7 +1,7 @@
 import React from "react";
 
 type Item = {
-  code: "fx" | "drafts" | "unsold" | "unconfirmed";
+  code: "fx" | "drafts" | "unsold" | "unconfirmed" | "estimated";
   label: string;
   count: number;
   amount: string | null;
@@ -10,7 +10,7 @@ type Item = {
   withoutAmount: number;
   basis: string;
   names: string[];
-  action: "rates" | "events" | "inventory" | "productions";
+  action: "rates" | "events" | "inventory" | "productions" | "pricing";
 };
 export type ImpactData = {
   currency: string;
@@ -23,6 +23,7 @@ const fmt = (v: string | number) =>
   );
 const ACTION: Record<Item["action"], string> = {
   rates: "Unesi kurs",
+  pricing: "Otvori cenovnik",
   events: "Otvori događaje",
   inventory: "Otvori zalihe",
   productions: "Otvori proizvodnje",
@@ -35,6 +36,7 @@ function amountText(i: Item, cur: string) {
       (i.withoutAmount ? ` · ${i.withoutAmount} bez iznosa` : "")
     );
   if (i.amount == null) return "ne može se proceniti";
+  if (i.code === "estimated") return `${fmt(i.amount)} ${cur} u normativu`;
   return (
     `oko ${fmt(i.amount)} ${cur}` +
     (i.withoutAmount ? ` (+${i.withoutAmount} bez procene)` : "")
@@ -90,7 +92,8 @@ export function ImpactCard({
                   <small>{i.basis}</small>
                 </td>
                 <td>
-                  {i.action === "rates" && !admin ? (
+                  {(i.action === "rates" || i.action === "pricing") &&
+                  !admin ? (
                     <small>Obratite se administratoru</small>
                   ) : (
                     <button

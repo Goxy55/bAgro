@@ -8,6 +8,7 @@ import { todayInSerbia } from "../../shared/dates.js";
 import { rateFor } from "../reports.js";
 import { inputReferenceSchema, referencePrice } from "../inputs/service.js";
 import { costKey, suggestPrices } from "./suggestions.js";
+import { estimatePrices, estimateAmount } from "./estimates.js";
 import { previewFuel, bindFuel } from "./fuel.js";
 import { publicReferenceSchema, resolvePublicPrice } from "./public-prices.js";
 import {
@@ -151,6 +152,31 @@ adminPricing.post("/stips-suggestions", async (req: any, res) => {
   );
   res.json(result);
 });
+adminPricing.post("/estimates", async (req: any, res) => {
+  const b = z
+    .object({
+      versionIds: ids,
+      revision: z.string().regex(/^[a-f0-9]{64}$/),
+      asOf: date,
+      place: z.string().trim().max(100).optional(),
+    })
+    .parse(req.body);
+  if (b.asOf > todayInSerbia())
+    throw Error("Datum procene ne može biti u budućnosti.");
+  const table = buildPricingTable(await versions(db, b.versionIds));
+  if (table.revision !== b.revision)
+    throw conflict(
+      "Cenovnik je u međuvremenu promenjen. Ponovo otvorite tabelu.",
+    );
+  const result = await estimatePrices(db, table, b);
+  await audit(db, req.user.id, "price_estimates", "shared_price_table", {
+    versionIds: b.versionIds,
+    asOf: b.asOf,
+    place: result.place,
+    rows: result.rows.length,
+  });
+  res.json(result);
+});
 adminPricing.post("/drafts", async (req: any, res) => {
   const b = z
     .object({
@@ -261,6 +287,13 @@ export async function applyPrices(
             reference: inputReferenceSchema.optional(),
             rzsReference: rzsReferenceSchema.optional(),
             publicReference: publicReferenceSchema.optional(),
+            estimate: z
+              .object({
+                observationId: id,
+                basis: z.string().trim().min(3).max(500),
+                confirmed: z.literal(true),
+              })
+              .optional(),
           }),
         )
         .min(0)
@@ -357,6 +390,28 @@ export async function applyPrices(
           .length > 1
       )
         throw Error("Izaberite jedan izvor cene.");
+      if (r.estimate && (r.reference || r.rzsReference || r.publicReference))
+        throw Error("Procena se ne meša sa izvornom referencom cene.");
+      let estimate: any = null;
+      if (r.estimate) {
+        if (r.currency !== "RSD" || r.price === null)
+          throw Error(`${row.name}: procenjena cena je u RSD.`);
+        const found = await estimateAmount(tx, r.estimate.observationId, unit);
+        if (!found || !D(r.price).eq(found.amount))
+          throw Error(
+            `${row.name}: procenjena cena ne odgovara izabranom izvoru. Ponovite izbor procene.`,
+          );
+        estimate = {
+          method: "similar",
+          basis: r.estimate.basis,
+          observationId: r.estimate.observationId,
+          similarTo: found.product,
+          packaging: found.packaging,
+          periodStart: found.periodStart,
+          confirmedBy: actor,
+          confirmedAt: new Date().toISOString(),
+        };
+      }
       const source = r.publicReference
         ? await resolvePublicPrice(tx, r.publicReference, row)
         : r.rzsReference
@@ -522,6 +577,7 @@ export async function applyPrices(
                   currency: r.currency,
                   date: priceDate,
                   reference: source?.snapshot || null,
+                  ...(estimate ? { estimate } : {}),
                   eur,
                   rsd,
                   storedCurrency: nativeCurrency,

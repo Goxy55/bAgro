@@ -57,7 +57,7 @@ export function matchMaterial(
     return "review";
   return null;
 }
-function compatible(
+export function compatible(
   rowUnit: string,
   sourceUnit: string,
 ): { unit: string; factor: string } | null {

@@ -3,6 +3,7 @@ import { api } from "./api";
 import type { PricingRow, PricingTable } from "../shared/pricing";
 import { FuelPrice } from "./fuel-price";
 import { StipsPriceSuggestions } from "./price-suggestions";
+import { PriceEstimatesPanel } from "./price-estimates";
 import { todayInSerbia } from "../shared/dates";
 
 const units = [
@@ -438,6 +439,11 @@ export function PriceBooks({
             </p>
             <StipsPriceSuggestions
               key={book.id + ":" + (rzs?.document?.sha256 || "")}
+              table={table}
+              disabled={busy || !!dirty || fuelDirty}
+              onApply={(rows, why) => run(() => save(rows, why))}
+            />
+            <PriceEstimatesPanel
               table={table}
               disabled={busy || !!dirty || fuelDirty}
               onApply={(rows, why) => run(() => save(rows, why))}

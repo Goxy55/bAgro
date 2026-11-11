@@ -161,6 +161,16 @@ test("Fiksni kurs i procena uticaja u izveštaju", async (t) => {
             price: "500",
             unit: "kg",
             unitConfirmed: true,
+            priceInput: {
+              amount: "500",
+              currency: "EUR",
+              date: "2026-01-01",
+              estimate: {
+                method: "similar",
+                basis: "TEST procena",
+                similarTo: "TEST artikal",
+              },
+            },
           },
         ],
         groups: [],
