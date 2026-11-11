@@ -35,6 +35,7 @@ import { todayInSerbia } from "../shared/dates";
 import { SharedPriceTable } from "./pricing";
 import { MonthlyWip, CalendarPolicyEditor } from "./monthly-wip";
 import { MembersPanel, AccountPanel } from "./access";
+import { ImpactCard } from "./impact";
 type Any = any;
 const number = (v: Any, digits = 2) =>
   v == null
@@ -572,6 +573,20 @@ function App() {
               onAdd={() => setModal("production")}
               onEvents={() => setPage("events")}
               onCash={() => setPage("cash")}
+              admin={boot.admin}
+              onGo={(target: string) => {
+                if (target === "rates") {
+                  changePage("admin");
+                  setNotice("Otvorite karticu „NBS kursevi“ i unesite kurs.");
+                } else
+                  changePage(
+                    target === "inventory"
+                      ? "inventory"
+                      : target === "events"
+                        ? "events"
+                        : "productions",
+                  );
+              }}
             />
           )}
           {page === "productions" &&
@@ -1036,7 +1051,15 @@ function Metric({ label, value, unit, help, icon: Icon, accent = false }: Any) {
     </article>
   );
 }
-function Overview({ r, onProduction, onAdd, onEvents, onCash }: Any) {
+function Overview({
+  r,
+  onProduction,
+  onAdd,
+  onEvents,
+  onCash,
+  admin,
+  onGo,
+}: Any) {
   const t = r.totals;
   return (
     <>
@@ -1098,6 +1121,7 @@ function Overview({ r, onProduction, onAdd, onEvents, onCash }: Any) {
           Cene iz 2017. su arhivske i nisu aktivan cenovnik.
         </Alert>
       )}
+      <ImpactCard impact={r.impact} admin={admin} onGo={onGo} />
       <div className="dashboard-grid">
         <section className="panel">
           <div className="panel-head">
@@ -3242,6 +3266,87 @@ function Handbook({ data }: Any) {
     </>
   );
 }
+function RateForm({ onSaved }: Any) {
+  const [fixed, setFixed] = useState(false);
+  return (
+    <section className="panel narrow">
+      <h2>
+        {fixed ? "Fiksni kurs za period" : "Proverena zvanična kursna lista"}
+      </h2>
+      <p>
+        {fixed
+          ? "Interni kurs koji važi dok ne postoji zvanični za isti datum. U obračunu i izvozu je označen kao fiksni, nije NBS kurs."
+          : "Za vikend ili praznik unesite tačan period važenja prethodne zvanične liste."}
+      </p>
+      <label className="checkbox">
+        <input
+          type="checkbox"
+          checked={fixed}
+          onChange={(e) => setFixed(e.target.checked)}
+          aria-label="Fiksni kurs"
+        />
+        <span>Fiksni (interni) kurs umesto zvanične NBS liste</span>
+      </label>
+      <Form
+        key={fixed ? "fixed" : "official"}
+        onSubmit={async (v: Any) => {
+          const body = fixed
+            ? {
+                fixed: true,
+                validFrom: v.validFrom,
+                validTo: v.validTo,
+                rate: v.rate,
+                note: v.note,
+              }
+            : v;
+          await onSaved(await api("/admin/rates", body));
+        }}
+      >
+        <div className="form-grid">
+          <Field label="Važi od" name="validFrom" type="date" required />
+          <Field
+            label="Važi do (uključivo)"
+            name="validTo"
+            type="date"
+            required
+          />
+          <Field label="RSD za 1 EUR" name="rate" type="number" required />
+          {!fixed && (
+            <Field
+              label="Datum objave"
+              name="publishedAt"
+              type="date"
+              required
+            />
+          )}
+        </div>
+        {fixed ? (
+          <Field
+            label="Obrazloženje"
+            name="note"
+            required
+            minLength={3}
+            help="Npr. „Kurs za 2026. po odluci vlasnika“. Prikazuje se uz svaki obračun."
+          />
+        ) : (
+          <>
+            <Field
+              label="Zvanični NBS URL proverenog izvora"
+              name="source"
+              type="url"
+              required
+            />
+            <Alert>
+              Mrežno preuzimanje NBS nije potvrđeno. Administrator unosi samo
+              kurs proveren u zvaničnoj listi. Izmena ne menja istorijske
+              snapshot-e.
+            </Alert>
+          </>
+        )}
+      </Form>
+    </section>
+  );
+}
 function Admin({ onDone }: Any) {
   const [data, setData] = useState<Any>(),
     [tab, setTab] = useState("pricing"),
@@ -3514,66 +3619,48 @@ function Admin({ onDone }: Any) {
       )}
       {tab === "rates" && (
         <>
-          <section className="panel narrow">
-            <h2>Proverena zvanična kursna lista</h2>
-            <p>
-              Ne postoji pretpostavljen kurs. Za vikend ili praznik unesite
-              tačan period važenja prethodne zvanične liste.
-            </p>
-            <Form
-              onSubmit={async (v: Any) => {
-                const result = await api("/admin/rates", v);
-                await done();
-                setMessage(
-                  `Kurs je sačuvan. Preračunato stavki koje su čekale kurs: ${result.reconciled.items} u ${result.reconciled.versions} nacrta.`,
-                );
-              }}
-            >
-              <div className="form-grid">
-                <Field label="Važi od" name="validFrom" type="date" required />
-                <Field
-                  label="Važi do (uključivo)"
-                  name="validTo"
-                  type="date"
-                  required
-                />
-                <Field
-                  label="RSD za 1 EUR"
-                  name="rate"
-                  type="number"
-                  required
-                />
-                <Field
-                  label="Datum objave"
-                  name="publishedAt"
-                  type="date"
-                  required
-                />
-              </div>
-              <Field
-                label="Zvanični NBS URL proverenog izvora"
-                name="source"
-                type="url"
-                required
-              />
-              <Alert>
-                Mrežno preuzimanje NBS nije potvrđeno. Administrator unosi samo
-                kurs proveren u zvaničnoj listi. Izmena ne menja istorijske
-                snapshot-e.
-              </Alert>
-            </Form>
-          </section>
+          <RateForm
+            onSaved={async (result: Any) => {
+              await done();
+              setMessage(
+                `Kurs je sačuvan. Preračunato stavki koje su čekale kurs: ${result.reconciled.items} u ${result.reconciled.versions} nacrta.`,
+              );
+            }}
+          />
           <section className="panel">
-            <h2>Uvezene liste</h2>
+            <h2>Uneti kursevi</h2>
             <Table
-              heads={["Važi od", "Važi do", "EUR/RSD", "Izvor"]}
+              heads={["Važi od", "Važi do", "EUR/RSD", "Vrsta", "Izvor", ""]}
               rows={data.rates.map((r: Any) => [
                 r.valid_from,
                 r.valid_to,
                 r.rate,
-                <a href={r.source_url} target="_blank" rel="noreferrer">
-                  NBS ↗
-                </a>,
+                r.kind === "fixed" ? "Fiksni (interni)" : "Zvanični NBS",
+                r.kind === "fixed" ? (
+                  r.note
+                ) : (
+                  <a href={r.source_url} target="_blank" rel="noreferrer">
+                    NBS ↗
+                  </a>
+                ),
+                r.kind === "fixed" ? (
+                  <button
+                    className="text-button"
+                    onClick={async () => {
+                      if (!confirm("Ukloniti fiksni kurs?")) return;
+                      try {
+                        await api("/admin/rates/" + r.id, undefined, "DELETE");
+                        await done();
+                      } catch (e) {
+                        setError((e as Error).message);
+                      }
+                    }}
+                  >
+                    Ukloni
+                  </button>
+                ) : (
+                  ""
+                ),
               ])}
             />
           </section>

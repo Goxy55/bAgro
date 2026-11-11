@@ -20,7 +20,7 @@ export async function reconcileDraftRates(conn: Conn, actor: string) {
         continue;
       const r = (
         await conn.query(
-          "SELECT rate::text,valid_from::text,valid_to::text,source_url FROM exchange_rates WHERE valid_from<=$1 AND valid_to>=$1 ORDER BY valid_from DESC LIMIT 1",
+          "SELECT rate::text,valid_from::text,valid_to::text,source_url FROM exchange_rates WHERE valid_from<=$1 AND valid_to>=$1 ORDER BY (kind='official') DESC, valid_from DESC LIMIT 1",
           [p.date],
         )
       ).rows[0];

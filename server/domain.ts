@@ -264,6 +264,7 @@ export function currencySnapshot(
     rateDate: rate ? String(rate.valid_from).slice(0, 10) : null,
     validTo: rate ? String(rate.valid_to).slice(0, 10) : null,
     source: rate?.source_url || null,
+    rateKind: rate ? rate.kind || "official" : null,
   };
 }
 export function fiveYears(observations: any[], currentYear: number) {
