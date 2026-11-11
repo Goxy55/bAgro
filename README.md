@@ -83,6 +83,16 @@ Za odvojeni PostgreSQL servis podesite `DATABASE_URL`, a za TLS `DATABASE_SSL=tr
 
 SQL migracije su u `migrations/`; `schema_migrations` prati izvršenje. Tabele obuhvataju autentikaciju, farme/članstva, izvorne sheetove, predloške i verzije, proizvodne periode, poslovne događaje, plaćanja, tri vrste evidencije zaliha, uparene prenose, potrošnju, kurseve, snapshot-e, statističke izvore/opažanja/revizije, kupce/ponude/zahteve i audit log. Privatne tabele imaju `farm_id`; složeni strani ključevi sprečavaju povezivanje tuđeg perioda/događaja. Autoritativna autorizacija je aplikaciona, ne PostgreSQL RLS; direktan pristup bazi poveravati samo operateru servera.
 
+### Članovi, izvoz i brisanje naloga
+
+Gazdinstvo može imati više korisnika (vlasnik, član koji unosi podatke, pregled bez izmena) preko pozivnica; svaki nalog može sam da izveze svoje podatke i da obriše nalog uz anonimizaciju. [Uloge, pozivnice i ograničenja](docs/CLANOVI-I-PRIVATNOST.md).
+
+### Audit evidencija i greške
+
+`audit_log` beleži izmene, odbijen pristup gazdinstvu, izvoze i administratorske radnje; obična čitanja se ne beleže. Zapisi stariji od `AUDIT_RETENTION_DAYS` (podrazumevano 365, `0` isključuje brisanje) brišu se jednom dnevno. Neočekivane greške vraćaju HTTP 500 sa generičkom porukom i `requestId`; pun zapis je u logu servera pod istim ID-jem (zaglavlje `X-Request-Id`). Poslovne greške ostaju 422 sa porukom za korisnika. Za spoljni PostgreSQL pool se podešava sa `DB_POOL_MAX`, `DB_IDLE_TIMEOUT_MS`, `DB_CONNECT_TIMEOUT_MS` i `DB_STATEMENT_TIMEOUT_MS`.
+
+Dodatno: rute `/api/report`, `/api/export/*` i `/api/snapshots` ograničene su na 20 zahteva u minuti po korisniku (HTTP 429, u memoriji jedne instance); u produkciji se šalju `Content-Security-Policy` i, uz HTTPS `APP_URL`, `Strict-Transport-Security`; odgovori se kompresuju. SQL fajlovi iz `migrations/` izvršavaju se po imenu, a kod spoljnog PostgreSQL-a uz advisory lock, pa dve instance ne migriraju istovremeno. `vite` se učitava samo u razvoju.
+
 ### Backup / restore
 
 Za ugrađeni PostgreSQL **zaustavite server**:

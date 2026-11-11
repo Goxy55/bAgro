@@ -3,7 +3,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { Pool } from "pg";
 import { drizzle as embeddedDrizzle } from "drizzle-orm/pglite";
 import { drizzle as pgDrizzle } from "drizzle-orm/node-postgres";
-import { readFile, mkdir } from "node:fs/promises";
+import { readFile, readdir, mkdir } from "node:fs/promises";
 import lockfile from "proper-lockfile";
 import * as schema from "./auth-schema.js";
 export type Row = Record<string, any>;
@@ -24,6 +24,14 @@ const releaseLock = process.env.DATABASE_URL
           "Lokalna PostgreSQL baza je već otvorena. Za CLI uvoz/admin/backup prvo zaustavite server. Ako je proces prekinut, sačekajte 10 sekundi i ponovite.",
         );
       });
+function positiveInt(name: string, fallback: number) {
+  const raw = process.env[name];
+  if (raw === undefined || raw === "") return fallback;
+  const n = Number(raw);
+  if (!Number.isInteger(n) || n < 1)
+    throw Error(`${name} mora biti ceo broj veći od nule.`);
+  return n;
+}
 export const client = process.env.DATABASE_URL
   ? new Pool({
       connectionString: process.env.DATABASE_URL,
@@ -31,8 +39,18 @@ export const client = process.env.DATABASE_URL
         process.env.DATABASE_SSL === "true"
           ? { rejectUnauthorized: true }
           : undefined,
+      max: positiveInt("DB_POOL_MAX", 10),
+      idleTimeoutMillis: positiveInt("DB_IDLE_TIMEOUT_MS", 30000),
+      connectionTimeoutMillis: positiveInt("DB_CONNECT_TIMEOUT_MS", 10000),
+      statement_timeout: positiveInt("DB_STATEMENT_TIMEOUT_MS", 120000),
     })
   : new PGlite(directory);
+// Bez ovog handlera greška na neaktivnoj vezi (restart baze, prekid mreže)
+// postaje neuhvaćen 'error' događaj i ruši ceo proces.
+if (client instanceof Pool)
+  client.on("error", (e) =>
+    console.error("PostgreSQL pool: greška neaktivne veze:", e.message),
+  );
 export const orm =
   client instanceof Pool
     ? pgDrizzle(client, { schema })
@@ -55,21 +73,29 @@ export async function transaction<T>(fn: (tx: Conn) => Promise<T>): Promise<T> {
   }
 }
 export async function migrate() {
+  // Više instanci pri istom deploy-u: migracije izvršava jedna, ostale čekaju.
+  if (client instanceof Pool) {
+    const lock = await client.connect();
+    try {
+      await lock.query("SELECT pg_advisory_lock(7270001)");
+      await applyMigrations();
+    } finally {
+      await lock
+        .query("SELECT pg_advisory_unlock(7270001)")
+        .catch(() => undefined);
+      lock.release();
+    }
+  } else await applyMigrations();
+}
+async function applyMigrations() {
   await db.query(
     "CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, applied_at timestamptz DEFAULT now())",
   );
-  for (const name of [
-    "001_initial",
-    "002_stips",
-    "003_stips_inputs",
-    "004_statistic_provenance",
-    "005_input_price_links",
-    "006_price_books",
-    "007_rsd_pricing",
-    "008_public_search_cache",
-    "009_monthly_costs",
-    "010_confirmed_calendar",
-  ]) {
+  const names = (await readdir(new URL("../migrations/", import.meta.url)))
+    .filter((f) => /^\d{3}_.+\.sql$/.test(f))
+    .map((f) => f.slice(0, -4))
+    .sort();
+  for (const name of names) {
     if (
       (
         await db.query("SELECT name FROM schema_migrations WHERE name=$1", [

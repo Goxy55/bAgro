@@ -783,7 +783,7 @@ test("Funkcionalna prva faza: PostgreSQL, autentikacija, izolacija i poslovna pr
       assert.equal(login.status, 200);
     },
   );
-  await t.test("Zaštita porekla obrazaca i audit čitanja / izvoz", async () => {
+  await t.test("Zaštita porekla obrazaca; čitanja se ne beleže, izvoz se beleži", async () => {
     const r = await fetch(base + "/api/farms", {
       method: "POST",
       headers: {
@@ -798,7 +798,7 @@ test("Funkcionalna prva faza: PostgreSQL, autentikacija, izolacija i poslovna pr
       await db.query("SELECT action FROM audit_log WHERE farm_id=$1", [a.farm])
     ).rows;
     assert.ok(rows.some((r) => r.action === "export"));
-    assert.ok(rows.some((r) => r.action === "read"));
+    assert.ok(!rows.some((r) => r.action === "read"));
   });
 });
 test.after(async () => {
