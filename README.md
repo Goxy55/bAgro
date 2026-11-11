@@ -87,6 +87,10 @@ SQL migracije su u `migrations/`; `schema_migrations` prati izvršenje. Tabele o
 
 Administrator može uneti fiksni (interni) kurs za period, koji je u obračunu jasno označen i ima manji prioritet od zvaničnog NBS kursa. Pregled gazdinstva prikazuje karticu sa procenom koliko vrede nedostajući i nepotvrđeni podaci (kurs, nacrti, neprodata količina). [Postupak i formule](docs/KURS-I-PROCENA.md).
 
+### Procena cene po sličnom artiklu
+
+Za stavke bez STIPS/RZS cene administrator može dobiti procenu po sličnom artiklu (isti sastav ili naziv), sa ocenom sličnosti i orijentirom grupe. Procena se primenjuje samo uz izričitu potvrdu, upisuje se u nacrt sa oznakom i prikazuje na Pregledu. [Postupak i ograničenja](docs/PROCENA-CENA.md).
+
 ### Članovi, izvoz i brisanje naloga
 
 Gazdinstvo može imati više korisnika (vlasnik, član koji unosi podatke, pregled bez izmena) preko pozivnica; svaki nalog može sam da izveze svoje podatke i da obriše nalog uz anonimizaciju. [Uloge, pozivnice i ograničenja](docs/CLANOVI-I-PRIVATNOST.md).

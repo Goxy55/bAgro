@@ -484,6 +484,29 @@ async function reportData(
       stock: last.stock,
       stockValue: last.stockValue,
       actualComplete: !!p.actual_complete,
+      estimated: (() => {
+        const items: any[] = norm.version?.model.items || [];
+        const flagged = new Set(
+          items.filter((i) => i.priceInput?.estimate).map((i) => i.id),
+        );
+        if (!flagged.size || !norm.money) return null;
+        const native = norm.version.model.currency || "EUR";
+        const conv = (v: string) =>
+          native === farm.currency
+            ? D(v)
+            : key === "rsd"
+              ? D(v).mul(norm.money!.rate!)
+              : D(v).div(norm.money!.rate!);
+        const lines = (norm.lines as any[]).filter(
+          (l) => flagged.has(l.id) && l.cost !== null,
+        );
+        if (!lines.length) return null;
+        return {
+          cost: lines.reduce((s, l) => s.add(conv(l.cost)), D(0)).toString(),
+          total: norm.money?.[key] ?? "0",
+          lines: lines.length,
+        };
+      })(),
     });
   }
   const farmEvents = productionId

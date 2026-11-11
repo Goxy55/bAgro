@@ -185,6 +185,7 @@ export function buildPricingTable(versions: PricingVersion[]): PricingTable {
               date: input.date,
               pendingRate: input.pendingRate,
               reference: input.reference,
+              ...(input.estimate ? { estimate: input.estimate } : {}),
             }
           : null,
       });

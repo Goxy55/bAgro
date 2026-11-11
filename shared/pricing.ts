@@ -18,6 +18,15 @@ export interface PricingOccurrence {
     currency: "EUR" | "RSD";
     date: string;
     pendingRate: boolean;
+    estimate?: {
+      method: "similar";
+      basis: string;
+      similarTo: string;
+      packaging: string;
+      periodStart: string;
+      confirmedBy: string;
+      confirmedAt: string;
+    };
     reference?: {
       kind?: string;
       priceType?: string;

@@ -575,9 +575,13 @@ function App() {
               onCash={() => setPage("cash")}
               admin={boot.admin}
               onGo={(target: string) => {
-                if (target === "rates") {
+                if (target === "rates" || target === "pricing") {
                   changePage("admin");
-                  setNotice("Otvorite karticu „NBS kursevi“ i unesite kurs.");
+                  setNotice(
+                    target === "rates"
+                      ? "Otvorite karticu „NBS kursevi“ i unesite kurs."
+                      : "Otvorite cenovnik u administraciji i zamenite procenjene cene.",
+                  );
                 } else
                   changePage(
                     target === "inventory"

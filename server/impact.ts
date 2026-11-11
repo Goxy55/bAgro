@@ -12,6 +12,8 @@ export type ImpactProduction = {
   stock: string;
   stockValue: string | null;
   actualComplete: boolean;
+  /** Troškovi stavki sa procenjenom cenom (u valuti prikaza) i ukupan normativ. */
+  estimated: { cost: string; total: string; lines: number } | null;
 };
 export type ImpactDraft = {
   id: string;
@@ -20,7 +22,7 @@ export type ImpactDraft = {
   amount: string | null;
 };
 export type ImpactItem = {
-  code: "fx" | "drafts" | "unsold" | "unconfirmed";
+  code: "fx" | "drafts" | "unsold" | "unconfirmed" | "estimated";
   label: string;
   count: number;
   /** Procenjeni iznos u valuti prikaza; null kada se ne može proceniti. */
@@ -30,7 +32,7 @@ export type ImpactItem = {
   withoutAmount: number;
   basis: string;
   names: string[];
-  action: "rates" | "events" | "inventory" | "productions";
+  action: "rates" | "events" | "inventory" | "productions" | "pricing";
 };
 export type Impact = {
   estimate: true;
@@ -128,6 +130,25 @@ export function buildImpact(i: {
       names: names(open),
       action: "productions",
     });
+
+  const est = i.productions.filter((p) => p.estimated);
+  if (est.length) {
+    const cost = est.reduce((s, p) => s.add(p.estimated!.cost), D(0));
+    const total = est.reduce((s, p) => s.add(p.estimated!.total), D(0));
+    const lines = est.reduce((s, p) => s + p.estimated!.lines, 0);
+    items.push({
+      code: "estimated",
+      label: "Normativ koristi procenjene cene",
+      count: lines,
+      amount: cost.toString(),
+      withoutAmount: 0,
+      basis: total.gt(0)
+        ? `Stavke sa cenom po sličnom artiklu čine ${cost.div(total).mul(100).toDecimalPlaces(1).toString()}% troška normativa. Potvrđeno je u administraciji; zameniti kad se pronađe izvorna cena.`
+        : "Stavke sa cenom po sličnom artiklu; zameniti kad se pronađe izvorna cena.",
+      names: names(est),
+      action: "pricing",
+    });
+  }
 
   return {
     estimate: true,
