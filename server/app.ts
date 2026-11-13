@@ -27,6 +27,7 @@ import { runtime } from "./runtime.js";
 import { classifyError } from "./errors.js";
 import { rateLimit } from "./rate-limit.js";
 import { members, account } from "./access.js";
+import { productionCosts } from "./production-costs.js";
 import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
 import { importStatistics } from "./statistics.js";
@@ -221,6 +222,7 @@ async function move(conn: Conn, o: any) {
   );
 }
 app.use("/api", members);
+app.use("/api", productionCosts);
 app.use("/api/account", account);
 app.get("/api/bootstrap", async (req: any, res) => {
   res.json({

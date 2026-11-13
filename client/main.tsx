@@ -36,6 +36,11 @@ import { SharedPriceTable } from "./pricing";
 import { MonthlyWip, CalendarPolicyEditor } from "./monthly-wip";
 import { MembersPanel, AccountPanel } from "./access";
 import { ImpactCard } from "./impact";
+import {
+  NewProductionWizard,
+  ProductionsPage,
+  CostBar,
+} from "./production-wizard";
 type Any = any;
 const number = (v: Any, digits = 2) =>
   v == null
@@ -280,6 +285,7 @@ function App() {
           market,
           handbook,
           snapshots,
+          costs,
         ] = await Promise.all(
           [
             "/report",
@@ -289,6 +295,7 @@ function App() {
             "/market",
             "/handbook",
             "/snapshots",
+            "/production-costs",
           ].map((p) => api(p)),
         );
         setData({
@@ -299,6 +306,7 @@ function App() {
           market,
           handbook,
           snapshots,
+          costs,
         });
       }
     } catch (e) {
@@ -605,7 +613,7 @@ function App() {
                 action={action}
               />
             ) : (
-              <Productions
+              <ProductionsPage
                 data={data}
                 boot={boot}
                 onSelect={setDetail}
@@ -728,7 +736,15 @@ function App() {
           onClose={() => setModal("")}
         >
           {modal === "production" && (
-            <ProductionForm boot={boot} onDone={saved} />
+            <NewProductionWizard
+              boot={boot}
+              data={data}
+              onDone={async (id: string) => {
+                await saved();
+                setPage("productions");
+                setDetail(id);
+              }}
+            />
           )}
           {modal === "event" && (
             <EventForm data={data} initialProduction={detail} onDone={saved} />
@@ -1311,91 +1327,6 @@ function CashChart({ rows }: Any) {
     </div>
   );
 }
-function Productions({ data, boot, onSelect, onAdd }: Any) {
-  const [category, setCategory] = useState("all");
-  const items =
-    data.productions?.filter(
-      (p: Any) => category === "all" || p.category === category,
-    ) || [];
-  return (
-    <>
-      <div className="filter-row">
-        <Field
-          label="Izvorna kategorija"
-          value={category}
-          onChange={(e: Any) => setCategory(e.target.value)}
-          options={[
-            { value: "all", label: "Sve kategorije" },
-            ...boot.sheets
-              .filter((s: Any) => s.role === "production")
-              .map((s: Any) => s.original_name),
-          ]}
-        />
-        <Badge>{data.productions?.length || 0} aktivnih evidencija</Badge>
-      </div>
-      {items.length ? (
-        <div className="production-grid">
-          {items.map((p: Any) => {
-            const r = data.report.results.find((r: Any) => r.id === p.id);
-            return (
-              <button
-                className="production-card"
-                key={p.id}
-                onClick={() => onSelect(p.id)}
-              >
-                <div>
-                  <span className="crop-icon">
-                    <Sprout size={23} />
-                  </span>
-                  <Badge tone={p.status === "draft" ? "amber" : "green"}>
-                    {labels[p.status]}
-                  </Badge>
-                </div>
-                <small>{p.category}</small>
-                <h2>{p.name}</h2>
-                <p>
-                  {p.template_name}
-                  {p.intensity && ` · ${p.intensity} intenzitet`}
-                </p>
-                <div className="production-card-data">
-                  <span>
-                    Ostvarena osnova
-                    <strong>
-                      {p.details.scale || "—"} {p.details.scaleUnit || p.basis}
-                    </strong>
-                  </span>
-                  <span>
-                    Prihod
-                    <strong>
-                      {number(r?.revenue)} {data.report.currency}
-                    </strong>
-                  </span>
-                </div>
-                <div className="card-bottom">
-                  {r?.missing.length
-                    ? "Potrebna dopuna podataka"
-                    : "Pogledaj rezultat"}
-                  <ArrowUpRight size={18} />
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      ) : (
-        <section className="panel">
-          <Empty
-            title="Nema proizvodnji u ovom pregledu"
-            action={
-              <button className="primary" onClick={onAdd}>
-                Dodaj proizvodnju
-              </button>
-            }
-          />
-        </section>
-      )}
-    </>
-  );
-}
 function ProductionField({
   data,
   name = "productionId",
@@ -1690,6 +1621,9 @@ function ProductionDetail({
           {r.missing.length ? "Privremeno / nepotpuno" : "Obračunato"}
         </Badge>
       </div>
+      <section className="panel">
+        <CostBar cost={data.costs?.items?.[id]} />
+      </section>
       <div className="tabs">
         {[
           ["result", "Rezultati"],
