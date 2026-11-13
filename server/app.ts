@@ -423,6 +423,16 @@ const saveEvent = async (req: any, res: any) => {
   const f = farm(req),
     b = eventSchema.parse(req.body),
     eid = req.params.id ? id.parse(req.params.id) : randomUUID();
+  // Prodaja: iznos je količina × cena po jedinici; server je izvor istine.
+  if (b.kind === "sale" && b.details.quantity && b.details.unitPrice) {
+    const computed = D(b.details.quantity)
+      .mul(b.details.unitPrice)
+      .toDecimalPlaces(2, 4)
+      .toString();
+    if (b.amount && D(b.amount).sub(computed).abs().gt(".01"))
+      throw Error("Ukupan iznos se ne slaže sa količinom × cenom.");
+    b.amount = computed;
+  }
   if (b.status !== "draft" && (!b.date || !b.amount))
     throw Error("Nedostaju datum ili iznos; sačuvajte nacrt.");
   if (

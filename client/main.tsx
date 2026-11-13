@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import Decimal from "decimal.js";
 import {
   Sprout,
   LayoutDashboard,
@@ -1907,9 +1908,19 @@ function ProductionDetail({
 function EventForm({ data, initialProduction, onDone, existing }: Any) {
   const [kind, setKind] = useState(existing?.kind || "sale"),
     [productionId, setProduction] = useState(
-      existing?.production_id || initialProduction || "",
+      existing?.production_id ||
+        initialProduction ||
+        (data.productions.length === 1 ? data.productions[0].id : ""),
     ),
-    [status, setStatus] = useState(existing?.status || "final");
+    [status, setStatus] = useState(existing?.status || "final"),
+    [qty, setQty] = useState<string>(existing?.details.quantity || ""),
+    [price, setPrice] = useState<string>(existing?.details.unitPrice || "");
+  const saleTotal = (() => {
+    const q = qty.replace(",", "."),
+      u = price.replace(",", ".");
+    if (!/^\d+(\.\d+)?$/.test(q) || !/^\d+(\.\d+)?$/.test(u)) return null;
+    return new Decimal(q).mul(u).toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
+  })();
   const p = data.productions.find((p: Any) => p.id === productionId),
     r = data.report.results.find((r: Any) => r.id === productionId);
   return (
@@ -1944,7 +1955,10 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
             date: v.date || null,
             title: v.title,
             status,
-            amount: v.amount || undefined,
+            amount:
+              kind === "sale" && saleTotal
+                ? saleTotal.toString()
+                : v.amount || undefined,
             currency: v.currency,
             details,
           },
@@ -1986,16 +2000,51 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
         />
       </div>
       <div className="form-grid">
-        {["sale", "cost"].includes(kind) && (
+        {kind === "sale" && (
+          <>
+            <Field
+              label="Prodat proizvod"
+              name="product"
+              key={productionId}
+              defaultValue={
+                existing?.details.product ||
+                p?.details.product ||
+                p?.template_name
+              }
+            />
+            <Field
+              label="Prodata količina"
+              name="quantity"
+              type="number"
+              value={qty}
+              onChange={(e: Any) => setQty(e.target.value)}
+              required={status === "final"}
+            />
+            <Field
+              label="Jedinica"
+              name="unit"
+              options={units}
+              defaultValue={
+                existing?.details.unit || p?.details.outputUnit || "kg"
+              }
+            />
+            <Field
+              label="Cena po jedinici"
+              name="unitPrice"
+              type="number"
+              value={price}
+              onChange={(e: Any) => setPrice(e.target.value)}
+              required={status === "final"}
+            />
+          </>
+        )}
+        {kind === "cost" && (
           <>
             <Field
               label="Proizvod ili materijal"
               name="product"
               key={productionId}
-              defaultValue={
-                existing?.details.product ||
-                (kind === "sale" ? p?.details.product || p?.template_name : "")
-              }
+              defaultValue={existing?.details.product || ""}
             />
             <Field
               label="Količina"
@@ -2007,9 +2056,7 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
               label="Jedinica"
               name="unit"
               options={units}
-              defaultValue={
-                existing?.details.unit || p?.details.outputUnit || "kg"
-              }
+              defaultValue={existing?.details.unit || "kg"}
             />
             <Field
               label="Jedinična cena (opciona kontrola)"
@@ -2019,14 +2066,24 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
             />
           </>
         )}
-        <Field
-          label="Ukupan iznos"
-          name="amount"
-          type="number"
-          defaultValue={
-            existing?.money?.original || existing?.details.originalAmount
-          }
-        />
+        {kind === "sale" ? (
+          <div className="sale-total" aria-live="polite">
+            <span>Ukupan iznos prodaje (automatski)</span>
+            <strong>
+              {saleTotal ? number(saleTotal.toString()) : "—"}
+            </strong>
+            <small>količina × cena po jedinici</small>
+          </div>
+        ) : (
+          <Field
+            label="Ukupan iznos"
+            name="amount"
+            type="number"
+            defaultValue={
+              existing?.money?.original || existing?.details.originalAmount
+            }
+          />
+        )}
         <Field
           label="Valuta unosa"
           name="currency"

@@ -2475,3 +2475,21 @@ hr {
     grid-template-columns: 1fr;
   }
 }
+
+.sale-total {
+  display: grid;
+  gap: 2px;
+  align-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #eef3e7;
+}
+.sale-total span,
+.sale-total small {
+  font-size: 10px;
+  color: #6c7d62;
+}
+.sale-total strong {
+  font-size: 20px;
+  color: #263d32;
+}

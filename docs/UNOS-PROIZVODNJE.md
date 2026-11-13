@@ -26,3 +26,9 @@ Cene dolaze isključivo iz odobrenog cenovnika. Kada nešto nedostaje (nema odob
 Stranica **Moje proizvodnje** prikazuje zbir ukupnog troška i troška do danas, filtere po vrsti proizvodnje i karticu za svaku proizvodnju sa trakom napretka. Isti prikaz je na vrhu detalja proizvodnje.
 
 API: `GET /api/production-costs` i `POST /api/production-costs/preview`.
+
+## Prodaja: količina × cena
+
+U **Prodaja i troškovi → Dodaj → Prodaja** unose se prodat proizvod, **prodata količina**, jedinica i **cena po jedinici**. Ukupan iznos se računa sam (količina × cena, zaokruženo na dve decimale) i odmah je prikazan; ne unosi se ručno. Server isti iznos računa ponovo i odbija zahtev čiji se iznos ne slaže. Nacrt može biti nepotpun; završena prodaja traži količinu i cenu. Zaliha se i dalje proverava. Ako gazdinstvo ima samo jednu proizvodnju, ona je unapred izabrana.
+
+Prodaja ne stvara naplatu: naplaćeni iznos se evidentira zasebno kao priliv.
