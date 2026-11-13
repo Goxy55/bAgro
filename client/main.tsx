@@ -37,6 +37,7 @@ import { SharedPriceTable } from "./pricing";
 import { MonthlyWip, CalendarPolicyEditor } from "./monthly-wip";
 import { MembersPanel, AccountPanel } from "./access";
 import { ImpactCard } from "./impact";
+import { CollectionsPanel } from "./collections";
 import {
   NewProductionWizard,
   ProductionsPage,
@@ -287,6 +288,7 @@ function App() {
           handbook,
           snapshots,
           costs,
+          receivables,
         ] = await Promise.all(
           [
             "/report",
@@ -297,6 +299,7 @@ function App() {
             "/handbook",
             "/snapshots",
             "/production-costs",
+            "/receivables",
           ].map((p) => api(p)),
         );
         setData({
@@ -308,6 +311,7 @@ function App() {
           handbook,
           snapshots,
           costs,
+          receivables,
         });
       }
     } catch (e) {
@@ -1630,6 +1634,7 @@ function ProductionDetail({
           ["result", "Rezultati"],
           ["inputs", "Ostvareni podaci"],
           ["events", "Prodaja i troškovi"],
+          ["collections", "Naplata"],
           ["source", "Izvor normativa"],
           ...(["ha", "m2"].includes(p.basis)
             ? [["monthly", "Ulaganja po mesecima"]]
@@ -1644,6 +1649,13 @@ function ProductionDetail({
           </button>
         ))}
       </div>
+      {tab === "collections" && (
+        <CollectionsPanel
+          production={p}
+          rec={data.receivables?.items?.[id]}
+          onChanged={saved}
+        />
+      )}
       {tab === "result" && (
         <>
           <div className="metrics three">
@@ -1933,6 +1945,7 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
             "unitPrice",
             "product",
             "counterparty",
+            "dueDate",
             "note",
             "normItemId",
           ]
@@ -2066,6 +2079,21 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
             />
           </>
         )}
+        {kind === "sale" && (
+          <>
+            <Field
+              label="Kupac"
+              name="counterparty"
+              defaultValue={existing?.details.counterparty}
+            />
+            <Field
+              label="Rok plaćanja (opciono)"
+              name="dueDate"
+              type="date"
+              defaultValue={existing?.details.dueDate}
+            />
+          </>
+        )}
         {kind === "sale" ? (
           <div className="sale-total" aria-live="polite">
             <span>Ukupan iznos prodaje (automatski)</span>
@@ -2100,7 +2128,9 @@ function EventForm({ data, initialProduction, onDone, existing }: Any) {
           Dodatni podaci{kind === "cost" ? " i veza sa normativom" : ""}
         </summary>
         <div className="form-grid">
-          <Field label="Kupac / dobavljač" name="counterparty" />
+          {kind !== "sale" && (
+            <Field label="Dobavljač / druga strana" name="counterparty" />
+          )}
           <Field label="Napomena" name="note" type="textarea" />
           {kind === "sale" && (
             <Field

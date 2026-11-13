@@ -32,3 +32,15 @@ API: `GET /api/production-costs` i `POST /api/production-costs/preview`.
 U **Prodaja i troškovi → Dodaj → Prodaja** unose se prodat proizvod, **prodata količina**, jedinica i **cena po jedinici**. Ukupan iznos se računa sam (količina × cena, zaokruženo na dve decimale) i odmah je prikazan; ne unosi se ručno. Server isti iznos računa ponovo i odbija zahtev čiji se iznos ne slaže. Nacrt može biti nepotpun; završena prodaja traži količinu i cenu. Zaliha se i dalje proverava. Ako gazdinstvo ima samo jednu proizvodnju, ona je unapred izabrana.
 
 Prodaja ne stvara naplatu: naplaćeni iznos se evidentira zasebno kao priliv.
+
+## Naplata po proizvodnji
+
+U detalju proizvodnje, kartica **Naplata**:
+
+- **Prodaja** nosi kupca i opcioni **rok plaćanja** (ne sme biti pre datuma prodaje).
+- Za svaku prodaju prikazuju se iznos, naplaćeno, ostaje i status: čeka naplatu, delimično, naplaćeno ili **kasni N dana** (rok prošao, a nije naplaćeno).
+- **Evidentiraj naplatu** unosi naplaćeni iznos i datum uplate; delimične naplate se sabiraju, a iznos veći od preostalog se odbija.
+- **Primljen avans** evidentira novac primljen pre prodaje (kupac, iznos, datum). Avans je odmah novčani priliv, ali ne umanjuje potraživanje dok se ne poveže: **Poveži sa prodajom** raspoređuje ceo avans ili deo (ista proizvodnja, ista valuta, najviše do preostalog iznosa prodaje).
+- Zbir prodato / naplaćeno / ostaje (i dospelo) prikazan je i na kartici proizvodnje.
+
+API: `GET /api/receivables`, `POST /api/payments` (uz `advance`, `productionId`, `buyer`), `POST /api/payments/:id/allocate`. Migracija `015_collections.sql` dodaje vezu plaćanja sa proizvodnjom, kupca i oznaku avansa.

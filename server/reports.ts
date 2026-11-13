@@ -546,6 +546,7 @@ async function reportData(
   ).rows.filter(
     (p) =>
       !productionId ||
+      p.production_id === productionId ||
       allEvents.find((e) => e.id === p.event_id)?.production_id ===
         productionId,
   );
