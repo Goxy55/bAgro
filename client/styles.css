@@ -2306,3 +2306,172 @@ hr {
     padding: 10px 5px;
   }
 }
+
+/* Unos i pregled proizvodnje */
+.wizard-steps {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  font-size: 11px;
+  color: #839177;
+}
+.wizard-steps li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wizard-steps li span {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #c9d4bd;
+  font-size: 10px;
+}
+.wizard-steps li.current {
+  color: #2b583e;
+  font-weight: 700;
+}
+.wizard-steps li.current span,
+.wizard-steps li.done span {
+  background: #2b583e;
+  border-color: #2b583e;
+  color: #fff;
+}
+.wizard h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+.wizard-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 16px;
+  min-height: 44px;
+  border: 1px solid #dfe6d5;
+  border-radius: 10px;
+  background: #fffefa;
+  color: #314c37;
+}
+.tile:hover,
+.tile:focus-visible {
+  border-color: #6f9b5c;
+  box-shadow: 0 4px 16px #34592f15;
+}
+.tile strong {
+  font-size: 13px;
+}
+.tile small {
+  font-size: 10px;
+  color: #839177;
+}
+.tile.small {
+  padding: 11px 14px;
+  font-size: 12px;
+}
+.wizard-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+  max-height: 46vh;
+  overflow: auto;
+}
+.cost-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin: 14px 0;
+  padding: 14px;
+  border-radius: 10px;
+  background: #eef3e7;
+}
+.cost-preview span {
+  display: block;
+  font-size: 10px;
+  color: #6c7d62;
+}
+.cost-preview strong {
+  font-size: 18px;
+}
+.cost-preview small {
+  grid-column: 1 / -1;
+}
+.cost-bar {
+  margin: 0 0 18px;
+  display: grid;
+  gap: 6px;
+}
+.cost-figures {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cost-figures span {
+  font-size: 9px;
+  color: #839177;
+}
+.cost-figures strong {
+  display: block;
+  font-size: 15px;
+  color: #263d32;
+}
+.progress {
+  height: 8px;
+  border-radius: 4px;
+  background: #e1e6d8;
+  overflow: hidden;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: #2b583e;
+}
+.cost-bar small {
+  font-size: 9px;
+  color: #6c7d62;
+}
+.type-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+.type-chips button {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid #dce2d5;
+  background: #fffefa;
+  color: #3e5c43;
+  font-size: 11px;
+}
+.type-chips button.active {
+  background: #2b583e;
+  border-color: #2b583e;
+  color: #fff;
+}
+.empty-start {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+}
+@media (max-width: 720px) {
+  .cost-preview {
+    grid-template-columns: 1fr;
+  }
+  .production-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -83,6 +83,10 @@ Za odvojeni PostgreSQL servis podesite `DATABASE_URL`, a za TLS `DATABASE_SSL=tr
 
 SQL migracije su u `migrations/`; `schema_migrations` prati izvršenje. Tabele obuhvataju autentikaciju, farme/članstva, izvorne sheetove, predloške i verzije, proizvodne periode, poslovne događaje, plaćanja, tri vrste evidencije zaliha, uparene prenose, potrošnju, kurseve, snapshot-e, statističke izvore/opažanja/revizije, kupce/ponude/zahteve i audit log. Privatne tabele imaju `farm_id`; složeni strani ključevi sprečavaju povezivanje tuđeg perioda/događaja. Autoritativna autorizacija je aplikaciona, ne PostgreSQL RLS; direktan pristup bazi poveravati samo operateru servera.
 
+### Unos i praćenje proizvodnje
+
+Nova proizvodnja se unosi u tri koraka (vrsta, kultura, količina) uz odmah prikazan ukupan trošak i trošak do danas, a pregled proizvodnji prikazuje trošak po kartici i zbirno. [Postupak i način obračuna](docs/UNOS-PROIZVODNJE.md).
+
 ### Fiksni kurs i procena uticaja
 
 Administrator može uneti fiksni (interni) kurs za period, koji je u obračunu jasno označen i ima manji prioritet od zvaničnog NBS kursa. Pregled gazdinstva prikazuje karticu sa procenom koliko vrede nedostajući i nepotvrđeni podaci (kurs, nacrti, neprodata količina). [Postupak i formule](docs/KURS-I-PROCENA.md).
