@@ -1,5 +1,5 @@
-import ExcelJS from "exceljs";
-import PDFDocument from "pdfkit";
+// exceljs i pdfkit se učitavaju tek pri izvozu: zajedno drže oko 60 MB
+// memorije, a potrebni su samo dok traje izvoz.
 import type { Response } from "express";
 import { D, moneyText } from "./domain.js";
 export function reportRows(r: any) {
@@ -54,6 +54,7 @@ export async function exportReport(
     res.type(
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     );
+    const { default: ExcelJS } = await import("exceljs");
     const book = new ExcelJS.Workbook();
     book.creator = "Agro portal";
     book.created = new Date(r.generatedAt);
@@ -185,6 +186,7 @@ export async function exportReport(
     return;
   }
   res.type("application/pdf");
+  const { default: PDFDocument } = await import("pdfkit");
   const doc = new PDFDocument({ size: "A4", margin: 38 });
   doc.pipe(res);
   doc.registerFont("Serbian", "public/fonts/DejaVuSans.ttf");

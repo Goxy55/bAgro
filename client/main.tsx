@@ -27,12 +27,7 @@ import {
 } from "lucide-react";
 import { api, download, selectFarm } from "./api";
 import "./styles.css";
-import { StipsAdmin, StipsMarket } from "./stips";
-import { StipsInputAdmin } from "./input-prices";
-import { PriceBooks } from "./price-workbench";
-import { PriceBooks as AdvancedPriceBooks } from "./price-books";
 import { todayInSerbia } from "../shared/dates";
-import { SharedPriceTable } from "./pricing";
 import { MonthlyWip, CalendarPolicyEditor } from "./monthly-wip";
 import { MembersPanel, AccountPanel } from "./access";
 import { ImpactCard } from "./impact";
@@ -42,6 +37,31 @@ import {
   CostBar,
 } from "./production-wizard";
 type Any = any;
+// Administratorski i tržišni ekrani učitavaju se tek kada se otvore, da
+// početno učitavanje za gazdinstvo ne nosi kod koji većina ne koristi.
+function lazyView(load: () => Promise<Any>, name: string) {
+  const View = React.lazy(() => load().then((m) => ({ default: m[name] })));
+  return (props: Any) => (
+    <React.Suspense fallback={<p role="status">Učitavanje…</p>}>
+      <View {...props} />
+    </React.Suspense>
+  );
+}
+const StipsAdmin = lazyView(() => import("./stips"), "StipsAdmin");
+const StipsMarket = lazyView(() => import("./stips"), "StipsMarket");
+const StipsInputAdmin = lazyView(
+  () => import("./input-prices"),
+  "StipsInputAdmin",
+);
+const PriceBooks = lazyView(() => import("./price-workbench"), "PriceBooks");
+const AdvancedPriceBooks = lazyView(
+  () => import("./price-books"),
+  "PriceBooks",
+);
+const SharedPriceTable = lazyView(
+  () => import("./pricing"),
+  "SharedPriceTable",
+);
 const number = (v: Any, digits = 2) =>
   v == null
     ? "—"

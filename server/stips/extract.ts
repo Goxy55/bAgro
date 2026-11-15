@@ -1,5 +1,4 @@
 import { load } from "cheerio";
-import { PDFParse } from "pdf-parse";
 import {
   priceDraftSchema,
   priceFromCell,
@@ -157,6 +156,8 @@ export async function extractDocument(
   } else {
     if (!bytes.subarray(0, 5).equals(Buffer.from("%PDF-")))
       throw Error("Fajl nema PDF potpis.");
+    // pdf-parse (oko 50 MB) učitava se samo pri uvozu PDF biltena.
+    const { PDFParse } = await import("pdf-parse");
     const parser = new PDFParse({
       data: new Uint8Array(bytes),
       isEvalSupported: false,
