@@ -2475,3 +2475,49 @@ hr {
     grid-template-columns: 1fr;
   }
 }
+
+.sale-total {
+  display: grid;
+  gap: 2px;
+  align-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #eef3e7;
+}
+.sale-total span,
+.sale-total small {
+  font-size: 10px;
+  color: #6c7d62;
+}
+.sale-total strong {
+  font-size: 20px;
+  color: #263d32;
+}
+
+.collection-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0 0 14px;
+  padding-top: 10px;
+  border-top: 1px solid #e7ebdf;
+  font-size: 10px;
+  color: #839177;
+}
+.collection-line strong {
+  color: #263d32;
+}
+.collection-line small {
+  flex-basis: 100%;
+}
+.inline-form {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #dfe6d5;
+  border-radius: 10px;
+  background: #f6f8f4;
+}
+.inline-form h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+}

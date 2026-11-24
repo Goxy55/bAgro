@@ -28,6 +28,7 @@ import { classifyError } from "./errors.js";
 import { rateLimit } from "./rate-limit.js";
 import { members, account } from "./access.js";
 import { productionCosts } from "./production-costs.js";
+import { collections } from "./receivables.js";
 import { adminPricing } from "./pricing/routes.js";
 import { adminInputPrices } from "./inputs/routes.js";
 import { importStatistics } from "./statistics.js";
@@ -223,6 +224,7 @@ async function move(conn: Conn, o: any) {
 }
 app.use("/api", members);
 app.use("/api", productionCosts);
+app.use("/api", collections);
 app.use("/api/account", account);
 app.get("/api/bootstrap", async (req: any, res) => {
   res.json({
@@ -423,6 +425,18 @@ const saveEvent = async (req: any, res: any) => {
   const f = farm(req),
     b = eventSchema.parse(req.body),
     eid = req.params.id ? id.parse(req.params.id) : randomUUID();
+  // Prodaja: iznos je količina × cena po jedinici; server je izvor istine.
+  if (b.kind === "sale" && b.details.quantity && b.details.unitPrice) {
+    const computed = D(b.details.quantity)
+      .mul(b.details.unitPrice)
+      .toDecimalPlaces(2, 4)
+      .toString();
+    if (b.amount && D(b.amount).sub(computed).abs().gt(".01"))
+      throw Error("Ukupan iznos se ne slaže sa količinom × cenom.");
+    b.amount = computed;
+  }
+  if (b.details.dueDate && b.date && b.details.dueDate < b.date)
+    throw Error("Rok plaćanja ne može biti pre datuma nastanka.");
   if (b.status !== "draft" && (!b.date || !b.amount))
     throw Error("Nedostaju datum ili iznos; sačuvajte nacrt.");
   if (
@@ -559,6 +573,9 @@ app.post("/api/payments", async (req: any, res) => {
     b = z
       .object({
         eventId: id.optional(),
+        productionId: id.optional(),
+        advance: z.boolean().default(false),
+        buyer: z.string().trim().max(300).optional(),
         date,
         direction: z.enum(["in", "out", "own_transfer"]),
         category: text,
@@ -568,8 +585,13 @@ app.post("/api/payments", async (req: any, res) => {
       })
       .parse(req.body);
   if (D(b.amount).lte(0)) throw Error("Uplata mora biti pozitivna.");
+  if (b.advance && (b.eventId || !b.productionId || b.direction !== "in"))
+    throw Error("Avans je priliv za proizvodnju, bez povezane prodaje.");
   await transaction(async (tx) => {
     await lock(tx, f);
+    let productionId: string | null = b.productionId || null;
+    let buyer: string | null = b.buyer || null;
+    if (productionId) await production(tx, f, productionId);
     const m = await snapshotMoney(b.amount, b.currency, b.date, tx);
     if (b.eventId) {
       const e = (
@@ -580,6 +602,10 @@ app.post("/api/payments", async (req: any, res) => {
       ).rows[0];
       if (!e || e.status === "draft" || !e.money)
         throw Error("Događaj ne postoji ili je nacrt.");
+      if (productionId && e.production_id !== productionId)
+        throw Error("Prodaja ne pripada izabranoj proizvodnji.");
+      productionId = e.production_id;
+      buyer = buyer || e.details?.counterparty || null;
       if ((e.kind === "cost" ? "out" : "in") !== b.direction)
         throw Error("Smer plaćanja ne odgovara događaju.");
       if (e.kind === "subsidy" && e.status === "requested")
@@ -610,7 +636,7 @@ app.post("/api/payments", async (req: any, res) => {
         throw Error("Uplate prelaze iznos događaja.");
     }
     await tx.query(
-      "INSERT INTO payments(id,farm_id,event_id,date,direction,category,money,note) VALUES($1,$2,$3,$4,$5,$6,$7,$8)",
+      "INSERT INTO payments(id,farm_id,event_id,date,direction,category,money,note,production_id,buyer,advance) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
       [
         randomUUID(),
         f,
@@ -620,6 +646,9 @@ app.post("/api/payments", async (req: any, res) => {
         b.category,
         JSON.stringify(m),
         b.note,
+        productionId,
+        buyer,
+        b.advance,
       ],
     );
     await audit(tx, req.user.id, f, "create", "payment");

@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { api } from "./api";
+import { CollectionSummary } from "./collections";
 
 type Any = any;
 
@@ -677,6 +678,7 @@ export function ProductionsPage({ data, boot, onSelect, onAdd }: Any) {
                 {p.intensity && ` · ${p.intensity} intenzitet`}
               </p>
               <CostBar cost={costs?.items?.[p.id]} />
+              <CollectionSummary rec={data.receivables?.items?.[p.id]} />
               <div className="card-bottom">
                 Otvori proizvodnju
                 <ArrowUpRight size={18} />

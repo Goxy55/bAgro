@@ -66,6 +66,7 @@ export const eventSchema = z.object({
     unitPrice: dec.optional(),
     product: z.string().max(200).optional(),
     counterparty: z.string().max(300).optional(),
+    dueDate: date.optional(),
     note: z.string().max(2000).optional(),
     normItemId: z.string().max(60).optional(),
     replaceNorm: z.boolean().optional(),

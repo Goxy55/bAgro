@@ -85,7 +85,7 @@ SQL migracije su u `migrations/`; `schema_migrations` prati izvršenje. Tabele o
 
 ### Unos i praćenje proizvodnje
 
-Nova proizvodnja se unosi u tri koraka (vrsta, kultura, količina) uz odmah prikazan ukupan trošak i trošak do danas, a pregled proizvodnji prikazuje trošak po kartici i zbirno. [Postupak i način obračuna](docs/UNOS-PROIZVODNJE.md).
+Nova proizvodnja se unosi u tri koraka (vrsta, kultura, količina) uz odmah prikazan ukupan trošak i trošak do danas, a pregled proizvodnji prikazuje trošak po kartici i zbirno. Prodaja se unosi kao količina × cena po jedinici, a naplata (uključujući rokove i avans) vodi se po proizvodnji. [Postupak i način obračuna](docs/UNOS-PROIZVODNJE.md).
 
 ### Fiksni kurs i procena uticaja
 
